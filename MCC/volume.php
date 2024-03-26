@@ -28,14 +28,13 @@ $Profile_image = $row['Profile_image'];
 $sql = "SELECT
 paint.paint_color,
 supplier.supplier_name,
-entry.*
+entry.*, user.Username
 FROM tbl_entry AS entry
 LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
 LEFT JOIN tbl_supplier AS supplier ON paint.supplierID = supplier.supplierID
+LEFT JOIN tbl_user AS user ON entry.userID = user.userID
 ORDER BY
-entry.EntryID DESC,
-paint.paintID DESC,
-supplier.supplierID DESC";
+entry.date DESC";
 
 $result = mysqli_query($con, $sql);
 
@@ -626,7 +625,8 @@ if (!$result) {
             text-align: center;
             position: relative;
         }
-        #ampm{
+
+        #ampm {
             margin-left: 10px;
         }
 
@@ -671,7 +671,7 @@ if (!$result) {
         /* Custom styles for collapsible drawer */
         #drawer.drawer.p-2 {
             margin-top: 230px;
-            
+
         }
 
         .drawer {
@@ -752,9 +752,9 @@ if (!$result) {
                         <i class="fas fa-bars"></i>
                     </a>
                 </div>
-                
+
             </div>
-            
+
             <!--MAIN CONTENT-->
 
             <div class="main1">
@@ -919,7 +919,7 @@ if (!$result) {
                                 mysqli_query($con, $insertQuery);
 
                                 echo "<tr class='edit-row' data-entry-id='{$row['EntryID']}'>";
-                                echo "<td>$Username</td>";
+                                echo "<td>{$row['Username']}</td>";
                                 echo "<td class='date-cell'>{$row['date']}</td>";
                                 echo "<td>{$row['paint_color']}</td>";
                                 echo "<td>{$row['supplier_name']}</td>";
@@ -959,7 +959,7 @@ if (!$result) {
 
                 </div>
                 <!-- Collapsible Drawer -->
-                
+
                 <div class="col-2 position-relative">
                     <div class="drawer p-2" id="drawer">
                         <i class="fa-solid fa-angles-left toggle-drawer" id="drawerToggle" onclick="toggleDrawer()"></i>
@@ -981,7 +981,7 @@ if (!$result) {
             </div>
             <!--menu item-->
             <ul>
-            
+
                 <li>
                     <a href="profile.php" style="display:none;">
                         <span class="icon"><i class="fa-solid fa-user"></i></span>
@@ -1079,89 +1079,89 @@ if (!$result) {
         </div>
     </div>
 
-     <!--DATA TABLES-->
-     <script>
-    // Function to hide all columns
-    function hideAllColumns() {
-        for (var i = 0; i < 24; i++) {
-            $('#datatables').DataTable().column(i).visible(false);
-        }
-    }
-
-    // Function to show all columns
-    function showAllColumns() {
-        for (var i = 0; i < 24; i++) {
-            $('#datatables').DataTable().column(i).visible(true);
-        }
-    }
-
-    $(document).ready(function () {
-        // Initialize DataTable
-        let table = $('#datatables').DataTable({
-            scrollX: true,
-            scrollY: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'excel',
-               
-            ],
-            // Set initial sorting order
-            order: [[0, 'desc']],
-            language: {
-                searchPlaceholder: 'Search...' // Set placeholder text for search input
+    <!--DATA TABLES-->
+    <script>
+        // Function to hide all columns
+        function hideAllColumns() {
+            for (var i = 0; i < 24; i++) {
+                $('#datatables').DataTable().column(i).visible(false);
             }
-        });
+        }
 
-        // Initialize multiple-select plugin
-        $('#toggle_column').multipleSelect({
-            width: 200,
-            onClick: function () {
-                var selectedItems = $('#toggle_column').multipleSelect("getSelects");
-                hideAllColumns();
-                for (var i = 0; i < selectedItems.length; i++) {
-                    var s = selectedItems[i];
-                    $('#datatables').DataTable().column(s).visible(true);
+        // Function to show all columns
+        function showAllColumns() {
+            for (var i = 0; i < 24; i++) {
+                $('#datatables').DataTable().column(i).visible(true);
+            }
+        }
+
+        $(document).ready(function () {
+            // Initialize DataTable
+            let table = $('#datatables').DataTable({
+                scrollX: true,
+                scrollY: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
+
+                ],
+                // Set initial sorting order based on the date column in descending order
+        order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
+        language: {
+            searchPlaceholder: 'Search...' // Set placeholder text for search input
+        }
+            });
+
+            // Initialize multiple-select plugin
+            $('#toggle_column').multipleSelect({
+                width: 200,
+                onClick: function () {
+                    var selectedItems = $('#toggle_column').multipleSelect("getSelects");
+                    hideAllColumns();
+                    for (var i = 0; i < selectedItems.length; i++) {
+                        var s = selectedItems[i];
+                        $('#datatables').DataTable().column(s).visible(true);
+                    }
+                },
+                onCheckAll: function () {
+                    showAllColumns();
+                    $('#datatables').css('width', '100%');
+                },
+                onUncheckAll: function () {
+                    hideAllColumns();
                 }
-            },
-            onCheckAll: function () {
-                showAllColumns();
-                $('#datatables').css('width', '100%');
-            },
-            onUncheckAll: function () {
-                hideAllColumns();
-            }
+            });
+
+            // Event delegation for delete button
+            $(document).on('click', '.confirm_dltbtn', function () {
+                var userID = $(this).data('entry-id');
+
+                // Assuming you're using Bootstrap modal for delete confirmation
+                $('#deletemodal #confirm_delete_id').val(userID);
+                $('#deletemodal').modal('show');
+            });
+
+            // Custom filtering function which will search data in date column between two values
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                let min = $('#min').val();
+                let max = $('#max').val();
+                let dateStr = data[1]; // Assuming date is in the second column
+
+                if ((min === "" && max === "") ||
+                    (min === "" && new Date(dateStr) <= new Date(max)) ||
+                    (new Date(min) <= new Date(dateStr) && max === "") ||
+                    (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
+                    return true;
+                }
+                return false;
+            });
+
+            // Event listener for date input changes
+            $('#min, #max').change(function () {
+                table.draw();
+            });
         });
-
-        // Event delegation for delete button
-        $(document).on('click', '.confirm_dltbtn', function () {
-            var userID = $(this).data('entry-id');
-
-            // Assuming you're using Bootstrap modal for delete confirmation
-            $('#deletemodal #confirm_delete_id').val(userID);
-            $('#deletemodal').modal('show');
-        });
-
-        // Custom filtering function which will search data in date column between two values
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-            let min = $('#min').val();
-            let max = $('#max').val();
-            let dateStr = data[1]; // Assuming date is in the second column
-
-            if ((min === "" && max === "") ||
-                (min === "" && new Date(dateStr) <= new Date(max)) ||
-                (new Date(min) <= new Date(dateStr) && max === "") ||
-                (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
-                return true;
-            }
-            return false;
-        });
-
-        // Event listener for date input changes
-        $('#min, #max').change(function () {
-            table.draw();
-        });
-    });
-</script>
+    </script>
 
 
 

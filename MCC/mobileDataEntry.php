@@ -29,11 +29,12 @@ if (isset ($_GET['data-entry-id'])) {
                 paint.paint_color,
                 supplier.supplier_name, supplier.newSupplier_name,
                 customer.customer_name,
-                entry.*
+                entry.*, user.Username
             FROM tbl_entry AS entry
             LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
             LEFT JOIN tbl_supplier AS supplier ON paint.supplierID = supplier.supplierID
             LEFT JOIN tbl_customer AS customer ON entry.customerID = customer.customerID
+            LEFT JOIN tbl_user AS user ON entry.userID = user.userID
             WHERE entry.EntryID = $id";
 
     $result = mysqli_query($con, $sql);

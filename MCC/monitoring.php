@@ -28,16 +28,14 @@ $sql = "SELECT
 paint.paint_color,
 supplier.supplier_name, supplier.newSupplier_name,
 customer.customer_name,
-entry.*
+entry.*, user.Username
 FROM tbl_entry AS entry
 LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
 LEFT JOIN tbl_supplier AS supplier ON paint.supplierID = supplier.supplierID
 LEFT JOIN tbl_customer AS customer ON entry.customerID = customer.customerID
+LEFT JOIN tbl_user AS user ON entry.userID = user.userID
 ORDER BY
-entry.EntryID DESC,
-paint.paintID DESC,
-supplier.supplierID DESC,
-customer.customerID DESC";
+entry.date DESC";
 
 $result = mysqli_query($con, $sql);
 
@@ -920,7 +918,7 @@ if (!$result) {
 
 
                                 echo "<tr class='edit-row' data-entry-id='{$row['EntryID']}' data-date='{$row['date']}' data-paint-color='{$row['paint_color']}' data-supplier-name='{$row['supplier_name']}' data-batch-number='{$row['batchNumber']}' data-new-supplier-name='{$row['newSupplier_name']}' data-new-paint-l='{$row['NewpaintL']}' data-new-acetate-l='{$row['NewacetateL']}' data-spray-viscosity='{$row['sprayViscosity']}' data-customer-name='{$row['customer_name']}' data-quantity='{$row['quantity']}' data-paint-yield='{$row['paintYield']}' data-acetate-yield='{$row['acetateYield']}' data-remarks='{$row['remarks']}'>";
-                                echo "<td>$Username</td>";
+                                echo "<td>{$row['Username']}</td>";
                                 echo "<td class='date-cell'>{$row['date']}</td>";
                                 echo "<td>{$row['paint_color']}</td>";
                                 echo "<td>{$row['supplier_name']}</td>";
@@ -1124,11 +1122,11 @@ if (!$result) {
                 'excel',
                
             ],
-            // Set initial sorting order
-            order: [[0, 'desc']],
-            language: {
-                searchPlaceholder: 'Search...' // Set placeholder text for search input
-            }
+           // Set initial sorting order based on the date column in descending order
+        order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
+        language: {
+            searchPlaceholder: 'Search...' // Set placeholder text for search input
+        }
         });
 
         // Initialize multiple-select plugin

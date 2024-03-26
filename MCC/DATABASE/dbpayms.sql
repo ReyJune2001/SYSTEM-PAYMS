@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 05:17 PM
+-- Generation Time: Mar 26, 2024 at 02:14 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,8 +38,22 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`customerID`, `userID`, `customer_name`) VALUES
-(1, 1, 'pki'),
-(2, 1, 'pki');
+(2, 1, 'PKI'),
+(3, 1, 'PKI'),
+(4, 1, 'PKI'),
+(5, 1, 'PKI'),
+(6, 1, 'PKI'),
+(7, 1, 'PKI'),
+(8, 2, 'pki'),
+(9, 1, 'PKI'),
+(10, 2, 'KKK'),
+(11, 1, 'KKK'),
+(12, 1, 'KKK'),
+(13, 1, 'KKK'),
+(14, 1, 'KKK'),
+(15, 1, 'KKK'),
+(16, 2, 'pki'),
+(17, 1, 'KKK');
 
 -- --------------------------------------------------------
 
@@ -84,7 +98,22 @@ CREATE TABLE `tbl_entry` (
 --
 
 INSERT INTO `tbl_entry` (`EntryID`, `userID`, `customerID`, `paintID`, `date`, `batchNumber`, `diameter`, `height`, `Initialvolume`, `initialPLiter`, `initialALiter`, `paintRatio`, `acetateRatio`, `NewacetateL`, `NewpaintL`, `sprayViscosity`, `quantity`, `Endingdiameter`, `Endingheight`, `Endingvolume`, `endingPLiter`, `endingALiter`, `EndingpaintRatio`, `EndingacetateRatio`, `totalPLiter`, `totalALiter`, `paintYield`, `acetateYield`, `remarks`) VALUES
-(2, 1, 2, 2, '2024-03-01', 12345, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 18, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, '');
+(2, 1, 2, 2, '2024-03-01', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(3, 1, 3, 3, '2024-03-02', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(4, 1, 4, 4, '2024-03-03', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(5, 1, 5, 5, '2024-03-04', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(6, 1, 6, 6, '2024-03-05', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(7, 1, 7, 7, '2024-03-06', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 16, 5, 6.69, 21.4, ''),
+(8, 2, 8, 8, '2024-03-08', 1232, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 24, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(9, 1, 9, 9, '2024-03-07', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(10, 2, 10, 10, '2024-03-09', 12345, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(11, 1, 11, 11, '2024-03-10', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(12, 1, 12, 12, '2024-03-11', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(13, 1, 13, 13, '2024-03-12', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(14, 1, 14, 14, '2024-03-13', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(15, 1, 15, 15, '2024-03-14', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(16, 2, 16, 16, '2024-03-15', 1232, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 24, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, ''),
+(17, 1, 17, 17, '2024-03-15', 2323423, 15, 10, 28.96, 22.01, 6.95, 0.76, 0.24, 5, 16, 25, 107, 15, 9, 26.06, 19.81, 6.25, 0.76, 0.24, 18.2, 5.7, 5.88, 18.77, '');
 
 -- --------------------------------------------------------
 
@@ -103,7 +132,22 @@ CREATE TABLE `tbl_paint` (
 --
 
 INSERT INTO `tbl_paint` (`paintID`, `supplierID`, `paint_color`) VALUES
-(2, 2, 'Royal Blue');
+(2, 2, 'Royal Blue'),
+(3, 3, 'Clear'),
+(4, 4, 'Golden Brown'),
+(5, 5, 'Buff'),
+(6, 6, 'Deft Blue'),
+(7, 7, 'White'),
+(8, 8, 'Black'),
+(9, 9, 'Alpha Gray'),
+(10, 10, 'Nile Green'),
+(11, 11, 'Emirald Green'),
+(12, 12, 'Jade Green'),
+(13, 13, 'Royal Blue'),
+(14, 14, 'Deft Blue'),
+(15, 15, 'Buff'),
+(16, 16, 'Golden Brown'),
+(17, 17, 'White');
 
 -- --------------------------------------------------------
 
@@ -122,7 +166,22 @@ CREATE TABLE `tbl_supplier` (
 --
 
 INSERT INTO `tbl_supplier` (`supplierID`, `supplier_name`, `newSupplier_name`) VALUES
-(2, 'Nippon', 'Nippon');
+(2, 'Nippon', 'Nippon'),
+(3, 'Nippon', 'Nippon'),
+(4, 'Nippon', 'Nippon'),
+(5, 'Nippon', 'Nippon'),
+(6, 'Nippon', 'Nippon'),
+(7, 'Treasure Island', 'Nippon'),
+(8, 'Inkote', 'Nippon'),
+(9, 'Inkote', 'Inkote'),
+(10, 'Treasure Island', 'Treasure Island'),
+(11, 'Treasure Island', 'Treasure Island'),
+(12, 'Nippon', 'Century'),
+(13, 'Nippon', 'Nippon'),
+(14, 'Treasure Island', 'Inkote'),
+(15, 'Treasure Island', 'Inkote'),
+(16, 'Century', 'Treasure Island'),
+(17, 'Treasure Island', 'Treasure Island');
 
 -- --------------------------------------------------------
 
@@ -147,7 +206,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`userID`, `Level`, `Name`, `Username`, `Contact`, `Address`, `Profile_image`, `Email`, `Password`) VALUES
-(1, 'Admin', 'Rey June', 'Admin', '09066672527', 'Dayawan, Villanueva, Misamis oriental', 'download.jpg', 'ucabreyjune2001@gmail.com', '1234'),
+(1, 'Admin', 'Rey June Ucab', 'Admin', '09066672527', 'Dayawan, Villanueva, Misamis oriental', 'download.jpg', 'ucabreyjune2001@gmail.com', '1234'),
 (2, 'Operator', 'Charismae Dinsay', 'Operator', '09874837938', 'Tambobong', 'sample.jpeg', 'dinsay@gmail.com', '1234');
 
 --
@@ -198,25 +257,25 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `customerID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `customerID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_entry`
 --
 ALTER TABLE `tbl_entry`
-  MODIFY `EntryID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EntryID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_paint`
 --
 ALTER TABLE `tbl_paint`
-  MODIFY `paintID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `paintID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `supplierID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `supplierID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
@@ -232,13 +291,14 @@ ALTER TABLE `tbl_user`
 -- Constraints for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  ADD CONSTRAINT `CustomeruserID_fk` FOREIGN KEY (`userID`) REFERENCES `tbl_user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_fk` FOREIGN KEY (`userID`) REFERENCES `tbl_user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_entry`
 --
 ALTER TABLE `tbl_entry`
   ADD CONSTRAINT `customerID_fk` FOREIGN KEY (`customerID`) REFERENCES `tbl_customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `paintID_fk` FOREIGN KEY (`paintID`) REFERENCES `tbl_paint` (`paintID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `userID_fk` FOREIGN KEY (`userID`) REFERENCES `tbl_user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
