@@ -151,6 +151,31 @@ $Profile_image = $row['Profile_image'];
                 margin-left: 10px;
             }
 
+            /* CSS to remove bullets from ul and remove underline from anchor elements */
+            .xbox3 ul {
+                list-style-type: none;
+                /* Remove bullets */
+                padding: 0;
+                /* Remove default padding */
+            }
+
+            .xbox3 ul li a {
+                text-decoration: none;
+                /* Remove underline */
+            }
+
+            .recent-activity-list {
+                border: 2px solid #ccc;
+                /* Border color */
+                padding: 10px;
+                /* Add some padding */
+            }
+
+            li {
+                border: 1px solid black;
+            }
+
+
             .xbox4 {
                 width: 48%;
                 height: 200px;
@@ -197,7 +222,7 @@ $Profile_image = $row['Profile_image'];
             .morning {
                 font-family: "Pattaya", sans-serif;
                 font-size: 10px;
-                margin-top: 70px;
+                margin-top: 60px;
             }
 
             /* FOR CLOCK */
@@ -219,6 +244,11 @@ $Profile_image = $row['Profile_image'];
 
             #ampm {
                 margin-left: 5px;
+            }
+
+            .margin {
+                margin-left: 5px;
+                margin-right: 5px;
             }
 
 
@@ -249,9 +279,9 @@ $Profile_image = $row['Profile_image'];
             <div class="xbox1 box1">
             </div>
             <div class="xbox2 box2">
-                <h1 class="morning" style="margin-bottom:10px;">Good Morning, <span
-                        style="font-size:25px;font-weight: bold;">
-                        <?php echo $Name; ?>
+                <h1 class="morning" style="margin-bottom:10px;">Good Morning, <br><span
+                        style="font-size:25px;font-weight: bold; text">
+                        <?php echo $Username; ?>
                     </span></h1>
                 <!-- Date -->
 
@@ -262,9 +292,9 @@ $Profile_image = $row['Profile_image'];
 
                 <div class="clock">
                     <span id="hrs"></span>
-                    <span>:</span>
+                    <span class="margin">:</span>
                     <span id="minutes"></span>
-                    <span>:</span>
+                    <span class="margin">:</span>
                     <span id="sec"></span>
                     <span id="ampm"></span>
 
@@ -274,6 +304,36 @@ $Profile_image = $row['Profile_image'];
         </div>
         <div class="M-container">
             <div class="xbox3 box3">
+                <h4 style="margin-top:5px;">Recent Activity</h4>
+                <ul class="recent-activity-list" style="overflow-y: auto; max-height: 150px; ">
+                    <?php
+                    include 'connect.php';
+                    $sql = "SELECT entry.entryID, entry.date, paint.paint_color 
+                            FROM tbl_entry AS entry 
+                            LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
+                            WHERE entry.userID IN (SELECT userID FROM tbl_user WHERE Username = 'Operator')
+                            ORDER BY entry.date DESC";
+                    $result = mysqli_query($con, $sql);
+
+                    // Check if there are any results
+                    if (mysqli_num_rows($result) > 0) {
+                        // Output data of each row
+                        while ($selected = mysqli_fetch_assoc($result)) {
+                            // Display an image before each entry
+                            echo '<li>';
+                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:5px; margin-top:8px;">';
+                            // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
+                            echo "<a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a>";
+                            if (!empty($selected['paint_color'])) {
+                                echo "<br>Paint color: {$selected['paint_color']}";
+                            }
+                            echo '</li>';
+                        }
+                    } else {
+                        echo "<li>No recent activity</li>";
+                    }
+                    ?>
+                </ul>
             </div>
             <div class="xbox4 box4">
             </div>

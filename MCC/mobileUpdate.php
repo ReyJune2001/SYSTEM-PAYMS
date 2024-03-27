@@ -1,4 +1,6 @@
 <?php
+
+include 'connect.php';
 // Include the session check at the beginning of restricted pages
 session_start();
 
@@ -8,7 +10,6 @@ if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSIO
     exit();
 }
 
-include 'connect.php';
 
 $id = 2;
 
@@ -21,64 +22,14 @@ $Name = $row['Name']; /*column name in the database */
 $Username = $row['Username'];
 $Profile_image = $row['Profile_image'];
 
-if (isset ($_GET['data-entry-id'])) {
-    $id = $_GET['data-entry-id'];
-    // Fetch the data corresponding to the entry ID
-
-    $sql = "SELECT
-                paint.paint_color,
-                supplier.supplier_name, supplier.newSupplier_name,
-                customer.customer_name,
-                entry.*, user.Username
-            FROM tbl_entry AS entry
-            LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
-            LEFT JOIN tbl_supplier AS supplier ON paint.supplierID = supplier.supplierID
-            LEFT JOIN tbl_customer AS customer ON entry.customerID = customer.customerID
-            LEFT JOIN tbl_user AS user ON entry.userID = user.userID
-            WHERE entry.EntryID = $id";
-
-    $result = mysqli_query($con, $sql);
-
-    // Check if the query was successful
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-
-        // Populate variables with fetched data
-        $date = $row['date'];
-        $paint_color = $row['paint_color'];
-        $supplier_name = $row['supplier_name'];
-        $batchNumber = $row['batchNumber'];
-        $diameter = $row['diameter'];
-        $height = $row['height'];
-        $paintRatio = $row['paintRatio'];
-        $acetateRatio = $row['acetateRatio'];
-        $Endingdiameter = $row['Endingdiameter'];
-        $Endingheight = $row['Endingheight'];
-        $EndingpaintRatio = $row['EndingpaintRatio'];
-        $EndingacetateRatio = $row['EndingacetateRatio'];
-        $newSupplier_name = $row['newSupplier_name'];
-        $NewpaintL = $row['NewpaintL'];
-        $NewacetateL = $row['NewacetateL'];
-        $sprayViscosity = $row['sprayViscosity'];
-        $customer_name = $row['customer_name'];
-        $quantity = $row['quantity'];
-        $paintYield = $row['paintYield'];
-        $acetateYield = $row['acetateYield'];
-        $remarks = $row['remarks'];
-    } else {
-        // Handle error if query fails
-        echo "Error fetching data: " . mysqli_error($con);
-    }
-}
-
 
 //FOR INSERT DATA INTO DATABSE
 
 $date = $paint_color = $supplier_name = $batchNumber = $diameter = $height = $paintRatio = $acetateRatio = $newSupplier_name =
     $NewacetateL = $NewpaintL = $sprayViscosity = $customer_name = $quantity = $Endingdiameter = $Endingheight =
-    $EndingpaintRatio = $EndingacetateRatio = $paintYield = $acetateYield = $remarks = $DetailsID = $supplierID = $receiveID = $details = $receiver_name = '';
+    $EndingpaintRatio = $EndingacetateRatio = $paintYield = $acetateYield = $remarks = $supplierID = '';
 
-if (isset ($_POST['submit'])) {
+if (isset ($_POST['add'])) {
     $date = $_POST['date'];
     $paint_color = $_POST['paint_color'];
     $supplier_name = $_POST['supplier_name'];
@@ -158,8 +109,129 @@ if (isset ($_POST['submit'])) {
         die(mysqli_error($con));
     }
 }
-
 ?>
+
+<?php
+                if (isset ($_GET['entryID'])) {
+                    $selectedDate = $_GET['entryID'];
+                    // Fetch the data corresponding to the entry ID
+                
+                    $sql = "SELECT
+                                paint.paint_color,
+                                supplier.supplier_name, supplier.newSupplier_name,
+                                customer.customer_name,
+                                entry.*, user.Username
+                            FROM tbl_entry AS entry
+                            LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
+                            LEFT JOIN tbl_supplier AS supplier ON paint.supplierID = supplier.supplierID
+                            LEFT JOIN tbl_customer AS customer ON entry.customerID = customer.customerID
+                            LEFT JOIN tbl_user AS user ON entry.userID = user.userID
+                            WHERE entry.EntryID = $selectedDate";
+                
+                    $result = mysqli_query($con, $sql);
+                
+                    // Check if the query was successful
+                    if ($result) {
+                        if (mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                
+                        // Populate variables with fetched data
+                        $date = $row['date'];
+                        $paint_color = $row['paint_color'];
+                        $supplier_name = $row['supplier_name'];
+                        $batchNumber = $row['batchNumber'];
+                        $diameter = $row['diameter'];
+                        $height = $row['height'];
+                        $paintRatio = $row['paintRatio'];
+                        $acetateRatio = $row['acetateRatio'];
+                        $Endingdiameter = $row['Endingdiameter'];
+                        $Endingheight = $row['Endingheight'];
+                        $EndingpaintRatio = $row['EndingpaintRatio'];
+                        $EndingacetateRatio = $row['EndingacetateRatio'];
+                        $newSupplier_name = $row['newSupplier_name'];
+                        $NewpaintL = $row['NewpaintL'];
+                        $NewacetateL = $row['NewacetateL'];
+                        $sprayViscosity = $row['sprayViscosity'];
+                        $customer_name = $row['customer_name'];
+                        $quantity = $row['quantity'];
+                        $paintYield = $row['paintYield'];
+                        $acetateYield = $row['acetateYield'];
+                
+                    } else {
+                        echo "No data found for the selected entryID.";
+                    }
+                    } else {
+                        // Handle error if query fails
+                        echo "Error fetching data: " . mysqli_error($con);
+                    }
+                }
+
+                   // UPDATE DATA
+                if (isset($_POST['update'])) {
+                    $date = $_POST['date'];
+                    $paint_color = $_POST['paint_color'];
+                    $supplier_name = $_POST['supplier_name'];
+                    $batchNumber = $_POST['batchNumber'];
+                    $diameter = $_POST['diameter'];
+                    $height = $_POST['height'];
+                    $paintRatio = $_POST['paintRatio'];
+                    $acetateRatio = $_POST['acetateRatio'];
+                    $Endingdiameter = $_POST['Endingdiameter'];
+                    $Endingheight = $_POST['Endingheight'];
+                    $EndingpaintRatio = $_POST['EndingpaintRatio'];
+                    $EndingacetateRatio = $_POST['EndingacetateRatio'];
+                    $newSupplier_name = $_POST['newSupplier_name'];
+                    $NewpaintL = $_POST['NewpaintL'];
+                    $NewacetateL = $_POST['NewacetateL'];
+                    $sprayViscosity = $_POST['sprayViscosity'];
+                    $customer_name = $_POST['customer_name'];
+                    $quantity = $_POST['quantity'];
+                    $paintYield = $_POST['paintYield'];
+                    $acetateYield = $_POST['acetateYield'];
+                   
+
+
+                    // Update supplier table
+                    $sql = "UPDATE `tbl_supplier` SET supplier_name='$supplier_name', newSupplier_name='$newSupplier_name' WHERE supplierID=$selectedDate";
+                    $result = mysqli_query($con, $sql);
+
+
+                    if ($result) {
+                        // Update paint table
+                        $sql = "UPDATE `tbl_paint` SET paint_color='$paint_color' WHERE paintID=$selectedDate";
+                        $result = mysqli_query($con, $sql);
+                    }
+
+                    if ($result) {
+                        // Update entry table
+                        $sql = "UPDATE `tbl_entry` SET date='$date', batchNumber='$batchNumber', diameter='$diameter', 
+                        height='$height', paintRatio='$paintRatio', acetateRatio='$acetateRatio', 
+                        Endingdiameter='$Endingdiameter', Endingheight='$Endingheight', EndingpaintRatio='$EndingpaintRatio',
+                            EndingacetateRatio='$EndingacetateRatio', NewacetateL='$NewacetateL', 
+                            NewpaintL='$NewpaintL', sprayViscosity='$sprayViscosity', quantity='$quantity', 
+                            paintYield='$paintYield', acetateYield='$acetateYield' 
+                            WHERE EntryID=$selectedDate";
+                        $result = mysqli_query($con, $sql);
+
+                        if ($result) {
+                            // Update customer table
+                            $sql = "UPDATE `tbl_customer` SET customer_name='$customer_name' WHERE customerID=$selectedDate";
+                            $result = mysqli_query($con, $sql);
+
+                            if ($result) {
+                                // Redirect to monitoring.php after successful update
+                                header('location: mobileDashboard.php');
+                            } else {
+                              die(mysqli_error($con));
+                            }
+                        } else {
+                            die(mysqli_error($con));
+                        }
+                    } else {
+                        die(mysqli_error($con));
+                    }
+                }
+                ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -484,7 +556,7 @@ if (isset ($_POST['submit'])) {
                                 </div>
                                 <br>
                                <h6 style="text-align:left; margin-left: 20px; color:#484848;">Date:</h6>
-                                <input type="date" style="text-align: center;" class="styleform"  name="date" value="<?php echo $date; ?>" required>
+                                <input type="date" style="text-align: center;" class="styleform"  name="date"  value="<?php echo isset($date) ? $date : ''; ?>" required>
                                 <input type="number" style="text-align: center;" class="styleform" name="diameter"
                                     min="0" step="any" placeholder="diameter" value="<?php echo $diameter; ?>" required>
                                 <br>
@@ -675,7 +747,9 @@ if (isset ($_POST['submit'])) {
                                 </div>
 
                                 <br><br>
-                                <button type="submit" id="update" class="btn btn-primary btn-lg" name="submit"
+                                <button type="submit" id="update" class="btn btn-primary btn-lg" name="update"
+                                    style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:10px;">Update</button>
+                                <button type="submit" id="add" class="btn btn-success btn-lg" name="add"
                                     style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:10px;">Add</button>
                                     <a href="mobileDashboard.php"><button type="button" class="btn btn-danger btn-lg"
                                     style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:20px;">Back</button></a>
@@ -686,6 +760,8 @@ if (isset ($_POST['submit'])) {
             </div>
         </div>
     </main>
+
+    
 
     <!-- ADDED SUCCESS Modal -->
     <div class="modal fade custom-modal" id="updateSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -699,7 +775,7 @@ if (isset ($_POST['submit'])) {
                     <h5 style="text-align:center;">Your Entry data has been added successfully!</h5>
                 </div>
                 <div class="modal-footer">
-                    <a href="mobileDataEntry.php" class="btn btn-primary">OK</a>
+                    <a href="mobileDashboard.php" class="btn btn-primary">OK</a>
                 </div>
             </div>
         </div>

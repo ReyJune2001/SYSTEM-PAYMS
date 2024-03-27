@@ -475,40 +475,6 @@ if (!$result) {
             margin-right: 30px;
         }
 
-        /*FOR PARALLELOGRAM IN ADMIN PROFILE */
-        .parallelogram-button {
-            display: inline-block;
-            padding: 8px 40px;
-
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .parallelogram-button1 {
-            background-color: #3498db;
-            transform: skew(20deg);
-            transform-origin: bottom right;
-        }
-
-        .parallelogram-button2 {
-            margin-left: 20px;
-            background-color: #2ecc71;
-            transform: skew(20deg);
-            transform-origin: bottom right;
-        }
-
-        .parallelogram-button1:hover {
-            background-color: #2980b9;
-        }
-
-        .parallelogram-button2:hover {
-            background-color: #27ae60;
-        }
-
-        .profile-history-btn {
-            margin-left: 300px;
-        }
-
         /* Style for the select option in admin profile */
         .dropdown {
             border: none;

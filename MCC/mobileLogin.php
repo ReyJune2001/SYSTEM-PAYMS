@@ -107,24 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 50px;
         }
 
-        /* Customize modal styles */
-        .custom-modal .modal-content {
-            background-color: red;
-            /* Background color */
-            color: #fff;
-            /* Text color */
-        }
-
-        .custom-modal .modal-header {
-            border-bottom: 1px solid #2c3e50;
-            /* Border color for the header */
-        }
-
-        .custom-modal .modal-footer {
-            border-top: 1px solid #2c3e50;
-            /* Border color for the footer */
-        }
-
 
         body {
             height: 100vh;
@@ -291,6 +273,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 padding: 3em 0 5em 0;
             }
 
+            #errormodal {
+            
+            /* Adjust this value as needed */
+            transform: translateY(-50%, -50%);
+            height: 50%;
+        }
+
 
         }
     </style>
@@ -310,7 +299,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Trigger the modal using JavaScript
         echo '<script>
       document.addEventListener("DOMContentLoaded", function() {
-          var myModal = new bootstrap.Modal(document.getElementById("usernameExistModal2"));
+          var myModal = new bootstrap.Modal(document.getElementById("errormodal"));
           myModal.show();
       });
     </script>';
@@ -318,16 +307,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
 
     <!-- Pop-up Modal -->
-    <div class="modal fade custom-modal" id="usernameExistModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade custom-modal" id="errormodal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Error!!!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header" style="background-color: #dc3545; color: white;">
+                    <h5 class="modal-title center-modal-title">ERROR</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    Invalid Credentials.
+                    <h5>Invalid Credentials...</h5>
                 </div>
             </div>
         </div>
@@ -344,7 +333,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <main>
         <h3 style="text-align:center;">Good Day!</h3>
-        <form action="login.php" method="post">
+        <form action="mobileLogin.php" method="post">
 
             <div class="form-outline">
                 <div class="input-group">
