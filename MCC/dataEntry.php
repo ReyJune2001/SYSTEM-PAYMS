@@ -172,7 +172,6 @@ if (isset ($_POST['submit'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@700&family=Noto+Serif+Makasar&family=Pattaya&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@700&family=Noto+Serif+Makasar&family=Pattaya&family=Tiro+Kannada:ital@0;1&display=swap" rel="stylesheet">
 
 
@@ -576,6 +575,7 @@ if (isset ($_POST['submit'])) {
 }
         .morning{
             font-family: "Pattaya", sans-serif;
+            
         }
         footer {
             background-color: darkcyan;
@@ -1095,14 +1095,33 @@ if (isset ($_POST['submit'])) {
                     <br>
                     <input type="number" style="width:250px; height:50px; margin-top:10px; text-align:center; font-size:20px;" id="totalDrumOutput" readonly>
                 </div>
-                        <div class="xbox2 box2">
+
+                <div class="xbox2 box2">
+                <?php
+                include 'connect.php';
+                $sql = "SELECT COUNT(*) AS totalEntries
+                FROM tbl_entry AS entry
+                INNER JOIN tbl_user AS user ON entry.userID = user.userID
+                WHERE user.Username = 'Admin'";
+                $result = mysqli_query($con, $sql);
+
+                // Check if there are any results
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $totalEntries = $row['totalEntries'];
+                } else {
+                    $totalEntries = 0;
+                }
+                ?>
                         <h5 style="">Data Entry</h5>
                             <button type="button" class="btn btn-primary" style="height:45px; width:45px; border-radius:50px; margin-top:55px; margin-left:50px;" id="dataentry">
                             <i class="fa-solid fa-plus" style="font-size:20px;"></i></button>
                             <h6 style="margin-bottom:0px;">Total Entries:</h6>
-                            <input type="number" style=" width:150px;height:16px; margin-bottom:5px;text-align:center; background-color:; font-size:15px;">
+                            <input type="number" style=" width:150px;height:28px; margin-bottom:5px;text-align:center; font-weight:bold; background-color:; border:none; font-size:28px;"
+                            value="<?php echo $totalEntries; ?>" readonly>
 
                         </div>
+
                         <div class="xbox3 box3">
                         <h5 style="margin-left:12px;">Yield</h5>
                         <label style="margin-left:20px;">Paint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acetate
@@ -1488,6 +1507,12 @@ if (isset ($_POST['submit'])) {
                         <a href="monitoring.php">
                             <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
                             <span class="item">Monitoring</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="acetateReport.php">
+                            <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
+                            <span class="item">Acetate Report</span>
                         </a>
                     </li>
 

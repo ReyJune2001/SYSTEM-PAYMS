@@ -23,19 +23,11 @@ $Profile_image = $row['Profile_image'];
 
 //FOR FETCHING DATA FROM DATABASE
 
-// Fetch and check the data from the database using a JOIN query
+// Fetch and check the data from the database
 $sql = "SELECT
-paint.paint_color,
-supplier.supplier_name, supplier.newSupplier_name,
-customer.customer_name,
-entry.*, user.Username
-FROM tbl_entry AS entry
-LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
-LEFT JOIN tbl_supplier AS supplier ON paint.supplierID = supplier.supplierID
-LEFT JOIN tbl_customer AS customer ON entry.customerID = customer.customerID
-LEFT JOIN tbl_user AS user ON entry.userID = user.userID
-ORDER BY
-entry.date DESC";
+acetateReport.*, user.Username
+FROM tbl_acetatereport AS acetateReport
+LEFT JOIN tbl_user AS user ON acetateReport.userID = user.userID";
 
 $result = mysqli_query($con, $sql);
 
@@ -43,6 +35,7 @@ if (!$result) {
     die (mysqli_error($con));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -763,7 +756,6 @@ if (!$result) {
             <!--MAIN CONTENT-->
 
             <div class="main1">
-
                 <!--Filter bar-->
                 <div class="col-md-8">
                     <div class="form-group">
@@ -775,26 +767,12 @@ if (!$result) {
                         <select name="toggle_column" id="toggle_column" multiple>
                             <option value="0">User</option>
                             <option value="1">Date</option>
-                            <option value="2">Paint Color</option>
-                            <option value="3">Supplier</option>
-                            <option value="4">Batch Number</option>
-                            <option value="5">Initial Paint (L)</option>
-                            <option value="6">Initial Acetate (L)</option>
-                            <option value="7">New Supplier</option>
-                            <option value="8">New Batch No.</option>
-                            <option value="9">New Paint (L)</option>
-                            <option value="10">New Acetate (L)</option>
-                            <option value="11">Spray Viscosity</option>
-                            <option value="12">Ending Paint (L)</option>
-                            <option value="13">Ending Acetate (L)</option>
-                            <option value="14">Total Paint (L)</option>
-                            <option value="15">Total Acetate (L)</option>
-                            <option value="16">Customer</option>
-                            <option value="17">Quantity (Du)</option>
-                            <option value="18">Paint Yield</option>
-                            <option value="19">Acetate Yield</option>
-                            <option value="20">Remarks</option>
-                            <option value="21">Operation</option>
+                            <option value="2">Beginning</option>
+                            <option value="3">Withdrawal</option>
+                            <option value="4">Production Paint Usage</option>
+                            <option value="5">Cleaning</option>
+                            <option value="6">Remaining</option>
+                            
                         </select>
 
                         <label style="margin-left:20%;">From date:</label>
@@ -812,60 +790,22 @@ if (!$result) {
                         <thead>
                             <tr>
                                 <th colspan="7" style="text-align:center; background-color:rgba(113,187,234,255);">
-                                    Initial Inventory
+                                    ACETATE MONITORING REPORT
                                 </th>
-                                <th colspan="5" style="text-align:center; background-color:rgba(188,145,237,255);">New
-                                    Paint Mix</th>
-                                <th colspan="2" style="text-align:center; background-color:rgba(255,217,110,255);">
-                                    Ending Inventory
-                                </th>
-                                <th colspan="2" style="text-align:center; background-color:rgba(243,94,62,255);">Total
-                                    Usage</th>
-                                <th colspan="2" style="text-align:center; background-color:rgba(243,94,62,255);">
-                                    Production Output
-                                </th>
-                                <th colspan="2" style="text-align:center; background-color:#007BFF;">Yield</th>
-
-
-                                <th colspan="2" style="text-align:center;">Remarks & Operation</th>
-
                             </tr>
-
                             <tr>
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">User</th>
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">Date</th>
-                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Paint Color</th>
-                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Supplier</th>
-                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Batch Number
-                                </th>
-                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Paint(L)</th>
-                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Acetate(L)</th>
+                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Beginning</th>
+                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Withdrawal</th>
+                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Production Paint Usage</th>
+                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Cleaning</th>
+                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Remaining</th>
 
-                                <th style="text-align:center; background-color:rgba(188,145,237,255);">Supplier</th>
-                                <th style="text-align:center; background-color:rgba(188,145,237,255);">Batch Number</th>
-                                <th style="text-align:center; background-color:rgba(188,145,237,255);">Paint(L)</th>
-                                <th style="text-align:center; background-color:rgba(188,145,237,255);">Acetate(L)</th>
-                                <th style="text-align:center; background-color:rgba(188,145,237,255);">Spray Viscosity
-                                </th>
-
-                                <th style="text-align:center; background-color:rgba(255,217,110,255);">Paint(L)</th>
-                                <th style="text-align:center; background-color:rgba(255,217,110,255);">Acetate(L)</th>
-
-                                <th style="text-align:center; background-color:rgba(243,94,62,255);">Paint(L)</th>
-                                <th style="text-align:center; background-color:rgba(243,94,62,255);">Acetate(L)</th>
-
-                                <th style="text-align:center; background-color:rgba(243,94,62,255);">Customer</th>
-                                <th style="text-align:center; background-color:rgba(243,94,62,255);">Quantity(Du)</th>
-
-                                <th style="text-align:center; background-color:#007BFF;">Paint (Du'L)</th>
-                                <th style="text-align:center; background-color:#007BFF;">Acetate (Du'L)</th>
-
-                                <th style="text-align:center;">Remarks</th>
-                                <th style="text-align:center;">Operation</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
+                        <?php
                             // Loop through the results and display data in the table
                             
 
@@ -873,119 +813,28 @@ if (!$result) {
 
                                 // Extract values from the row
                             
-                                $initialPLiter = $row['initialPLiter'];
-                                $NewpaintL = $row['NewpaintL'];
-                                $endingPLiter = $row['endingPLiter'];
-                                $initialALiter = $row['initialALiter'];
-                                $NewacetateL = $row['NewacetateL'];
-                                $endingALiter = $row['endingALiter'];
-                                $quantity = $row['quantity'];
+                                $Username = $row['Username'];
+                                $Date = $row['Date'];
+                                $Beginning = $row['Beginning'];
+                                $Withdrawal = $row['Withdrawal'];
+                                $ProductPUsage = $row['ProductPUsage'];
+                                $Cleaning = $row['Cleaning'];
+                                $Remaining = $row['Remaining'];
 
-
-                                // Calculate total Paint Liter
-                                $totalPLiter = ($initialPLiter + $NewpaintL - $endingPLiter);
-                                // Round off the total Paint Liter to the nearest hundredth
-                                $roundedTotalPLiter = round($totalPLiter, 2);
-                                // Insert the total Paint Liter value into the database
-                                $insertQuery = "UPDATE tbl_entry SET totalPLiter = $roundedTotalPLiter WHERE EntryID = {$row['EntryID']}";
-                                mysqli_query($con, $insertQuery);
-
-
-                                // Calculate total Acetate Liter
-                                $totalALiter = ($initialALiter + $NewacetateL - $endingALiter);
-                                // Round off the total Acetate Liter to the nearest hundredth
-                                $roundedTotalALiter = round($totalALiter, 2);
-                                // Insert the total Acetate Liter value into the database
-                                $insertQuery = "UPDATE tbl_entry SET totalALiter = $roundedTotalALiter WHERE EntryID = {$row['EntryID']}";
-                                mysqli_query($con, $insertQuery);
-
-
-                                // Calculate the Paint Yield
-                                $PaintYield = ($quantity / $roundedTotalPLiter);
-                                // Round off the Paint Yield to the nearest hundredth
-                                $roundedPaintYield = round($PaintYield, 2);
-                                // Insert the Paint Yield value into the database
-                                $insertQuery = "UPDATE tbl_entry SET paintYield = $roundedPaintYield WHERE EntryID = {$row['EntryID']}";
-                                mysqli_query($con, $insertQuery);
-
-                                // Calculate the Acetate Yield
-                                $AcetateYield = ($quantity / $roundedTotalALiter);
-                                // Round off the Acetate Yield to the nearest hundredth
-                                $roundedAcetateYield = round($AcetateYield, 2);
-                                // Insert the Acetate Yield value into the database
-                                $insertQuery = "UPDATE tbl_entry SET acetateYield = $roundedAcetateYield WHERE EntryID = {$row['EntryID']}";
-                                mysqli_query($con, $insertQuery);
-
-
-                                echo "<tr class='edit-row' data-entry-id='{$row['EntryID']}' data-date='{$row['date']}' data-paint-color='{$row['paint_color']}' data-supplier-name='{$row['supplier_name']}' data-batch-number='{$row['batchNumber']}' data-new-supplier-name='{$row['newSupplier_name']}' data-new-paint-l='{$row['NewpaintL']}' data-new-acetate-l='{$row['NewacetateL']}' data-spray-viscosity='{$row['sprayViscosity']}' data-customer-name='{$row['customer_name']}' data-quantity='{$row['quantity']}' data-paint-yield='{$row['paintYield']}' data-acetate-yield='{$row['acetateYield']}' data-remarks='{$row['remarks']}'>";
+                                echo "<tr>";
                                 echo "<td>{$row['Username']}</td>";
-                                echo "<td class='date-cell'>{$row['date']}</td>";
-                                echo "<td>{$row['paint_color']}</td>";
-                                echo "<td>{$row['supplier_name']}</td>";
-                                echo "<td>{$row['batchNumber']}</td>";
-                                echo "<td>{$row['initialPLiter']}</td>";
-                                echo "<td>{$row['initialALiter']}</td>";
-                                echo "<td>{$row['newSupplier_name']}</td>";
-                                echo "<td>202024234</td>";
-                                echo "<td>{$row['NewpaintL']}</td>";
-                                echo "<td>{$row['NewacetateL']}</td>";
-                                echo "<td>{$row['sprayViscosity']}</td>";
-                                echo "<td>{$row['endingPLiter']}</td>";
-                                echo "<td>{$row['endingALiter']}</td>";
-                                echo "<td style='color:blue;'>$roundedTotalPLiter</td>";
-                                echo "<td style='color:blue;'>$roundedTotalALiter</td>";
-                                echo "<td>{$row['customer_name']}</td>";
-                                echo "<td>{$row['quantity']}</td>";
-                                echo "<td style='color:blue;'>$roundedPaintYield</td>";
-                                echo "<td style='color:blue;'>$roundedAcetateYield</td>";
-
-                                echo "<td>{$row['remarks']}</td>";
-                                echo "<td class='crud'><div style='display: flex; gap: 10px;'>
-                                <a href='update.php?data-entry-id={$row['EntryID']}'><button class='btn btn-info text-light'>Edit</button></a>
-                                <button class='btn btn-danger confirm_dltbtn' data-entry-id='{$row['EntryID']}'>Delete</button>
-                </div></td>";
-                                // Add more table data based on your columns
+                                echo "<td class='date-cell'>{$row['Date']}</td>";
+                                echo "<td>{$row['Beginning']}</td>";
+                                echo "<td>{$row['Withdrawal']}</td>";
+                                echo "<td>{$row['ProductPUsage']}</td>";
+                                echo "<td>{$row['Cleaning']}</td>";
+                                echo "<td>{$row['Remaining']}</td>";
                                 echo "</tr>";
-
-
-                                //########################################################################################
-                            
-                                // Save data from the current row for later use in the modal
-                                $id = $row['EntryID'];
-                                $date = $row['date'];
-                                $paint_color = $row['paint_color'];
-                                $supplier_name = $row['supplier_name'];
-                                $batchNumber = $row['batchNumber'];
-                                $newSupplier_name = $row['newSupplier_name'];
-                                $NewpaintL = $row['NewpaintL'];
-                                $NewacetateL = $row['NewacetateL'];
-                                $sprayViscosity = $row['sprayViscosity'];
-                                $customer_name = $row['customer_name'];
-                                $quantity = $row['quantity'];
-                                $paintYield = $row['paintYield'];
-                                $acetateYield = $row['acetateYield'];
-                                $remarks = $row['remarks'];
-
-
-
                             }
                             ?>
-                            
                         </tbody>
                     </table>
                 </div>
-                <!-- Collapsible Drawer -->
-
-                <div class="col-2 position-relative">
-                    <div class="drawer p-2" id="drawer">
-                        <i class="fa-solid fa-angles-left toggle-drawer" id="drawerToggle" onclick="toggleDrawer()"></i>
-                        <h4
-                            style="color:white; margin-top: 120px; margin-bottom: 100px; margin-left: 350px; margin-right: 30px;">
-                            Drawer Content</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!--Top menu -->
         <div class="sidebar">
@@ -1017,9 +866,13 @@ if (!$result) {
                     </a>
                 </li>
                 <li>
-                    <a href="monitoring.php" class="active">
+                    <a href="monitoring.php">
                         <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
                         <span class="item">Monitoring</span>
+                    </a>
+                    <a href="acetateReport.php" class="active">
+                        <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
+                        <span class="item">Acetate Report</span>
                     </a>
                 </li>
 
@@ -1028,36 +881,6 @@ if (!$result) {
         </div>
     </div>
 
-    </div>
-
-
-    <!--###################################################################################################-->
-    <!-- Delete Modal -->
-
-    <div class="modal" id="deletemodal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #dc3545; color: white;">
-                    <h5 class="modal-title center-modal-title">DELETE</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <form action="monitoring-delete.php" method="post">
-
-                    <input type="hidden" name="userID" id="confirm_delete_id">
-
-                    <h4 style="text-align:center;">Are you sure you want to delete it?</h4>
-
-
-                    <div class="modal-footer">
-
-                        <button type="submit" name="deletedata" class="btn btn-primary">Yes</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                            style="color: white">No</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
 
@@ -1098,91 +921,82 @@ if (!$result) {
 
     <!--DATA TABLES-->
     <script>
-    // Function to hide all columns
-    function hideAllColumns() {
-        for (var i = 0; i < 22; i++) {
-            $('#datatables').DataTable().column(i).visible(false);
+        // Function to hide all columns
+        function hideAllColumns() {
+            for (var i = 0; i < 7; i++) {
+                $('#datatables').DataTable().column(i).visible(false);
+            }
         }
-    }
 
-    // Function to show all columns
-    function showAllColumns() {
-        for (var i = 0; i < 22; i++) {
-            $('#datatables').DataTable().column(i).visible(true);
+        // Function to show all columns
+        function showAllColumns() {
+            for (var i = 0; i < 7; i++) {
+                $('#datatables').DataTable().column(i).visible(true);
+            }
         }
-    }
 
-    $(document).ready(function () {
-        // Initialize DataTable
-        let table = $('#datatables').DataTable({
-            scrollX: true,
-            scrollY: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'excel',
-               
-            ],
-           // Set initial sorting order based on the date column in descending order
-        order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
-        language: {
-            searchPlaceholder: 'Search...' // Set placeholder text for search input
-        }
-        });
+        $(document).ready(function () {
+            // Initialize DataTable
+            let table = $('#datatables').DataTable({
+                scrollX: true,
+                scrollY: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
 
-        // Initialize multiple-select plugin
-        $('#toggle_column').multipleSelect({
-            width: 200,
-            onClick: function () {
-                var selectedItems = $('#toggle_column').multipleSelect("getSelects");
-                hideAllColumns();
-                for (var i = 0; i < selectedItems.length; i++) {
-                    var s = selectedItems[i];
-                    $('#datatables').DataTable().column(s).visible(true);
+                ],
+                // Set initial sorting order based on the date column in descending order
+                order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
+                language: {
+                    searchPlaceholder: 'Search...' // Set placeholder text for search input
                 }
-            },
-            onCheckAll: function () {
-                showAllColumns();
-                $('#datatables').css('width', '100%');
-            },
-            onUncheckAll: function () {
-                hideAllColumns();
-            }
+            });
+
+            // Initialize multiple-select plugin
+            $('#toggle_column').multipleSelect({
+                width: 200,
+                onClick: function () {
+                    var selectedItems = $('#toggle_column').multipleSelect("getSelects");
+                    hideAllColumns();
+                    for (var i = 0; i < selectedItems.length; i++) {
+                        var s = selectedItems[i];
+                        $('#datatables').DataTable().column(s).visible(true);
+                    }
+                },
+                onCheckAll: function () {
+                    showAllColumns();
+                    $('#datatables').css('width', '100%');
+                },
+                onUncheckAll: function () {
+                    hideAllColumns();
+                }
+            });
+
+            // Custom filtering function which will search data in date column between two values
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                let min = $('#min').val();
+                let max = $('#max').val();
+                let dateStr = data[1]; // Assuming date is in the second column
+
+                if ((min === "" && max === "") ||
+                    (min === "" && new Date(dateStr) <= new Date(max)) ||
+                    (new Date(min) <= new Date(dateStr) && max === "") ||
+                    (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
+                    return true;
+                }
+                return false;
+            });
+
+            // Event listener for date input changes
+            $('#min, #max').change(function () {
+                table.draw();
+            });
         });
-
-        // Event delegation for delete button
-        $(document).on('click', '.confirm_dltbtn', function () {
-            var userID = $(this).data('entry-id');
-
-            // Assuming you're using Bootstrap modal for delete confirmation
-            $('#deletemodal #confirm_delete_id').val(userID);
-            $('#deletemodal').modal('show');
-        });
-
-        // Custom filtering function which will search data in date column between two values
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-            let min = $('#min').val();
-            let max = $('#max').val();
-            let dateStr = data[1]; // Assuming date is in the second column
-
-            if ((min === "" && max === "") ||
-                (min === "" && new Date(dateStr) <= new Date(max)) ||
-                (new Date(min) <= new Date(dateStr) && max === "") ||
-                (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
-                return true;
-            }
-            return false;
-        });
-
-        // Event listener for date input changes
-        $('#min, #max').change(function () {
-            table.draw();
-        });
-    });
-</script>
+    </script>
 
 
-<!--FOR CLOCK SCRIPT-->
-<script>
+    <!--FOR CLOCK SCRIPT-->
+    <script>
         let hrs = document.getElementById("hrs");
         let minutes = document.getElementById("minutes");
         let sec = document.getElementById("sec");
@@ -1205,19 +1019,6 @@ if (!$result) {
             sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : '') + currentTime.getSeconds();
             ampm.innerHTML = period;
         }, 1000)
-    </script>
-
-
-
-    <!--For delete modal-->
-    <script>
-        $(document).ready(function () {
-            $('.edit-row .confirm_dltbtn').on('click', function () {
-                var userID = $(this).closest('.edit-row').data('entry-id');
-                $('#deletemodal #confirm_delete_id').val(userID);
-                $('#deletemodal').modal('show');
-            });
-        });
     </script>
 
     <!-- FOR clickable image dropdown -->

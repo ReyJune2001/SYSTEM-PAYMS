@@ -161,22 +161,53 @@ $Profile_image = $row['Profile_image'];
 
             .xbox3 ul li a {
                 text-decoration: none;
+            
+                /* Remove underline */
+            }
+
+            .xbox5 ul {
+                list-style-type: none;
+                /* Remove bullets */
+                padding: 0;
+                /* Remove default padding */
+            }
+
+            .xbox5 ul li a {
+                text-decoration: none;
                 /* Remove underline */
             }
 
             .recent-activity-list {
-                border: 2px solid #ccc;
+                border: none;
                 /* Border color */
                 padding: 10px;
                 /* Add some padding */
+               
+            }
+            .acetaterecent-activity-list{
+                border: 1px solid #ccc;
+                border: none;
+                
             }
 
             li {
                 border: 1px solid black;
+                border: none;
             }
 
 
             .xbox4 {
+                width: 48%;
+                height: 100px;
+                margin-top: 20px;
+                text-align: center;
+                border-radius: 20px;
+                margin-left: 100px;
+                margin-right: 11px;
+                margin-bottom: 20px;
+            }
+
+            .xbox5 {
                 width: 48%;
                 height: 200px;
                 margin-top: 20px;
@@ -189,6 +220,7 @@ $Profile_image = $row['Profile_image'];
             .box1 {
                 background-color: white;
             }
+
 
             .box2 {
                 background-image: url('IMAGES/naturemorning.jpg');
@@ -208,6 +240,20 @@ $Profile_image = $row['Profile_image'];
             }
 
             .box4 {
+
+                background-image: url('IMAGES/dataentry.png');
+                /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+                background-size: cover;
+                /* Ensures the background image covers the entire box */
+                background-repeat: no-repeat;
+                /* Prevents the background image from repeating */
+                background-position: center;
+                /* Centers the background image */
+                background-size: 100px;
+                background-color: white;
+            }
+
+            .box5 {
                 background-color: white;
             }
 
@@ -277,6 +323,11 @@ $Profile_image = $row['Profile_image'];
     <main>
         <div class="M-container">
             <div class="xbox1 box1">
+                <a href="mobileAcetateEntry.php" style="text-decoration: none; color: inherit; width:80%;">
+                    <button type="button" class="btn btn-success" style="font-size:15px; margin-top: 250px; width:80%;">
+                        Acetate Report
+                    </button>
+                </a>
             </div>
             <div class="xbox2 box2">
                 <h1 class="morning" style="margin-bottom:10px;">Good Morning, <br><span
@@ -304,8 +355,8 @@ $Profile_image = $row['Profile_image'];
         </div>
         <div class="M-container">
             <div class="xbox3 box3">
-                <h4 style="margin-top:5px;">Recent Activity</h4>
-                <ul class="recent-activity-list" style="overflow-y: auto; max-height: 150px; ">
+                <h5 style="margin-top:5px;">Paint recent activity</h5>
+                <ul class="recent-activity-list" style="overflow-y: auto; max-height: 130px; ">
                     <?php
                     include 'connect.php';
                     $sql = "SELECT entry.entryID, entry.date, paint.paint_color 
@@ -321,11 +372,11 @@ $Profile_image = $row['Profile_image'];
                         while ($selected = mysqli_fetch_assoc($result)) {
                             // Display an image before each entry
                             echo '<li>';
-                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:5px; margin-top:8px;">';
+                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
                             // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
-                            echo "<a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a>";
-                            if (!empty($selected['paint_color'])) {
-                                echo "<br>Paint color: {$selected['paint_color']}";
+                            echo "<button><a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a></button>";
+                            if (!empty ($selected['paint_color'])) {
+                                echo "<br> {$selected['paint_color']}";
                             }
                             echo '</li>';
                         }
@@ -335,16 +386,69 @@ $Profile_image = $row['Profile_image'];
                     ?>
                 </ul>
             </div>
-            <div class="xbox4 box4">
+            <div class="xbox5 box5">
+            <h5>Acetate recent activity</h5>
+                <ul class="acetaterecent-activity-list" style="overflow-y: auto; max-height: 130px; ">
+                    <?php
+                    include 'connect.php';
+                    $sql = "SELECT acetateReport.acetateReportID, acetateReport.Date, acetateReport.Remaining 
+                            FROM tbl_acetatereport AS acetateReport 
+                            WHERE acetateReport.userID IN (SELECT userID FROM tbl_user WHERE Username = 'Operator')
+                            ORDER BY acetateReport.Date DESC";
+                    $result = mysqli_query($con, $sql);
+
+                    // Check if there are any results
+                    if (mysqli_num_rows($result) > 0) {
+                        // Output data of each row
+                        while ($selected = mysqli_fetch_assoc($result)) {
+                            // Display an image before each entry
+                            echo '<li>';
+                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
+                            // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
+                            echo "<button><a href='mobileAcetateUpdate.php?acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</a></button>";
+                            if (!empty ($selected['Remaining'])) {
+                                echo "Remaining: {$selected['Remaining']}";
+                            }
+                            echo '</li>';
+                        }
+                    } else {
+                        echo "<li>No recent activity</li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </div>
-        <div class="button-container">
-            <a href="mobileDataEntry.php" style="text-decoration: none; color: inherit; width:80%;">
-                <button type="button" class="btn btn-success" style="font-size:25px; margin-top: 15px; width:100%;">
-                    Data Entry
-                </button>
-            </a>
-        </div>
+        <div class="M-container">
+            <div class="xbox4 box4">
+                <?php
+                include 'connect.php';
+                $sql = "SELECT COUNT(*) AS totalEntries
+                FROM tbl_entry AS entry
+                INNER JOIN tbl_user AS user ON entry.userID = user.userID
+                WHERE user.Username = 'Operator'";
+                $result = mysqli_query($con, $sql);
+
+                // Check if there are any results
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $totalEntries = $row['totalEntries'];
+                } else {
+                    $totalEntries = 0;
+                }
+                ?>
+                <h6>Total Entries</h6>
+                <input type="number"
+                    style="width:150px;height:20px;margin-top:px;text-align:center; font-weight:bold; background-color:;border:none;font-size:25px;"
+                    value="<?php echo $totalEntries; ?>" readonly>
+
+                <a href="mobileDataEntry.php" style="text-decoration: none; color: inherit; width: 80%;">
+                    <button type="button" class="btn btn-success"
+                        style=" width: 45px; height:45px; border-radius:50px; margin-left:52px;">
+                        <i class="fas fa-plus" style="font-size: 30px;margin-left:-3px;"></i> <!-- Correct Font Awesome class -->
+                    </button>
+                </a>
+            </div>
+            
     </main>
     <!-- FOR clickable image dropdown SCRIPT-->
     <script>

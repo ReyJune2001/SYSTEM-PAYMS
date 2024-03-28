@@ -300,6 +300,7 @@ if (isset ($_POST['submit'])) {
                 padding-bottom: 2%;
                 height: 100%;
                 background-color: #87ceeb;
+                margin-bottom: 20px;
                 /*#98fb98 */
             }
 
@@ -460,7 +461,7 @@ if (isset ($_POST['submit'])) {
         <div class="header">
             <!--For Logo-->
             <img src="IMAGES/logo.jpg" alt="Registration Image" width="100" height="40" class="logo">
-            DASHBOARD
+            DATA ENTRY
             <img src="uploaded_image/<?php echo $Profile_image; ?>" class="img-admin" id="image">
             <select class="dropdown" id="dropdown" required onchange="handleDropdownChange(this)">
                 <option value="admin">

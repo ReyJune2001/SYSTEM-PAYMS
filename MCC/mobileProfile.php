@@ -282,7 +282,6 @@ if (isset ($_POST['submit'])) {
                 <option value="admin">
                     <?php echo $Username; ?>
                 </option>
-                <option value="dashboard">&nbsp;Dashboard&nbsp;</option>
                 <option value="logout">Logout</option>
             </select>
         </div>
@@ -295,7 +294,6 @@ if (isset ($_POST['submit'])) {
                     <input type="text" class="name"
                         style="width:60%; height:40px; font-size:20px; border:none; text-align:center; background-color:rgb(178, 178, 193);"
                         value="<?php echo $Name; ?>" readonly>
-
 
                 </div>
             </div>
@@ -317,12 +315,6 @@ if (isset ($_POST['submit'])) {
                             <input type="text" id="update_contact" name="update_contact"
                                 style="text-align: center;margin-left:6px;" autocomplete="off"
                                 value="<?php echo $Contact; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="update_username">Username:</label>
-                            <input type="text" id="update_username" name="update_username"
-                                style="text-align: center; margin-left:14px;" autocomplete="off"
-                                value="<?php echo $Username; ?>">
                         </div>
                         <div class="form-group">
                             <label for="update_password">Password:</label>
@@ -350,7 +342,9 @@ if (isset ($_POST['submit'])) {
 
                         <br>
                         <button type="submit" id="update" name="submit" class="btn btn-primary"
-                            style="font-size:15px; margin-bottom:5px;">Save Changes</button>
+                            style="font-size:15px; margin-bottom:5px;">Save Changes</button><br>
+                            <a href="mobileDashboard.php"><button type="button" class="btn btn-danger"
+                                    style="font-size:15px; margin-bottom:5px; width:110px;">Back</button></a>
                     </fieldset>
                 </form>
 
@@ -381,10 +375,7 @@ if (isset ($_POST['submit'])) {
         function handleDropdownChange(select) {
             var selectedValue = select.value;
 
-            if (selectedValue === "dashboard") {
-                // Redirect to the edit profile page
-                window.location.href = "mobileDashboard.php"; // Change the URL accordingly
-            } else if (selectedValue === "logout") {
+            if (selectedValue === "logout") {
                 // Redirect to the logout page
                 window.location.href = "mobileLogout.php"; // Change the URL accordingly
             }
