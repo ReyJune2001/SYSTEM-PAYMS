@@ -502,7 +502,7 @@ if (isset($_POST['update'])) {
 
         .left {
 
-            background-color: rgb(31, 102, 234);
+            background-color: #87ceeb;
             padding: 3em 0 3em 0;
             flex: 1 1 100px;
             margin-left: auto;
@@ -526,7 +526,7 @@ if (isset($_POST['update'])) {
         }
 
         .right {
-            background-color: rgb(31, 102, 234);
+            background-color:#87ceeb;
             padding: 3em 0 3em 0;
             flex: 1 1 100px;
             margin-right: auto;
@@ -536,7 +536,7 @@ if (isset($_POST['update'])) {
 
         footer {
             background-color: rgb(225, 225, 212);
-            color: white;
+            color: black;
             padding: 2em 0 2em 0;
             text-align: center;
             height: 100%;
@@ -546,7 +546,7 @@ if (isset($_POST['update'])) {
 
 
         label {
-            color: white;
+            color: black;
             text-align: center;
 
 
@@ -649,14 +649,25 @@ if (isset($_POST['update'])) {
        }
 
 
-        /* Adjust the show up in delete modal*/
-
+       
         #updateSuccessModal {
             top: 30%;
             /* Adjust this value as needed */
             transform: translateY(-50%, -50%);
             height: 50%;
         }
+
+        /* Define animation keyframes for sparkling effect */
+@keyframes sparkling {
+    0% { background-color: red; }
+    50% { background-color: white; }
+    100% { background-color: red; }
+}
+
+/* Apply animation to error class */
+.error {
+    animation: sparkling 1s ease infinite; /* Apply sparkling animation */
+}
 
         /*FOR SYSTEM RESPONSIVE */
     </style>
@@ -710,7 +721,7 @@ if (isset($_POST['update'])) {
                         <div class="main2">
 
                             <aside class="left">
-                                <legend style=" color:white; font-weight:bold; margin-left:48px;">Initial Inventory
+                                <legend style=" color:black; font-weight:bold; margin-left:48px;">Initial Inventory
                                 </legend>
                                 <br><br>
 
@@ -794,7 +805,7 @@ if (isset($_POST['update'])) {
                                 </div>
                                 <br>
                                 <div class="newpaint">
-                                    <legend style=" color:white; font-weight:bold;margin-left:110px;">New Paint
+                                    <legend style=" color:black; font-weight:bold;margin-left:110px;">New Paint
                                         Mix&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Production
                                         Output</legend>
@@ -842,7 +853,7 @@ if (isset($_POST['update'])) {
 
 
                             <aside class="right">
-                                <legend style=" color:white; font-weight:bold; margin-left:40px;">Ending Inventory
+                                <legend style=" color:black; font-weight:bold; margin-left:40px;">Ending Inventory
                                 </legend>
                                 <br><br>
 
@@ -871,7 +882,7 @@ if (isset($_POST['update'])) {
 
 
                                 <div class="yield">
-                                    <legend style=" color:white; font-weight:bold; margin-left:30px;">Yield</legend>
+                                    <legend style=" color:black; font-weight:bold; margin-left:30px;">Yield</legend>
 
 
                                     <br><br>
@@ -948,6 +959,12 @@ if (isset($_POST['update'])) {
                             <span class="item">Monitoring</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="acetateReport.php">
+                            <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
+                            <span class="item">Acetate Report</span>
+                        </a>
+                    </li>
                     
 
                 </ul>
@@ -979,41 +996,61 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 
-    <!--FOR REAL-TIME DATA OF YIELD-->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add event listener to input fields for new paint and acetate liters
-            ['NewpaintL', 'NewacetateL', 'quantity'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
-
-            // Add event listener to input fields that affect yield calculations
-            ['diameter', 'height', 'paintRatio', 'acetateRatio'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
-
-            // Add event listener to input fields that affect yield calculations
-            ['Endingdiameter', 'Endingheight', 'EndingpaintRatio', 'EndingacetateRatio'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
+   <!-- Error Handling and Real-Time Data Calculation Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener to all relevant input fields
+        ['paintYield', 'NewpaintL', 'NewacetateL', 'quantity', 'diameter', 'height', 'paintRatio', 'acetateRatio', 'Endingdiameter', 'Endingheight', 'EndingpaintRatio', 'EndingacetateRatio'].forEach(function (fieldName) {
+            document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYieldAndValidate);
         });
-        
 
-        function updateYield() {
-            var formData = new FormData(document.querySelector('form'));
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "calculate_yield.php", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.querySelector('input[name="paintYield"]').value = response.paintYield;
-                    document.querySelector('input[name="acetateYield"]').value = response.acetateYield;
-                }
-            };
-            xhr.send(formData);
+        // Add event listener to the form submission
+        document.querySelector('form').addEventListener('submit', function (event) {
+            // Validate paint yield before form submission
+            if (!validatePaintYield()) {
+                event.preventDefault(); // Prevent form submission
+                alert('The standard of Paint Yield should be at least 4.0 above!'); // Show error message
+            }
+        });
+    });
+
+    function updateYieldAndValidate() {
+        // Update yield and validate paint yield
+        updateYield();
+        validatePaintYield();
+    }
+
+    function validatePaintYield() {
+        var paintYieldInput = document.getElementById('paintYield');
+        var paintYield = parseFloat(paintYieldInput.value);
+        // Check if the Paint Yield is below 4.0
+        if (paintYield < 4.0) {
+            // Add CSS class for color validation
+            paintYieldInput.classList.add('error');
+            return false; // Return false indicating validation failed
+        } else {
+            // Remove CSS class if value is valid
+            paintYieldInput.classList.remove('error');
+            return true; // Return true indicating validation passed
         }
+    }
 
-    </script>
+    function updateYield() {
+        var formData = new FormData(document.querySelector('form'));
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "calculate_yield.php", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                document.querySelector('input[name="paintYield"]').value = response.paintYield;
+                document.querySelector('input[name="acetateYield"]').value = response.acetateYield;
+                // After updating the yield, re-validate the paint yield
+                validatePaintYield();
+            }
+        };
+        xhr.send(formData);
+    }
+</script>
 
 
  <!-- FOR clickable image dropdown SCRIPT-->

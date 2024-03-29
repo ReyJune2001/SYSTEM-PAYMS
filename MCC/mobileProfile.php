@@ -317,6 +317,12 @@ if (isset ($_POST['submit'])) {
                                 value="<?php echo $Contact; ?>">
                         </div>
                         <div class="form-group">
+                            <label for="update_username">Username:</label>
+                            <input type="text" id="update_username" name="update_username"
+                                style="text-align: center; margin-left:14px;" autocomplete="off"
+                                value="<?php echo $Username; ?>"readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="update_password">Password:</label>
                             <input type="password" id="update_password" name="update_password"
                                 style="text-align: center; margin-left:16px;" autocomplete="off"

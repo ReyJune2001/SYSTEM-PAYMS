@@ -1022,6 +1022,12 @@ if (!$result) {
                         <span class="item">Monitoring</span>
                     </a>
                 </li>
+                <li>
+                        <a href="acetateReport.php">
+                            <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
+                            <span class="item">Acetate Report</span>
+                        </a>
+                    </li>
 
             </ul>
 

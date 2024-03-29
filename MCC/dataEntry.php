@@ -79,7 +79,7 @@ if (isset ($_GET['data-entry-id'])) {
 
 $date = $paint_color = $supplier_name = $batchNumber = $diameter = $height = $paintRatio = $acetateRatio = $newSupplier_name =
     $NewacetateL = $NewpaintL = $sprayViscosity = $customer_name = $quantity = $Endingdiameter = $Endingheight =
-    $EndingpaintRatio = $EndingacetateRatio = $paintYield = $acetateYield = $remarks = $DetailsID = $supplierID = $receiveID = $details = $receiver_name = '';
+    $EndingpaintRatio = $EndingacetateRatio = $paintYield = $acetateYield = $remarks = $supplierID  = '';
 
 if (isset ($_POST['submit'])) {
     $date = $_POST['date'];
@@ -102,6 +102,7 @@ if (isset ($_POST['submit'])) {
     $EndingacetateRatio = $_POST['EndingacetateRatio'];
     $paintYield = $_POST['paintYield'];
     $acetateYield = $_POST['acetateYield'];
+    $remarks = $_POST['remarks'];
 
 
 
@@ -870,7 +871,7 @@ if (isset ($_POST['submit'])) {
 
 
         .xbox1 {
-        width: 50%;
+        width: 40%;
         height: 190px;
         padding: 10px;
         padding-left: 10px;
@@ -894,7 +895,7 @@ if (isset ($_POST['submit'])) {
         
         }
         .xbox3 {
-        width: 30%;
+        width: 50%;
         height: 190px;
         padding: 10px;
         padding-left: 10px;
@@ -1034,7 +1035,17 @@ if (isset ($_POST['submit'])) {
             height: 500px;
         }
        
+/* Define animation keyframes for sparkling effect */
+@keyframes sparkling {
+    0% { background-color: red; }
+    50% { background-color: white; }
+    100% { background-color: red; }
+}
 
+/* Apply animation to error class */
+.error {
+    animation: sparkling 1s ease infinite; /* Apply sparkling animation */
+}
 
         /*FOR SYSTEM RESPONSIVE */
     </style>
@@ -1123,16 +1134,50 @@ if (isset ($_POST['submit'])) {
                         </div>
 
                         <div class="xbox3 box3">
-                        <h5 style="margin-left:12px;">Yield</h5>
-                        <label style="margin-left:20px;">Paint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acetate
-                        <span class="vertical-line1" style="margin-left:90px;"></span></label>
-                        <br>
-                        <input type="number"
-                         style="text-align: center; background-color:; height:50px; margin-left:20px; font-size: 20px; width: 32%; border: none !important; outline: none !important;">
+    <h5 style="margin-left:95px;">Yield</h5>
+    <div class="table-wrapper" style="max-height: 140px; overflow-y: auto;">
+        <table style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Paint color</th>
+                    <th>Paint</th>
+                    <th>Acetate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                include 'connect.php';
 
-                         <input type="number"
-                         style="text-align: center; background-color:; margin-left:40px; height:50px; font-size: 20px; width: 32%;  border: none !important; outline: none !important;">
-                        </div>
+                $sql = "SELECT 
+                            paint.paint_color,
+                            SUM(entry.paintYield) AS total_paint_yield,
+                            SUM(entry.acetateYield) AS total_acetate_yield
+                        FROM tbl_entry AS entry
+                        LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
+                        GROUP BY paint.paint_color
+                        ORDER BY total_paint_yield DESC, total_acetate_yield DESC";
+                $result = mysqli_query($con, $sql);
+                
+                // Check if there are any results
+                if (mysqli_num_rows($result) > 0) {
+                    // Output data of each row
+                    while ($selected = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $selected['paint_color'] . '</td>';
+                        echo '<td>' . $selected['total_paint_yield'] . '</td>';
+                        echo '<td>' . $selected['total_acetate_yield'] . '</td>';
+                        echo '</tr>';
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>No data found</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
                     </div>
 
                     <div class="xbox4 box4">
@@ -1145,11 +1190,11 @@ if (isset ($_POST['submit'])) {
                         <input type="date" style="text-align: center;" class="filterfield" id="max" name="max" autocomplete="off">
                     </div>
                     <div class="xbox6 box6">
-                    <h4>Weekly Report</h4>
-                    <canvas id="weeklyChart"></canvas>
-                    <label style="margin-left:2%;">Select Month to show Weekly data:</label>
-                    <input type="month" style="text-align: center;" class="filterfield" id="selectedMonth" name="selectedMonth" autocomplete="off" required>
-                </div>
+    <h4>Weekly Report</h4>
+    <canvas id="weeklyChart"></canvas>
+    <label style="margin-left:2%;">Select Month to show Weekly data:</label>
+    <input type="month" style="text-align: center;" class="filterfield" id="selectedMonth" name="selectedMonth" autocomplete="off" required>
+</div>
                         <!-- Data Entry modal -->
 
                         <div class="modal fade" id="initialmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -1376,9 +1421,12 @@ if (isset ($_POST['submit'])) {
                                                                         step="any" placeholder="quantity"
                                                                         value="<?php echo $quantity; ?>" required>
                                                                     <br><br>
-                                                              
-
+                                                             
+                                                                    <label style="margin-left:-9%; ">Remarks:</label>
+                                                                    <input type="text" style="height:60px; font-size: 20px; text-align: center;" class="styleform"
+                                                                        name="remarks" placeholder="remarks"  value="<?php echo $remarks; ?>">
                                                         <div class="yield">
+                                                        
                                                             <h4>Yield</h4>
                                                         </div>
 
@@ -1388,16 +1436,16 @@ if (isset ($_POST['submit'])) {
                                                                     style="margin-left:17px;">Paint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acetate<span
                                                                         class="vertical-line"></span></label><br>
                                                                 <input type="number"
-                                                                    style="text-align: center; margin-left:21px; width: 35%; border: none !important; outline: none !important;"
+                                                                    style="text-align: center; font-size: 25px; margin-left:0px; width: 44%; height:50px; !important; outline: none !important;"
                                                                     class="readonlyInput styleform" id="paintYield"
                                                                     min="0" step="any" name="paintYield"
-                                                                    value="<?php echo $paintYield; ?>" readonly>
+                                                                    value="<?php echo $paintYield; ?>"readonly>
 
                                                                 <input type="number"
-                                                                    style="text-align: center; margin-left:25px; width: 35%; border: none !important; outline: none !important;"
+                                                                    style="text-align: center; font-size: 25px; margin-left:8px;height:50px; width: 44%; border: none !important; outline: none !important;"
                                                                     class="readonlyInput styleform" id="acetateYield"
                                                                     min="0" step="any" name="acetateYield"
-                                                                    value="<?php echo $acetateYield; ?>" readonly>
+                                                                    value="<?php echo $acetateYield; ?>"readonly>
                                                             </div>
                                                         </div>
 
@@ -1405,15 +1453,10 @@ if (isset ($_POST['submit'])) {
                                                         <button type="submit" id="update" class="btn btn-primary btn-lg"
                                                             name="submit"
                                                             style="font-size:20px; border-radius:50px; border-color:white; width:30%; padding-top:1%;padding-bottom:1%;">Add</button>
-
-
                                                     </div>
-
-
                                                 </div>
                                             </fieldset>
-                                        </form>
-
+                                        </form>    
                                     </div>
 
                                 </div>
@@ -1511,7 +1554,7 @@ if (isset ($_POST['submit'])) {
                     </li>
                     <li>
                         <a href="acetateReport.php">
-                            <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
+                            <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
                             <span class="item">Acetate Report</span>
                         </a>
                     </li>
@@ -1525,6 +1568,64 @@ if (isset ($_POST['submit'])) {
 
 
     </div>
+
+   
+
+<!-- Error Handling and Real-Time Data Calculation Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener to all relevant input fields
+        ['paintYield', 'NewpaintL', 'NewacetateL', 'quantity', 'diameter', 'height', 'paintRatio', 'acetateRatio', 'Endingdiameter', 'Endingheight', 'EndingpaintRatio', 'EndingacetateRatio'].forEach(function (fieldName) {
+            document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYieldAndValidate);
+        });
+
+        // Add event listener to the form submission
+        document.querySelector('form').addEventListener('submit', function (event) {
+            // Validate paint yield before form submission
+            if (!validatePaintYield()) {
+                event.preventDefault(); // Prevent form submission
+                alert('The standard of Paint Yield should be at least 4.0 above!'); // Show error message
+            }
+        });
+    });
+
+    function updateYieldAndValidate() {
+        // Update yield and validate paint yield
+        updateYield();
+        validatePaintYield();
+    }
+
+    function validatePaintYield() {
+        var paintYieldInput = document.getElementById('paintYield');
+        var paintYield = parseFloat(paintYieldInput.value);
+        // Check if the Paint Yield is below 4.0
+        if (paintYield < 4.0) {
+            // Add CSS class for color validation
+            paintYieldInput.classList.add('error');
+            return false; // Return false indicating validation failed
+        } else {
+            // Remove CSS class if value is valid
+            paintYieldInput.classList.remove('error');
+            return true; // Return true indicating validation passed
+        }
+    }
+
+    function updateYield() {
+        var formData = new FormData(document.querySelector('form'));
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "calculate_yield.php", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                document.querySelector('input[name="paintYield"]').value = response.paintYield;
+                document.querySelector('input[name="acetateYield"]').value = response.acetateYield;
+                // After updating the yield, re-validate the paint yield
+                validatePaintYield();
+            }
+        };
+        xhr.send(formData);
+    }
+</script>
 
 
 <!--BAR CHART FOR YEAR-->
@@ -1613,70 +1714,48 @@ if (isset ($_POST['submit'])) {
 <!-- BAR CHART FOR WEEK -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
-    // PHP to fetch data
-    <?php
-    $sql = "SELECT SUM(paintYield) AS totalPaintYield, SUM(acetateYield) AS totalAcetateYield, DATE_FORMAT(date, '%Y-%m-%v') AS week_year FROM tbl_entry GROUP BY week_year";
-    $result = mysqli_query($con, $sql);
-    $data = [];
-    while ($row = mysqli_fetch_array($result)) {
-        $data[] = $row;
-    }
-    ?>
-
-    // JavaScript to format data for Chart.js
-    var weeks = [];
-    var totalPaintYields = [];
-    var totalAcetateYields = [];
-
-    <?php foreach ($data as $row): ?>
-        weeks.push('<?php echo $row['week_year']; ?>');
-        totalPaintYields.push(<?php echo $row['totalPaintYield']; ?>);
-        totalAcetateYields.push(<?php echo $row['totalAcetateYield']; ?>);
-    <?php endforeach; ?>
-
     var ctx = document.getElementById('weeklyChart').getContext('2d');
     var weeklyChart;
 
     function filterData() {
         var selectedMonth = document.getElementById('selectedMonth').value;
-        
-        var filteredWeeks = [];
-        var filteredPaintYields = [];
-        var filteredAcetateYields = [];
-
-        for (var i = 0; i < weeks.length; i++) {
-            if (weeks[i].startsWith(selectedMonth)) {
-                filteredWeeks.push(weeks[i]);
-                filteredPaintYields.push(totalPaintYields[i]);
-                filteredAcetateYields.push(totalAcetateYields[i]);
-            }
-        }
-
-        weeklyChart.data.labels = filteredWeeks;
-        weeklyChart.data.datasets[0].data = filteredPaintYields;
-        weeklyChart.data.datasets[1].data = filteredAcetateYields;
-        weeklyChart.update();
+        fetch('fetch_weekly_data.php?month=' + selectedMonth)
+            .then(response => response.json())
+            .then(data => {
+                updateChart(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
     }
 
-    // Attach event listener to month input to trigger filtering in real-time
+    function updateChart(data) {
+    var weeks = data.weeks; // Week labels are already in the format "Week x"
+    var paintYields = data.paintYields;
+    var acetateYields = data.acetateYields;
+
+    weeklyChart.data.labels = weeks;
+    weeklyChart.data.datasets[0].data = paintYields;
+    weeklyChart.data.datasets[1].data = acetateYields;
+    weeklyChart.update();
+}
+
     document.getElementById('selectedMonth').addEventListener('change', filterData);
 
     weeklyChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: weeks,
+            labels: [],
             datasets: [{
                 label: 'Total Paint Yield',
                 backgroundColor: 'rgba(255, 99, 132, 0.4)',
                 borderColor: 'rgba(255, 99, 132, 2)',
                 borderWidth: 1,
-                data: totalPaintYields
+                data: []
             }, {
                 label: 'Total Acetate Yield',
                 backgroundColor: 'rgba(54, 162, 235, 0.4)',
                 borderColor: 'rgba(54, 162, 235, 2)',
                 borderWidth: 1,
-                data: totalAcetateYields
+                data: []
             }]
         },
         options: {
@@ -1687,6 +1766,10 @@ if (isset ($_POST['submit'])) {
             }
         }
     });
+
+    // Set default value to current month
+    document.getElementById('selectedMonth').valueAsDate = new Date();
+    filterData(); // Trigger filtering with default value
 </script>
 
 <!--TOTAL DRUM PAINTED-->
@@ -1946,42 +2029,6 @@ if (isset ($_POST['submit'])) {
         }
     });
 </script>
-
-    <!--FOR REAL-TIME DATA OF YIELD-->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add event listener to input fields for new paint and acetate liters
-            ['NewpaintL', 'NewacetateL', 'quantity'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
-
-            // Add event listener to input fields that affect yield calculations
-            ['diameter', 'height', 'paintRatio', 'acetateRatio'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
-
-            // Add event listener to input fields that affect yield calculations
-            ['Endingdiameter', 'Endingheight', 'EndingpaintRatio', 'EndingacetateRatio'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
-        });
-
-
-        function updateYield() {
-            var formData = new FormData(document.querySelector('form'));
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "calculate_yield.php", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.querySelector('input[name="paintYield"]').value = response.paintYield;
-                    document.querySelector('input[name="acetateYield"]').value = response.acetateYield;
-                }
-            };
-            xhr.send(formData);
-        }
-
-    </script>
 
 
     <!--FOR DATA ENTRY Script-->

@@ -432,32 +432,6 @@ if (isset($_POST['submit'])) {
         }
 
 
-        /*FOR UPDATE SUCCESSFUL */
-        /* Customize modal styles */
-        .custom-modal .modal-content {
-            background-color: green;
-            /* Background color */
-            color: #fff;
-            /* Text  color */
-        }
-
-        .custom-modal .modal-header {
-            border-bottom: 1px solid #2c3e50;
-            /* Border color for the header */
-        }
-
-        /*HEADER MODAL OF UPDATE */
-        .center-modal-title {
-            font-size: 30px;
-            margin-left: 175px;
-        }
-
-        .custom-modal .modal-footer {
-            border-top: 1px solid #2c3e50;
-            /* Border color for the footer */
-        }
-
-
         /* Style for the select option in admin profile */
         .dropdown {
             border: none;
@@ -506,6 +480,13 @@ if (isset($_POST['submit'])) {
         }
         #ampm{
             margin-left: 10px;
+        }
+
+        #updateSuccessModal {
+            top: 30%;
+            /* Adjust this value as needed */
+            transform: translateY(-50%, -50%);
+            height: 50%;
         }
 
         /*FOR SYSTEM RESPONSIVE */
@@ -653,6 +634,12 @@ if (isset($_POST['submit'])) {
                             <span class="item">Monitoring</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="acetateReport.php">
+                            <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
+                            <span class="item">Acetate Report</span>
+                        </a>
+                    </li>
 
                 </ul>
 
@@ -666,8 +653,8 @@ if (isset($_POST['submit'])) {
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title center-modal-title" id="exampleModalLabel">Congrats!!!</h5>
+                <div class="modal-header" style="background-color: #2eae3d; color: white;">
+                    <h5 class="modal-title center-modal-title" id="exampleModalLabel">PROFILE UPDATED</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

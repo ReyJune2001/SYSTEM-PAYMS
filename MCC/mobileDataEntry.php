@@ -652,7 +652,9 @@ if (isset ($_POST['submit'])) {
                                     value="<?php echo $quantity; ?>" required>
                                 <br><br>
 
-
+                                <label style="margin-left:-18%; ">Remarks:</label>
+                                <input type="text" style="height:60px; font-size: 20px; text-align: center;" class="styleform"
+                                    name="remarks" placeholder="remarks" value="<?php echo $remarks; ?>">
                                 <div class="yield">
                                     <h4>Yield</h4>
                                 </div>
