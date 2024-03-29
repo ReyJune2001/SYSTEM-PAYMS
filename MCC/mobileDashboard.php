@@ -3,7 +3,7 @@
 session_start();
 
 // Check if the user is not logged in or is not an admin or operator
-if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
+if (!isset($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
     header('Location: mobileLogin.php'); // Redirect to the login page if not authenticated
     exit();
 }
@@ -22,6 +22,45 @@ $Username = $row['Username'];
 $Profile_image = $row['Profile_image'];
 
 ?>
+
+<?php
+// Database connection parameters
+$HOSTNAME = 'localhost';
+$USERNAME = 'root';
+$PASSWORD = '';
+$DATABASE = 'dbpayms';
+
+// Establish database connection
+$con = mysqli_connect($HOSTNAME, $USERNAME, $PASSWORD, $DATABASE);
+
+// Check if the connection was successful
+if (!$con) {
+    // Handle database connection error
+    echo json_encode(['error' => 'Failed to connect to the database']);
+    exit;
+}
+
+// Prepare SQL query to fetch the latest date
+$sql = "SELECT MAX(Date) AS LatestDate FROM tbl_acetatereport";
+
+// Execute SQL query
+$result = mysqli_query($con, $sql);
+
+// Check if query execution was successful
+if (!$result) {
+    // Handle query execution error
+    echo json_encode(['error' => 'Failed to fetch data from the database']);
+    exit;
+}
+
+// Fetch the latest date
+$row = mysqli_fetch_assoc($result);
+$latestDate = $row['LatestDate'];
+
+// Close database connection
+mysqli_close($con);
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +84,12 @@ $Profile_image = $row['Profile_image'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
+
+
+    <!-- Load Google Charts API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
     <title>Dashboard</title>
     <style>
@@ -122,8 +167,8 @@ $Profile_image = $row['Profile_image'];
             }
 
             .xbox1 {
-                width: 50%;
-                height: 300px;
+                width: 379px;
+                height: 280px;
                 margin-top: 20px;
                 margin-left: 10px;
                 text-align: center;
@@ -161,7 +206,7 @@ $Profile_image = $row['Profile_image'];
 
             .xbox3 ul li a {
                 text-decoration: none;
-            
+
                 /* Remove underline */
             }
 
@@ -182,12 +227,13 @@ $Profile_image = $row['Profile_image'];
                 /* Border color */
                 padding: 10px;
                 /* Add some padding */
-               
+
             }
-            .acetaterecent-activity-list{
+
+            .acetaterecent-activity-list {
                 border: 1px solid #ccc;
                 border: none;
-                
+
             }
 
             li {
@@ -298,6 +344,7 @@ $Profile_image = $row['Profile_image'];
             }
 
 
+
         }
     </style>
 </head>
@@ -323,23 +370,32 @@ $Profile_image = $row['Profile_image'];
     <main>
         <div class="M-container">
             <div class="xbox1 box1">
+                <!-- Display the latest date in a hidden input field -->
+<input type="hidden" id="latest_date" value="<?php echo $latestDate; ?>">
+                <input type="date" id="latest_date_input" onchange="fetchChartData()"
+                    style="margin-top:20px; margin-left:112px;  text-align:center; width:40%;" class="form-control">
+                <label id="latest_date_label" for="latest_date">Latest Date:</label>
+                <div id="pie_chart" style="width: 375px; height: 150px; margin-left:px; margin-top:8px;"></div>
                 <a href="mobileAcetateEntry.php" style="text-decoration: none; color: inherit; width:80%;">
-                    <button type="button" class="btn btn-success" style="font-size:15px; margin-top: 250px; width:80%;">
-                        Acetate Report
+                    <button type="button" class="btn btn-success"
+                        style="font-size:15px; margin-bottom: 40px; width:80%;">
+                        Acetate Report Entry
                     </button>
                 </a>
+
             </div>
+            <!--
             <div class="xbox2 box2">
                 <h1 class="morning" style="margin-bottom:10px;">Good Morning, <br><span
                         style="font-size:25px;font-weight: bold; text">
-                        <?php echo $Username; ?>
-                    </span></h1>
-                <!-- Date -->
+                        php echo $Username; ?>
+                    </span></h1> 
+                Date 
 
                 <h2 style="font-size:10px;">
-                    <?php echo date("l, F j, Y"); ?>
+                    ?php echo date("l, F j, Y"); ?>
                 </h2>
-                <!--FOR CLOCK-->
+                FOR CLOCK--
 
                 <div class="clock">
                     <span id="hrs"></span>
@@ -351,7 +407,7 @@ $Profile_image = $row['Profile_image'];
 
                 </div>
 
-            </div>
+            </div>-->
         </div>
         <div class="M-container">
             <div class="xbox3 box3">
@@ -375,7 +431,7 @@ $Profile_image = $row['Profile_image'];
                             echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
                             // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
                             echo "<button><a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a></button>";
-                            if (!empty ($selected['paint_color'])) {
+                            if (!empty($selected['paint_color'])) {
                                 echo "<br> {$selected['paint_color']}";
                             }
                             echo '</li>';
@@ -387,7 +443,7 @@ $Profile_image = $row['Profile_image'];
                 </ul>
             </div>
             <div class="xbox5 box5">
-            <h5>Acetate recent activity</h5>
+                <h5>Acetate recent activity</h5>
                 <ul class="acetaterecent-activity-list" style="overflow-y: auto; max-height: 130px; ">
                     <?php
                     include 'connect.php';
@@ -406,7 +462,7 @@ $Profile_image = $row['Profile_image'];
                             echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
                             // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
                             echo "<button><a href='mobileAcetateUpdate.php?acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</a></button>";
-                            if (!empty ($selected['Remaining'])) {
+                            if (!empty($selected['Remaining'])) {
                                 echo "Remaining: {$selected['Remaining']}";
                             }
                             echo '</li>';
@@ -444,12 +500,84 @@ $Profile_image = $row['Profile_image'];
                 <a href="mobileDataEntry.php" style="text-decoration: none; color: inherit; width: 80%;">
                     <button type="button" class="btn btn-success"
                         style=" width: 45px; height:45px; border-radius:50px; margin-left:52px;">
-                        <i class="fas fa-plus" style="font-size: 30px;margin-left:-3px;"></i> <!-- Correct Font Awesome class -->
+                        <i class="fas fa-plus" style="font-size: 30px;margin-left:-3px;"></i>
+                        <!-- Correct Font Awesome class -->
                     </button>
                 </a>
             </div>
-            
+
     </main>
+
+
+    <script>
+    // Retrieve the latest date from the hidden input field and display it in the label
+    var latestDate = document.getElementById('latest_date').value;
+    document.getElementById('latest_date_label').innerText = 'Latest Date: ' + latestDate;
+
+    // Function to fetch initial data when the page loads
+    $(document).ready(function() {
+        fetchLatestData();
+    });
+
+    function fetchLatestData() {
+        // Fetch data for the latest date
+        fetchChartData();
+    }
+
+    function fetchChartData() {
+        var selectedDate = document.getElementById('latest_date_input').value || document.getElementById('latest_date').value;
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(function () {
+            drawChart(selectedDate);
+        });
+    }
+
+    function drawChart(selectedDate) {
+        // Fetch data from PHP using AJAX
+        $.ajax({
+            url: 'fetch_data.php',
+            dataType: 'json',
+            data: { date: selectedDate },
+            success: function (data) {
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+                // Create a DataTable object
+                var dataTable = new google.visualization.DataTable();
+
+                // Define columns
+                dataTable.addColumn('string', 'Category');
+                dataTable.addColumn('number', 'Value');
+
+                // Add data rows
+                dataTable.addRows([
+                    ['Beginning', parseFloat(data.Beginning)],
+                    ['Withdrawal', parseFloat(data.Withdrawal)],
+                    ['Product (P) Usage', parseFloat(data.ProductPUsage)],
+                    ['Cleaning', parseFloat(data.Cleaning)],
+                    ['Remaining', parseFloat(data.Remaining)]
+                ]);
+
+                // Set chart options
+                var options = {
+                    title: 'Data Distribution for ' + selectedDate,
+                    is3D: true,
+                };
+
+                // Instantiate and draw the pie chart
+                var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+                chart.draw(dataTable, options);
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error(error);
+            }
+        });
+    }
+</script>
+
+
     <!-- FOR clickable image dropdown SCRIPT-->
     <script>
         function handleDropdownChange(select) {

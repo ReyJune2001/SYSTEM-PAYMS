@@ -772,7 +772,7 @@ if (!$result) {
                             <option value="4">Production Paint Usage</option>
                             <option value="5">Cleaning</option>
                             <option value="6">Remaining</option>
-                            
+
                         </select>
 
                         <label style="margin-left:20%;">From date:</label>
@@ -798,14 +798,15 @@ if (!$result) {
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">Date</th>
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">Beginning</th>
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">Withdrawal</th>
-                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Production Paint Usage</th>
+                                <th style="text-align:center; background-color: rgba(113,187,234,255);">Production Paint
+                                    Usage</th>
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">Cleaning</th>
                                 <th style="text-align:center; background-color: rgba(113,187,234,255);">Remaining</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
+                            <?php
                             // Loop through the results and display data in the table
                             
 
@@ -836,213 +837,214 @@ if (!$result) {
                     </table>
                 </div>
 
-        <!--Top menu -->
-        <div class="sidebar">
-            <!--profile image & text-->
-            <div class="profile">
-                <img src="IMAGES/logo.jpg" alt="profile_picture">
-                <h3>Mindanao Container Corporation</h3>
-                <!--<p>purok-8,Villanueva,Mis or.</p> -->
-            </div>
-            <!--menu item-->
-            <ul>
-
-                <li>
-                    <a href="profile.php" style="display:none;">
-                        <span class="icon"><i class="fa-solid fa-user"></i></span>
-                        <span class="item">Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="dataEntry.php">
-                        <span class="icon"><i class="fa-solid fa-table-cells-large"></i></span>
-                        <span class="item">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="volume.php">
-                        <span class="icon"><i class="fa-solid fa-flask-vial"></i></span>
-                        <span class="item">Volume</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="monitoring.php">
-                        <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
-                        <span class="item">Monitoring</span>
-                    </a>
-                    <a href="acetateReport.php" class="active">
-                        <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
-                        <span class="item">Acetate Report</span>
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-    </div>
-
-    </div>
-
-
-    <!-- Clickable image modal -->
-    <div class="modal fade" id="clickable_image" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-
-                        <div class="profile">
-                            <div class="admin_modal">
-                                <a href="#" id="image">
-                                    <img src="uploaded_image/<?php echo $Profile_image; ?>">
-                                </a>
-                            </div>
-
-                            <h1 style="margin-top:20px;">
-                                <?php echo $Name; ?>
-                            </h1>
-
-                            <div id="update_profile">
-                                <a href="profile.php"><button class="btn btn-primary btn-lg"
-                                        style="font-size:25px; margin-top:20px;">Update profile</button></a>
-                            </div>
-                        </div>
-
+                <!--Top menu -->
+                <div class="sidebar">
+                    <!--profile image & text-->
+                    <div class="profile">
+                        <img src="IMAGES/logo.jpg" alt="profile_picture">
+                        <h3>Mindanao Container Corporation</h3>
+                        <!--<p>purok-8,Villanueva,Mis or.</p> -->
                     </div>
-                </div>
+                    <!--menu item-->
+                    <ul>
 
+                        <li>
+                            <a href="profile.php" style="display:none;">
+                                <span class="icon"><i class="fa-solid fa-user"></i></span>
+                                <span class="item">Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dataEntry.php">
+                                <span class="icon"><i class="fa-solid fa-table-cells-large"></i></span>
+                                <span class="item">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="volume.php">
+                                <span class="icon"><i class="fa-solid fa-flask-vial"></i></span>
+                                <span class="item">Volume</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="monitoring.php">
+                                <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
+                                <span class="item">Monitoring</span>
+                            </a>
+                            <a href="acetateReport.php" class="active">
+                                <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
+                                <span class="item">Acetate Report</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Clickable image modal -->
+        <div class="modal fade" id="clickable_image" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+
+                            <div class="profile">
+                                <div class="admin_modal">
+                                    <a href="#" id="image">
+                                        <img src="uploaded_image/<?php echo $Profile_image; ?>">
+                                    </a>
+                                </div>
+
+                                <h1 style="margin-top:20px;">
+                                    <?php echo $Name; ?>
+                                </h1>
+
+                                <div id="update_profile">
+                                    <a href="profile.php"><button class="btn btn-primary btn-lg"
+                                            style="font-size:25px; margin-top:20px;">Update profile</button></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <!--DATA TABLES-->
-    <script>
-        // Function to hide all columns
-        function hideAllColumns() {
-            for (var i = 0; i < 7; i++) {
-                $('#datatables').DataTable().column(i).visible(false);
-            }
-        }
-
-        // Function to show all columns
-        function showAllColumns() {
-            for (var i = 0; i < 7; i++) {
-                $('#datatables').DataTable().column(i).visible(true);
-            }
-        }
-
-        $(document).ready(function () {
-            // Initialize DataTable
-            let table = $('#datatables').DataTable({
-                scrollX: true,
-                scrollY: true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'excel',
-
-                ],
-                // Set initial sorting order based on the date column in descending order
-                order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
-                language: {
-                    searchPlaceholder: 'Search...' // Set placeholder text for search input
+        <!--DATA TABLES-->
+        <script>
+            // Function to hide all columns
+            function hideAllColumns() {
+                for (var i = 0; i < 7; i++) {
+                    $('#datatables').DataTable().column(i).visible(false);
                 }
-            });
+            }
 
-            // Initialize multiple-select plugin
-            $('#toggle_column').multipleSelect({
-                width: 200,
-                onClick: function () {
-                    var selectedItems = $('#toggle_column').multipleSelect("getSelects");
-                    hideAllColumns();
-                    for (var i = 0; i < selectedItems.length; i++) {
-                        var s = selectedItems[i];
-                        $('#datatables').DataTable().column(s).visible(true);
+            // Function to show all columns
+            function showAllColumns() {
+                for (var i = 0; i < 7; i++) {
+                    $('#datatables').DataTable().column(i).visible(true);
+                }
+            }
+
+            $(document).ready(function () {
+                // Initialize DataTable
+                let table = $('#datatables').DataTable({
+                    scrollX: true,
+                    scrollY: true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'excel',
+
+                    ],
+                    // Set initial sorting order based on the date column in descending order
+                    order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
+                    language: {
+                        searchPlaceholder: 'Search...' // Set placeholder text for search input
                     }
-                },
-                onCheckAll: function () {
-                    showAllColumns();
-                    $('#datatables').css('width', '100%');
-                },
-                onUncheckAll: function () {
-                    hideAllColumns();
+                });
+
+                // Initialize multiple-select plugin
+                $('#toggle_column').multipleSelect({
+                    width: 200,
+                    onClick: function () {
+                        var selectedItems = $('#toggle_column').multipleSelect("getSelects");
+                        hideAllColumns();
+                        for (var i = 0; i < selectedItems.length; i++) {
+                            var s = selectedItems[i];
+                            $('#datatables').DataTable().column(s).visible(true);
+                        }
+                    },
+                    onCheckAll: function () {
+                        showAllColumns();
+                        $('#datatables').css('width', '100%');
+                    },
+                    onUncheckAll: function () {
+                        hideAllColumns();
+                    }
+                });
+
+                // Custom filtering function which will search data in date column between two values
+                $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                    let min = $('#min').val();
+                    let max = $('#max').val();
+                    let dateStr = data[1]; // Assuming date is in the second column
+
+                    if ((min === "" && max === "") ||
+                        (min === "" && new Date(dateStr) <= new Date(max)) ||
+                        (new Date(min) <= new Date(dateStr) && max === "") ||
+                        (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
+                        return true;
+                    }
+                    return false;
+                });
+
+                // Event listener for date input changes
+                $('#min, #max').change(function () {
+                    table.draw();
+                });
+            });
+        </script>
+
+
+        <!--FOR CLOCK SCRIPT-->
+        <script>
+            let hrs = document.getElementById("hrs");
+            let minutes = document.getElementById("minutes");
+            let sec = document.getElementById("sec");
+            let ampm = document.getElementById("ampm");
+
+            setInterval(() => {
+                let currentTime = new Date();
+                let hours = currentTime.getHours();
+                let period = "AM";
+
+                if (hours >= 12) {
+                    period = "PM";
+                    if (hours > 12) {
+                        hours -= 12;
+                    }
                 }
-            });
 
-            // Custom filtering function which will search data in date column between two values
-            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-                let min = $('#min').val();
-                let max = $('#max').val();
-                let dateStr = data[1]; // Assuming date is in the second column
+                hrs.innerHTML = (hours < 10 ? "0" : '') + hours;
+                minutes.innerHTML = (currentTime.getMinutes() < 10 ? "0" : '') + currentTime.getMinutes();
+                sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : '') + currentTime.getSeconds();
+                ampm.innerHTML = period;
+            }, 1000)
+        </script>
 
-                if ((min === "" && max === "") ||
-                    (min === "" && new Date(dateStr) <= new Date(max)) ||
-                    (new Date(min) <= new Date(dateStr) && max === "") ||
-                    (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
-                    return true;
-                }
-                return false;
-            });
+        <!-- FOR clickable image dropdown -->
+        <script>
+            function handleDropdownChange(select) {
+                var selectedValue = select.value;
 
-            // Event listener for date input changes
-            $('#min, #max').change(function () {
-                table.draw();
-            });
-        });
-    </script>
-
-
-    <!--FOR CLOCK SCRIPT-->
-    <script>
-        let hrs = document.getElementById("hrs");
-        let minutes = document.getElementById("minutes");
-        let sec = document.getElementById("sec");
-        let ampm = document.getElementById("ampm");
-
-        setInterval(() => {
-            let currentTime = new Date();
-            let hours = currentTime.getHours();
-            let period = "AM";
-
-            if (hours >= 12) {
-                period = "PM";
-                if (hours > 12) {
-                    hours -= 12;
+                if (selectedValue === "edit_profile") {
+                    // Redirect to the edit profile page
+                    window.location.href = "profile.php"; // Change the URL accordingly
+                } else if (selectedValue === "logout") {
+                    // Redirect to the logout page
+                    window.location.href = "logout.php"; // Change the URL accordingly
                 }
             }
+        </script>
 
-            hrs.innerHTML = (hours < 10 ? "0" : '') + hours;
-            minutes.innerHTML = (currentTime.getMinutes() < 10 ? "0" : '') + currentTime.getMinutes();
-            sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : '') + currentTime.getSeconds();
-            ampm.innerHTML = period;
-        }, 1000)
-    </script>
-
-    <!-- FOR clickable image dropdown -->
-    <script>
-        function handleDropdownChange(select) {
-            var selectedValue = select.value;
-
-            if (selectedValue === "edit_profile") {
-                // Redirect to the edit profile page
-                window.location.href = "profile.php"; // Change the URL accordingly
-            } else if (selectedValue === "logout") {
-                // Redirect to the logout page
-                window.location.href = "logout.php"; // Change the URL accordingly
-            }
-        }
-    </script>
-
-    <!--FOR SIDEBAR-->
-    <script>
-        var hamburger = document.querySelector(".hamburger");
-        hamburger.addEventListener("click", function () {
-            document.querySelector("body").classList.toggle("active");
-        })
-    </script>
+        <!--FOR SIDEBAR-->
+        <script>
+            var hamburger = document.querySelector(".hamburger");
+            hamburger.addEventListener("click", function () {
+                document.querySelector("body").classList.toggle("active");
+            })
+        </script>
 
 </body>
 
