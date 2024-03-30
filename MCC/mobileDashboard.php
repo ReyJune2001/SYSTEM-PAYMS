@@ -223,7 +223,7 @@ mysqli_close($con);
             }
 
             .recent-activity-list {
-                border: none;
+                border: 1px solid #ccc;
                 /* Border color */
                 padding: 10px;
                 /* Add some padding */
@@ -232,13 +232,14 @@ mysqli_close($con);
 
             .acetaterecent-activity-list {
                 border: 1px solid #ccc;
-                border: none;
+                
 
             }
 
             li {
                 border: 1px solid black;
-                border: none;
+                border-left: none;
+                border-right: none;
             }
 
 
@@ -411,7 +412,7 @@ mysqli_close($con);
         </div>
         <div class="M-container">
             <div class="xbox3 box3">
-                <h5 style="margin-top:5px;">Paint recent activity</h5>
+                <h6 style="padding:5px; font-weight:bold;">Paint recent activity</h6>
                 <ul class="recent-activity-list" style="overflow-y: auto; max-height: 130px; ">
                     <?php
                     include 'connect.php';
@@ -443,7 +444,7 @@ mysqli_close($con);
                 </ul>
             </div>
             <div class="xbox5 box5">
-                <h5>Acetate recent activity</h5>
+                <h6 style="padding:5px; font-weight:bold;">Acetate recent activity</h6>
                 <ul class="acetaterecent-activity-list" style="overflow-y: auto; max-height: 130px; ">
                     <?php
                     include 'connect.php';
@@ -461,7 +462,7 @@ mysqli_close($con);
                             echo '<li>';
                             echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
                             // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
-                            echo "<button><a href='mobileAcetateUpdate.php?acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</a></button>";
+                            echo "<h6 acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</h6>";
                             if (!empty($selected['Remaining'])) {
                                 echo "Remaining: {$selected['Remaining']}";
                             }

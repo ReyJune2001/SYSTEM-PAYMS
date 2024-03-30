@@ -1096,16 +1096,16 @@ if (isset ($_POST['submit'])) {
                     
                     <main>
                     <div class="M-container">
-                    <div class="xbox1 box1">
-                    <h5 style="">Total Drum Painted</h5>
-                    <label style="margin-left:2%;">From month:</label>
-                    <input type="month" style="text-align: center;" class="filterfieldMonth" id="fromMonth" name="fromMonth" autocomplete="off">
-                    <br>
-                    <label style="margin-left:20px;">To month:</label>
-                    <input type="month" style="text-align: center;" class="filterfieldMonth" id="toMonth" name="toMonth" autocomplete="off">
-                    <br>
-                    <input type="number" style="width:250px; height:50px; margin-top:10px; text-align:center; font-size:20px;" id="totalDrumOutput" readonly>
-                </div>
+                <div class="xbox1 box1">
+                <h5 style="">Total Drum Painted</h5>
+                <label style="margin-left:2%;">From month:</label>
+                <input type="month" style="text-align: center;" class="filterfieldMonth" id="fromMonth" name="fromMonth" autocomplete="off">
+                <br>
+                <label style="margin-left:20px;">To month:</label>
+                <input type="month" style="text-align: center;" class="filterfieldMonth" id="toMonth" name="toMonth" autocomplete="off">
+                <br>
+                <input type="number" style="width:250px; height:50px; margin-top:10px; text-align:center; font-size:20px;" id="totalDrumOutput" readonly>
+             </div>
 
                 <div class="xbox2 box2">
                 <?php
@@ -1774,48 +1774,67 @@ if (isset ($_POST['submit'])) {
 
 <!--TOTAL DRUM PAINTED-->
 <script>
-    // Function to fetch data from PHP
-    function fetchData() {
-        <?php
-        $sql = "SELECT SUM(quantity) AS totalPaintDrum, DATE_FORMAT(date, '%Y-%m') AS month_year FROM tbl_entry GROUP BY month_year";
-        $result = mysqli_query($con, $sql);
-        $data = [];
-        while ($row = mysqli_fetch_array($result)) {
-            $data[] = $row;
+// Function to fetch data from the server using AJAX
+function fetchData(callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var data = JSON.parse(xhr.responseText);
+            callback(data);
         }
-        ?>
+    };
+    xhr.open("GET", "totalDrum_fetchdata.php", true);
+    xhr.send();
+}
 
-        var drumData = <?php echo json_encode($data); ?>;
-        return drumData;
-    }
-
-    // Function to calculate total drum count for the selected range of months
-    function calculateTotalDrum(data, fromMonth, toMonth) {
-        var totalDrum = 0;
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].month_year >= fromMonth && data[i].month_year <= toMonth) {
-                totalDrum += parseInt(data[i].totalPaintDrum);
-            }
+// Function to calculate total drum count for the specified range of months
+function calculateTotalDrumForRange(data, fromMonth, toMonth) {
+    var totalDrum = 0;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].month_year >= fromMonth && data[i].month_year <= toMonth) {
+            totalDrum += parseInt(data[i].totalPaintDrum);
         }
-        return totalDrum;
     }
+    return totalDrum;
+}
 
-    // Function to update total drum count
-    function updateTotalDrum() {
-        var fromMonth = document.getElementById('fromMonth').value;
-        var toMonth = document.getElementById('toMonth').value;
-        var drumData = fetchData(); // Fetch data from PHP
-
-        var totalDrum = calculateTotalDrum(drumData, fromMonth, toMonth);
+// Function to update total drum count for the specified range of months
+function updateTotalDrumForRange() {
+    var fromMonth = document.getElementById('fromMonth').value;
+    var toMonth = document.getElementById('toMonth').value;
+    fetchData(function(data) {
+        var totalDrum = calculateTotalDrumForRange(data, fromMonth, toMonth);
         document.getElementById('totalDrumOutput').value = totalDrum;
-    }
+    });
+}
 
-    // Attach event listeners to month inputs to trigger updateTotalDrum function
-    document.getElementById('fromMonth').addEventListener('input', updateTotalDrum);
-    document.getElementById('toMonth').addEventListener('input', updateTotalDrum);
+// Function to fetch data and update total drum count for the latest month
+function updateTotalDrumForLatestMonth() {
+    fetchData(function(data) {
+        // Get the current date
+        var currentDate = new Date();
+        // Extract the current year and month from the current date
+        var currentYear = currentDate.getFullYear();
+        var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        // Set "fromMonth" to the previous month and "toMonth" to the current month
+        var previousMonth = (currentDate.getMonth()).toString().padStart(2, '0');
+        var previousMonthYear = (currentMonth === '01') ? currentYear - 1 : currentYear;
+        document.getElementById('fromMonth').value = `${previousMonthYear}-${previousMonth}`;
+        document.getElementById('toMonth').value = `${currentYear}-${currentMonth}`;
+        // Calculate and display total drum count for the specified range of months
+        var totalDrum = calculateTotalDrumForRange(data, `${previousMonthYear}-${previousMonth}`, `${currentYear}-${currentMonth}`);
+        document.getElementById('totalDrumOutput').value = totalDrum;
+    });
+}
 
-    // Initial call to updateTotalDrum to display initial total drum count
-    updateTotalDrum();
+// Attach event listeners to month inputs to trigger updateTotalDrumForRange function
+document.getElementById('fromMonth').addEventListener('input', updateTotalDrumForRange);
+document.getElementById('toMonth').addEventListener('input', updateTotalDrumForRange);
+
+// Initial call to updateTotalDrumForLatestMonth to display total paint drum for the latest month as default data
+updateTotalDrumForLatestMonth();
+
+
 </script>
 
 <!--BAR CHART FOR MONTH-->
