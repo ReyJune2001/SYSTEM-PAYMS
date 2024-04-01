@@ -91,36 +91,6 @@ if (!$result) {
     <!-- MULTI-SELECT JS to hide columns -->
     <script src="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.js"></script>
 
-
-    <script>
-        // Check if the drawer is initially open
-        document.addEventListener("DOMContentLoaded", function () {
-            var drawer = document.getElementById('drawer');
-            var drawerToggle = document.getElementById('drawerToggle');
-
-            // Check if drawer is currently open
-            if (drawer.classList.contains('open')) {
-                // If open, close it
-                drawer.classList.remove('open');
-                drawerToggle.classList.remove('fa-angles-right');
-                drawerToggle.classList.add('fa-angles-left');
-            } else {
-                // If closed, open it
-                drawer.classList.add('open');
-                drawerToggle.classList.remove('fa-angles-left');
-                drawerToggle.classList.add('fa-angles-right');
-            }
-        });
-
-        function toggleDrawer() {
-            var drawer = document.getElementById('drawer');
-            var drawerToggle = document.getElementById('drawerToggle');
-            drawer.classList.toggle('open');
-            drawerToggle.classList.toggle('fa-angles-left');
-            drawerToggle.classList.toggle('fa-angles-right');
-        }
-    </script>
-
     <style>
         * {
 
@@ -632,54 +602,6 @@ if (!$result) {
             height: 50%;
         }
 
-
-        /*for collapsible drawer */
-        /* Custom styles for collapsible drawer */
-        #drawer.drawer.p-2 {
-            margin-top: 230px;
-
-        }
-
-        .drawer {
-            position: absolute;
-            right: 35px;
-            /* Adjusted position to move drawer closer to the middle */
-            transform: translateY(-1230px);
-            width: 600px;
-            height: 330px;
-            padding: 20px;
-            background-color: rgb(5, 68, 104);
-            /* Change this to your desired background color */
-            border-left: 1px solid #dee2e6;
-            /* Add border for separation */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            /* Add shadow for visual effect */
-            transition: right 0.3s ease;
-        }
-
-        .drawer.open {
-            right: 356px;
-
-        }
-
-        .toggle-drawer {
-            position: absolute;
-            top: 50%;
-            right: -52px;
-            /* Adjusted position to align with the content */
-            transform: translateY(-50%);
-            cursor: pointer;
-            background-color: rgb(5, 68, 104);
-            padding-left: 4px;
-            padding-right: 8px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            color: white;
-            font-size: 20px;
-            /* Adjust this value to change the size of the caret icon */
-        }
-
-
         /*FOR SYSTEM RESPONSIVE */
     </style>
 </head>
@@ -924,16 +846,7 @@ if (!$result) {
                     </table>
 
                 </div>
-                <!-- Collapsible Drawer -->
-
-                <div class="col-2 position-relative">
-                    <div class="drawer p-2" id="drawer">
-                        <i class="fa-solid fa-angles-left toggle-drawer" id="drawerToggle" onclick="toggleDrawer()"></i>
-                        <h4
-                            style="color:white; margin-top: 120px; margin-bottom: 100px; margin-left: 350px; margin-right: 30px;">
-                            Drawer Content</h4>
-                    </div>
-                </div>
+                
             </div>
         </div>
 

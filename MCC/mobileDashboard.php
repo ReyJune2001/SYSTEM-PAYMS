@@ -167,7 +167,7 @@ mysqli_close($con);
             }
 
             .xbox1 {
-                width: 379px;
+                width: 340px;
                 height: 280px;
                 margin-top: 20px;
                 margin-left: 10px;
@@ -188,7 +188,7 @@ mysqli_close($con);
             }
 
             .xbox3 {
-                width: 50%;
+                width: 47%;
                 height: 200px;
                 margin-top: 20px;
                 text-align: center;
@@ -222,30 +222,14 @@ mysqli_close($con);
                 /* Remove underline */
             }
 
-            .recent-activity-list {
-                border: 1px solid #ccc;
-                /* Border color */
-                padding: 10px;
-                /* Add some padding */
-
-            }
-
-            .acetaterecent-activity-list {
-                border: 1px solid #ccc;
-                
-
-            }
-
             li {
-                border: 1px solid black;
-                border-left: none;
-                border-right: none;
+                border: none;
             }
 
 
             .xbox4 {
                 width: 48%;
-                height: 100px;
+                height: 130px;
                 margin-top: 20px;
                 text-align: center;
                 border-radius: 20px;
@@ -254,8 +238,9 @@ mysqli_close($con);
                 margin-bottom: 20px;
             }
 
+
             .xbox5 {
-                width: 48%;
+                width: 47%;
                 height: 200px;
                 margin-top: 20px;
                 text-align: center;
@@ -296,7 +281,7 @@ mysqli_close($con);
                 /* Prevents the background image from repeating */
                 background-position: center;
                 /* Centers the background image */
-                background-size: 100px;
+                background-size: 145px;
                 background-color: white;
             }
 
@@ -372,11 +357,12 @@ mysqli_close($con);
         <div class="M-container">
             <div class="xbox1 box1">
                 <!-- Display the latest date in a hidden input field -->
-<input type="hidden" id="latest_date" value="<?php echo $latestDate; ?>">
-                <input type="date" id="latest_date_input" onchange="fetchChartData()"
-                    style="margin-top:20px; margin-left:112px;  text-align:center; width:40%;" class="form-control">
                 <label id="latest_date_label" for="latest_date">Latest Date:</label>
-                <div id="pie_chart" style="width: 375px; height: 150px; margin-left:px; margin-top:8px;"></div>
+
+                <input type="hidden" id="latest_date" value="<?php echo $latestDate; ?>">
+                <input type="date" id="latest_date_input" onchange="fetchChartData()"
+                    style="margin-top:10px; margin-left:102px;  text-align:center; width:40%;" class="form-control">
+                <div id="pie_chart" style="width: 340px; height: 150px; margin-left:px; margin-top:8px;"></div>
                 <a href="mobileAcetateEntry.php" style="text-decoration: none; color: inherit; width:80%;">
                     <button type="button" class="btn btn-success"
                         style="font-size:15px; margin-bottom: 40px; width:80%;">
@@ -410,10 +396,15 @@ mysqli_close($con);
 
             </div>-->
         </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <h6 class="text-center" style="font-size:20px; margin-top: 25px; color:white;">Recent activity</h6>
+            </div>
+        </div>
         <div class="M-container">
             <div class="xbox3 box3">
-                <h6 style="padding:5px; font-weight:bold;">Paint recent activity</h6>
-                <ul class="recent-activity-list" style="overflow-y: auto; max-height: 130px; ">
+
+                <ul style="overflow-y: auto; max-height: 188px; ">
                     <?php
                     include 'connect.php';
                     $sql = "SELECT entry.entryID, entry.date, paint.paint_color 
@@ -429,9 +420,9 @@ mysqli_close($con);
                         while ($selected = mysqli_fetch_assoc($result)) {
                             // Display an image before each entry
                             echo '<li>';
-                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
+                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:10px; margin-top:16px;">';
                             // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
-                            echo "<button><a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a></button>";
+                            echo "<button style='margin-top:16px;'><a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a></button>";
                             if (!empty($selected['paint_color'])) {
                                 echo "<br> {$selected['paint_color']}";
                             }
@@ -444,8 +435,8 @@ mysqli_close($con);
                 </ul>
             </div>
             <div class="xbox5 box5">
-                <h6 style="padding:5px; font-weight:bold;">Acetate recent activity</h6>
-                <ul class="acetaterecent-activity-list" style="overflow-y: auto; max-height: 130px; ">
+
+                <ul class="acetateRecentList" style="overflow-y: auto; max-height: 190px; ">
                     <?php
                     include 'connect.php';
                     $sql = "SELECT acetateReport.acetateReportID, acetateReport.Date, acetateReport.Remaining 
@@ -460,9 +451,9 @@ mysqli_close($con);
                         while ($selected = mysqli_fetch_assoc($result)) {
                             // Display an image before each entry
                             echo '<li>';
-                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:20px; margin-top:8px;">';
+                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:10px; margin-top:-3px;">';
                             // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
-                            echo "<h6 acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</h6>";
+                            echo "<h6 style='margin-top:18px;' acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</h6>";
                             if (!empty($selected['Remaining'])) {
                                 echo "Remaining: {$selected['Remaining']}";
                             }
@@ -493,90 +484,90 @@ mysqli_close($con);
                     $totalEntries = 0;
                 }
                 ?>
-                <h6>Total Entries</h6>
+                <h6 style="font-size:14px; margin-top:18px;">Total Entries</h6>
                 <input type="number"
-                    style="width:150px;height:20px;margin-top:px;text-align:center; font-weight:bold; background-color:;border:none;font-size:25px;"
+                    style="width:150px;height:25px;text-align:center; font-weight:bold; margin-bottom:px;border:none;font-size:25px;"
                     value="<?php echo $totalEntries; ?>" readonly>
-
                 <a href="mobileDataEntry.php" style="text-decoration: none; color: inherit; width: 80%;">
                     <button type="button" class="btn btn-success"
-                        style=" width: 45px; height:45px; border-radius:50px; margin-left:52px;">
-                        <i class="fas fa-plus" style="font-size: 30px;margin-left:-3px;"></i>
+                        style=" width: 60px; height:60px; border-radius:50px; margin-left:75px;">
+                        <i class="fas fa-plus" style="font-size: 40px;margin-left:-1px;"></i>
                         <!-- Correct Font Awesome class -->
                     </button>
                 </a>
+               
             </div>
 
     </main>
 
 
     <script>
-    // Retrieve the latest date from the hidden input field and display it in the label
-    var latestDate = document.getElementById('latest_date').value;
-    document.getElementById('latest_date_label').innerText = 'Latest Date: ' + latestDate;
+        // Retrieve the latest date from the hidden input field and display it in the label
+        var latestDate = document.getElementById('latest_date').value;
+        document.getElementById('latest_date_label').innerText = 'Latest Date: ' + latestDate;
 
-    // Function to fetch initial data when the page loads
-    $(document).ready(function() {
-        fetchLatestData();
-    });
-
-    function fetchLatestData() {
-        // Fetch data for the latest date
-        fetchChartData();
-    }
-
-    function fetchChartData() {
-        var selectedDate = document.getElementById('latest_date_input').value || document.getElementById('latest_date').value;
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(function () {
-            drawChart(selectedDate);
+        // Function to fetch initial data when the page loads
+        $(document).ready(function () {
+            fetchLatestData();
         });
-    }
 
-    function drawChart(selectedDate) {
-        // Fetch data from PHP using AJAX
-        $.ajax({
-            url: 'fetch_data.php',
-            dataType: 'json',
-            data: { date: selectedDate },
-            success: function (data) {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
+        function fetchLatestData() {
+            // Fetch data for the latest date
+            fetchChartData();
+        }
+
+        function fetchChartData() {
+            var selectedDate = document.getElementById('latest_date_input').value || document.getElementById('latest_date').value;
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(function () {
+                drawChart(selectedDate);
+            });
+        }
+
+        function drawChart(selectedDate) {
+            // Fetch data from PHP using AJAX
+            $.ajax({
+                url: 'fetch_data.php',
+                dataType: 'json',
+                data: { date: selectedDate },
+                success: function (data) {
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+                    // Create a DataTable object
+                    var dataTable = new google.visualization.DataTable();
+
+                    // Define columns
+                    dataTable.addColumn('string', 'Category');
+                    dataTable.addColumn('number', 'Value');
+
+                    // Add data rows
+                    dataTable.addRows([
+                        ['Beginning', parseFloat(data.Beginning)],
+                        ['Withdrawal', parseFloat(data.Withdrawal)],
+                        ['Product (P) Usage', parseFloat(data.ProductPUsage)],
+                        ['Cleaning', parseFloat(data.Cleaning)],
+                        ['Remaining', parseFloat(data.Remaining)]
+                    ]);
+
+                    // Set chart options
+                    var options = {
+                        title: 'Data Distribution for ' + selectedDate,
+                        is3D: true,
+                    };
+
+                    // Instantiate and draw the pie chart
+                    var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+                    chart.draw(dataTable, options);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(error);
                 }
-                // Create a DataTable object
-                var dataTable = new google.visualization.DataTable();
-
-                // Define columns
-                dataTable.addColumn('string', 'Category');
-                dataTable.addColumn('number', 'Value');
-
-                // Add data rows
-                dataTable.addRows([
-                    ['Beginning', parseFloat(data.Beginning)],
-                    ['Withdrawal', parseFloat(data.Withdrawal)],
-                    ['Product (P) Usage', parseFloat(data.ProductPUsage)],
-                    ['Cleaning', parseFloat(data.Cleaning)],
-                    ['Remaining', parseFloat(data.Remaining)]
-                ]);
-
-                // Set chart options
-                var options = {
-                    title: 'Data Distribution for ' + selectedDate,
-                    is3D: true,
-                };
-
-                // Instantiate and draw the pie chart
-                var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
-                chart.draw(dataTable, options);
-            },
-            error: function (xhr, status, error) {
-                // Handle error
-                console.error(error);
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
 
 
     <!-- FOR clickable image dropdown SCRIPT-->

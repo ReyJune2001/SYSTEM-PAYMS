@@ -3,7 +3,7 @@
 session_start();
 
 // Check if the user is not logged in or is not an admin or operator
-if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
+if (!isset($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
     header('Location: login.php'); // Redirect to the login page if not authenticated
     exit();
 }
@@ -32,7 +32,7 @@ LEFT JOIN tbl_user AS user ON acetateReport.userID = user.userID";
 $result = mysqli_query($con, $sql);
 
 if (!$result) {
-    die (mysqli_error($con));
+    die(mysqli_error($con));
 }
 ?>
 
@@ -871,8 +871,10 @@ if (!$result) {
                                 <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
                                 <span class="item">Monitoring</span>
                             </a>
+                        </li>
+                        <li>
                             <a href="acetateReport.php" class="active">
-                                <span class="icon"><i class="fa-solid fa-chart-column"></i></span>
+                                <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
                                 <span class="item">Acetate Report</span>
                             </a>
                         </li>
