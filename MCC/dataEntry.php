@@ -232,9 +232,9 @@ if (isset($_POST['submit'])) {
 
         .wrapper .sidebar .profile img {
             display: block;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
+            width: 230px;
+            height: 100px;
+            border-radius: 10px;
             margin: 0 auto;
         }
 
@@ -552,7 +552,7 @@ if (isset($_POST['submit'])) {
 
         .styleform {
             width: 25%;
-            height: 35px;
+            height: 20px;
             margin-bottom: 20px;
             border-color: #86;
             border-radius: 5px;
@@ -571,7 +571,7 @@ if (isset($_POST['submit'])) {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: 80%;
             /* Ensure the container fills the height of the modal body */
         }
 
@@ -671,7 +671,7 @@ if (isset($_POST['submit'])) {
             height: 180px;
             position: absolute;
             top: 45%;
-            left: 78%;
+            left: 1704px;
             transform: translate(-50%, -50%);
 
         }
@@ -695,7 +695,7 @@ if (isset($_POST['submit'])) {
         }
 
         .main1 {
-            background-color: gray;
+            background-color: #5755FE;
             padding: 2%;
             flex: 1 1 150px;
             margin-top: 20px;
@@ -708,17 +708,13 @@ if (isset($_POST['submit'])) {
         }
 
         header {
-            background-color: gray;
-            text-align: right;
-            padding-top: 10px;
-            padding-bottom: 40px;
-            color: white;
+            margin-top: 40px;
         }
 
         .left {
             display: flex;
             /* Use flexbox for the left column */
-            background-color: gray;
+            background-color: #5755FE;
             padding: 3em 0 3em 0;
             flex: 1 1 100px;
             margin-left: auto;
@@ -728,7 +724,7 @@ if (isset($_POST['submit'])) {
         }
 
         .right {
-            background-color: gray;
+            background-color: #5755FE;
             padding: 3em 0 3em 0;
             flex: 1 1 100px;
             margin-right: auto;
@@ -738,7 +734,7 @@ if (isset($_POST['submit'])) {
         }
 
         footer {
-            background-color: gray;
+            background-color: #5755FE;
             padding: 1em 0;
             display: flex;
             justify-content: center;
@@ -775,7 +771,7 @@ if (isset($_POST['submit'])) {
         }
 
         .xbox3 {
-            width: 50%;
+            width: 80%;
             height: 202px;
             padding: 10px;
             padding-left: 10px;
@@ -801,9 +797,13 @@ if (isset($_POST['submit'])) {
             margin-top: 20px;
             width: 100%;
             height: 500px;
-            text-align: center;
             border-radius: 20px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            /* Center contents horizontally */
+            align-items: center;
+            /* Center contents vertically */
         }
 
         .xbox6 {
@@ -834,11 +834,11 @@ if (isset($_POST['submit'])) {
         }
 
         .xbox9 {
-            width: 100%;
+            width: 80%;
             height: 202px;
-            padding: 10px;
+
             padding-left: 10px;
-            margin-right: 18px;
+
             padding-top: 10px;
             padding-bottom: 10px;
             text-align: center;
@@ -846,8 +846,19 @@ if (isset($_POST['submit'])) {
 
         }
 
+        .xbox-container {
+            display: flex;
+        }
+
+        .xbox-container>div {
+            border-radius: 20px;
+            text-align: center;
+            padding: 10px;
+        }
+
         .box1 {
             background-color: white;
+            color: black;
         }
 
         canvas#yearlyChart {
@@ -867,10 +878,12 @@ if (isset($_POST['submit'])) {
             /* Centers the background image */
             background-size: 100px;
             background-color: white;
+            color: black;
         }
 
         .box3 {
             background-color: white;
+            color: black;
 
         }
 
@@ -880,7 +893,7 @@ if (isset($_POST['submit'])) {
         }
 
         .box5 {
-            background-color: white;
+            background-color: #ACE2E1;
 
         }
 
@@ -900,7 +913,7 @@ if (isset($_POST['submit'])) {
         }
 
         .box9 {
-            background-image: url('IMAGES/morningbackground.jpg');
+            background-image: url('IMAGES/background.jpg');
             /* Replace 'path/to/your/image.jpg' with the actual path to your image */
             background-size: cover;
             /* Ensures the background image covers the entire box */
@@ -936,14 +949,7 @@ if (isset($_POST['submit'])) {
             margin-top: 10px;
         }
 
-        .xbox-container {
-            display: flex;
-        }
 
-        .xbox-container>div {
-            flex: 1;
-
-        }
 
         .morning {
             font-family: "Pattaya", sans-serif;
@@ -951,16 +957,19 @@ if (isset($_POST['submit'])) {
         }
 
 
-        .item {
+        .item1 {
 
             width: 100%;
             /* Set width for each item */
             height: 100%;
             /* Set height for each item */
-
+            margin-left:60px ;
+            margin-top: 10px;
+            
         }
 
         #piechart {
+           
             width: 100%;
             height: 100%;
 
@@ -1085,120 +1094,105 @@ if (isset($_POST['submit'])) {
             <!--MAIN CONTENT-->
 
             <div class="main1">
-                <header style="text-align:center; font-size:40px; font-weight:bold;">Paint - Acetate Yield Monitoring
-                    System</header>
-                <div class="main2">
-                    <aside class="left">
-                        <div class="xbox-container">
-                            <div class="xbox1 box1">
-                                <h5 style="">Total Drum Painted</h5>
-                                <label style="margin-left:2%;">From month:</label>
-                                <input type="month" style="text-align: center;" class="filterfieldMonth" id="fromMonth"
-                                    name="fromMonth" autocomplete="off">
-                                <br>
-                                <label style="margin-left:20px;">To month:</label>
-                                <input type="month" style="text-align: center;" class="filterfieldMonth" id="toMonth"
-                                    name="toMonth" autocomplete="off">
-                                <br>
-                                <input type="number"
-                                    style="width:240px; height:50px; margin-top:20px; text-align:center; border:none; font-weight:bold; font-size:30px;"
-                                    id="totalDrumOutput" readonly>
-                            </div>
+                <h1
+                    style="text-align:center; font-size:40px; background-color:#6AD4DD; padding:10px; font-weight:bold;">
+                    Paint and Acetate Yield Monitoring
+                    System</h1>
+                <header>
+                    <div class="xbox-container">
 
-                            <div class="xbox2 box2">
-                                <?php
-                                include 'connect.php';
-                                $sql = "SELECT COUNT(*) AS totalEntries
+                        <div class="xbox1 box1">
+                            <h5 style="">Total Drum Painted</h5>
+                            <label style="margin-left:2%;">From month:</label>
+                            <input type="month" style="text-align: center;" class="filterfieldMonth" id="fromMonth"
+                                name="fromMonth" autocomplete="off">
+                            <br>
+                            <label style="margin-left:20px;">To month:</label>
+                            <input type="month" style="text-align: center;" class="filterfieldMonth" id="toMonth"
+                                name="toMonth" autocomplete="off">
+                            <br>
+                            <input type="number"
+                                style="width:240px; height:50px; margin-top:20px; text-align:center; border:none; font-weight:bold; font-size:30px;"
+                                id="totalDrumOutput" readonly>
+                        </div>
+
+                        <div class="xbox2 box2">
+                            <?php
+                            include 'connect.php';
+                            $sql = "SELECT COUNT(*) AS totalEntries
                 FROM tbl_entry AS entry
                 INNER JOIN tbl_user AS user ON entry.userID = user.userID
                 WHERE user.Username = 'Admin'";
-                                $result = mysqli_query($con, $sql);
+                            $result = mysqli_query($con, $sql);
 
-                                // Check if there are any results
-                                if ($result && mysqli_num_rows($result) > 0) {
-                                    $row = mysqli_fetch_assoc($result);
-                                    $totalEntries = $row['totalEntries'];
-                                } else {
-                                    $totalEntries = 0;
-                                }
-                                ?>
-                                <h5 style="">Data Entry</h5>
-                                <button type="button" class="btn btn-primary"
-                                    style="height:45px; width:45px; border-radius:50px; margin-top:61px; margin-left:51px;"
-                                    id="dataentry">
-                                    <i class="fa-solid fa-plus" style="font-size:30px; margin-left:-4px;"></i></button>
-                                <h6>Total Entries:</h6>
-                                <input type="number"
-                                    style=" width:150px;height:20px;text-align:center; font-weight:bold; background-color:; border:none; font-size:28px;"
-                                    value="<?php echo $totalEntries; ?>" readonly>
+                            // Check if there are any results
+                            if ($result && mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
+                                $totalEntries = $row['totalEntries'];
+                            } else {
+                                $totalEntries = 0;
+                            }
+                            ?>
+                            <h5 style="">Data Entry</h5>
+                            <button type="button" class="btn btn-primary"
+                                style="height:45px; width:45px; border-radius:50px; margin-top:61px; margin-left:51px;"
+                                id="dataentry">
+                                <i class="fa-solid fa-plus" style="font-size:30px; margin-left:-4px;"></i></button>
+                            <h6>Total Entries:</h6>
+                            <input type="number"
+                                style=" width:150px;height:20px;text-align:center; font-weight:bold; background-color:; border:none; font-size:28px;"
+                                value="<?php echo $totalEntries; ?>" readonly>
 
+                        </div>
+                        <div class="xbox3 box3">
+                            <label style="margin-left:11%; font-size:20px;">Select Paint color: </label>
+                            <select id="paintColorSelect" class="filterfield"
+                                style="width:58%; font-size:20px; text-align:center; margin-bottom:10px; height:20%; border-color:black;">
+                                <option value="">Select Paint color</option>
+                                <!-- Add options dynamically from database if needed -->
+
+                                <option value="Royal Blue">Royal Blue</option>
+                                <option value="Buff">Buff</option>
+                                <option value="Deft Blue">Deft Blue</option>
+                                <option value="Golden Brown">Golden Brown</option>
+                                <option value="Clear">Clear</option>
+                                <option value="White">White</option>
+                                <option value="Black">Black</option>
+                                <option value="Alpha Gray">Alpha Gray</option>
+                                <option value="Nile Green">Nile Green</option>
+                                <option value="Emerald Green">Emerald Green</option>
+                                <option value="Jade Green">Jade Green</option>
+                                <option value="Pulsating Blue">Pulsating Blue</option>
+
+                                <!-- Add more options as needed -->
+                            </select>
+
+                            <div class="table-wrapper" style="max-height: 145px; overflow-y: auto;">
+                                <table id="yieldTable" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="border:none;"></th>
+                                            <th colspan="2"
+                                                style="text-align: center; font-size:30px; height:50px; border: 1px solid black;">
+                                                Yield</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: 1px solid black; font-size:20px; height:30px;">Paint
+                                                color</th>
+                                            <th
+                                                style="border: 1px solid black; font-size:20px; height:30px; width:152px;">
+                                                Paint</th>
+                                            <th style="border: 1px solid black; font-size:20px; height:30px;">Acetate
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border: 1px solid black; font-size:20px; height:30px;">
+                                        <!-- This tbody section will be populated dynamically -->
+                                    </tbody>
+                                </table>
                             </div>
-
-                            <div class="xbox3 box3">
-                                <h5 style="margin-left:70px; margin-bottom:18px;">Yield</h5>
-                                <div class="table-wrapper" style="max-height: 145px; overflow-y: auto;">
-                                    <table style="width:100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Paint color</th>
-                                                <th>Paint</th>
-                                                <th>Acetate</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            include 'connect.php';
-
-                                            $sql = "SELECT 
-                                                 paint.paint_color,
-                                                SUM(entry.paintYield) AS total_paint_yield,
-                                                SUM(entry.acetateYield) AS total_acetate_yield
-                                            FROM tbl_entry AS entry
-                                            LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
-                                            GROUP BY paint.paint_color
-                                            ORDER BY total_paint_yield DESC, total_acetate_yield DESC";
-                                            $result = mysqli_query($con, $sql);
-
-                                            // Check if there are any results
-                                            if (mysqli_num_rows($result) > 0) {
-                                                // Output data of each row
-                                                while ($selected = mysqli_fetch_assoc($result)) {
-                                                    echo '<tr>';
-                                                    echo '<td>' . $selected['paint_color'] . '</td>';
-                                                    echo '<td>' . $selected['total_paint_yield'] . '</td>';
-                                                    echo '<td>' . $selected['total_acetate_yield'] . '</td>';
-                                                    echo '</tr>';
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='3'>No data found</td></tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
 
-                        <div class="xbox4 box4">
-                            <h4>Daily Report</h4>
-                            <label style="margin-left:2%; margin-top:20px;">From date:</label>
-                            <input type="date" style="text-align: center;" class="filterfield" id="min" name="min"
-                                autocomplete="off">
-                            <label style="margin-left:3%;">To date:</label>
-                            <input type="date" style="text-align: center;" class="filterfield" id="max" name="max"
-                                autocomplete="off">
-                            <canvas id="areaChart" style="height:78%; width:100%;"></canvas>
-                        </div>
-                        <div class="xbox6 box6">
-                            <h4>Weekly Report</h4>
-                            <label style="margin-left:2%;">Select Month to show Weekly data:</label>
-                            <input type="month" style="text-align: center;" class="filterfield" id="selectedMonth"
-                                name="selectedMonth" autocomplete="off" required>
-                            <canvas id="weeklyChart" style="height:80%; width:100%;"></canvas>
-                        </div>
-
-                    </aside>
-                    <aside class="right">
                         <div class="xbox9 box9" style="text-align: center;">
                             <h1 style="margin-bottom:10px; margin-top:20px; font-weight:bold; font-size:30px;">Good
                                 Morning,
@@ -1223,10 +1217,36 @@ if (isset($_POST['submit'])) {
                             </h2>
 
                         </div>
+                    </div>
+                </header>
+                <div class="main2">
+
+                    <aside class="left">
+
+                        <div class="xbox4 box4">
+                            <h4>Daily Report</h4>
+                            <label style="margin-left:2%; margin-top:20px;">From date:</label>
+                            <input type="date" style="text-align: center;" class="filterfield" id="min" name="min"
+                                autocomplete="off">
+                            <label style="margin-left:3%;">To date:</label>
+                            <input type="date" style="text-align: center;" class="filterfield" id="max" name="max"
+                                autocomplete="off">
+                            <canvas id="areaChart" style="height:78%; width:100%;"></canvas>
+                        </div>
+                        <div class="xbox6 box6">
+                            <h4>Weekly Report</h4>
+                            <label style="margin-left:2%;">Select Month to show Weekly data:</label>
+                            <input type="month" style="text-align: center;" class="filterfield" id="selectedMonth"
+                                name="selectedMonth" autocomplete="off" required>
+                            <canvas id="weeklyChart" style="height:80%; width:100%;"></canvas>
+                        </div>
+
+                    </aside>
+                    <aside class="right">
 
                         <div class="xbox5 box5">
                             <!-- FOR PIE CHART -->
-                            <div class="item" style="padding:10px;">
+                            <div class="item1" style="padding:10px;  padding-right:60px;">
                                 <div id="piechart"></div>
                             </div>
                         </div>
@@ -1311,11 +1331,13 @@ if (isset($_POST['submit'])) {
                                                                         echo 'selected'; ?>>Alpha Gray</option>
                                                                     <option value="Nile Green" <?php if ($paint_color == 'Nile Green')
                                                                         echo 'selected'; ?>>Nile Green</option>
-                                                                    <option value="Emirald Green" <?php if ($paint_color == 'Emirald Green')
-                                                                        echo 'selected'; ?>>Emirald Green
+                                                                    <option value="Emerald Green" <?php if ($paint_color == 'Emirald Green')
+                                                                        echo 'selected'; ?>>Emerald Green
                                                                     </option>
                                                                     <option value="Jade Green" <?php if ($paint_color == 'Jade Green')
                                                                         echo 'selected'; ?>>Jade Green</option>
+                                                                    <option value="Pulsating Blue" <?php if ($paint_color == 'Pulsating Blue')
+                                                                        echo 'selected'; ?>>Pulsating Blue</option>
                                                                 </select>
                                                                 <label for="floatingPaintColor">Paint Color:</label>
                                                             </div>
@@ -1411,7 +1433,7 @@ if (isset($_POST['submit'])) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <br>
+
                                                     <hr style="border-top: 5px solid black;">
                                                     <div class="ending">
                                                         <button type="button" class="btn btn-primary"
@@ -1424,7 +1446,7 @@ if (isset($_POST['submit'])) {
                                                     <!-- "Ending Inventory" section -->
                                                     <div class="collapse" id="collapseEndingInventory">
                                                         <div class="card card-body"
-                                                            style="background-color:#87ceeb; border:none;">
+                                                            style="background-color:#87ceeb; padding-bottom:0px; border:none;">
                                                             <div class="row"> <!-- Row for the input fields -->
                                                                 <div
                                                                     class="col-md-3 d-flex justify-content-center align-items-center">
@@ -1674,7 +1696,7 @@ if (isset($_POST['submit'])) {
                 <!--profile image & text-->
                 <div class="profile">
                     <img src="IMAGES/logo.jpg" alt="profile_picture">
-                    <h3>Mindanao Container Corporation</h3>
+                    <h6 style="font-size:20px; margin-top:30px; color:white;">Mindanao Container Corporation</h6>
                     <!--<p>purok-8,Villanueva,Mis or.</p> -->
                 </div>
                 <!--menu item-->
@@ -1752,6 +1774,29 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
+
+            <!--FOR FILTER BY COLOR-->
+            <script>
+                // Function to filter data based on selected paint color
+                function filterByColor() {
+                    var paintColor = document.getElementById("paintColorSelect").value.trim().toLowerCase();
+
+                    // AJAX call to fetch data based on selected paint color
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("yieldTable").getElementsByTagName("tbody")[0].innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", "filter_by_color.php?color=" + paintColor, true);
+                    xhttp.send();
+                }
+
+                // Attach the filterByColor function to the select element's onchange event
+                document.getElementById("paintColorSelect").addEventListener("change", filterByColor);
+            </script>
+
+
             <!-- Error Handling and Real-Time Data Calculation Script -->
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -1760,14 +1805,7 @@ if (isset($_POST['submit'])) {
                         document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYieldAndValidate);
                     });
 
-                    // Add event listener to the form submission
-                    document.querySelector('form').addEventListener('submit', function (event) {
-                        // Validate paint yield before form submission
-                        if (!validatePaintYield()) {
-                            event.preventDefault(); // Prevent form submission
-                            alert('The standard of Paint Yield should be at least 4.0 above!'); // Show error message
-                        }
-                    });
+
                 });
 
                 function updateYieldAndValidate() {
@@ -2096,7 +2134,7 @@ if (isset($_POST['submit'])) {
 
             <!--FOR PIE CHART-->
             <script type="text/javascript">
-                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.load('current', { 'packages':                 ['corechart'] });
                 google.charts.setOnLoadCallback(drawCharts);
 
                 function drawCharts() {
@@ -2126,9 +2164,42 @@ if (isset($_POST['submit'])) {
                         <?php endforeach; ?>
                     ]);
 
-                    var options = {
-                        title: 'Total usage of Paint Color by liter'
+                    var colors = {
+                        'Royal Blue': '#063970',
+                        'Pulsating Blue': '#01acfb',
+                        'Deft Blue': '#416D8C',
+                        'Nile Green': '#76a85c',
+                        'Black': 'black',
+                        'Emerald Green': '#004d24',
+                        'Jade Green': '#00A36C',
+                        'White': 'white',
+                        'Alpha Gray': '#71797E',
+                        'Clear': '#faf1d7',
+                        'Golden Brown': '#b08202',
+                        'Buff': '#e2cc82'
+                        // Add more color mappings as needed
                     };
+
+                    var options = {
+                        title: 'Paint usage Distribution per color',
+                        titleTextStyle: { fontSize: 20, textAlign: 'center', titlePosition: 'center', marginBottom: 20 }, // Adjust title font size, alignment, and margin bottom
+                        slices: {},
+                        pieSliceText: 'percentage', // Display percentage in pie slices
+                        legend: { position: 'right' }, // Show legend on the right side
+                        legendTextStyle: { color: 'black', fontSize: 16 }, // Adjust legend text color and size
+                        pieSliceTextStyle: { color: 'black', fontSize: 14 }, // Adjust pie slice text size
+                        chartArea: { width: '100%', height: '90%' }, // Adjust pie chart dimensions
+                        backgroundColor: '#ACE2E1', // Set background color
+                        pieSliceText: 'value-and-percentage', // Display value and percentage
+                        pieSliceTextStyle: { fontSize: 14 } // Adjust pie slice text size
+                    };
+
+                    for (var i = 0; i < data.getNumberOfRows(); i++) {
+                        var paintColor = data.getValue(i, 0);
+                        var paintLiters = data.getValue(i, 1);
+                        options.slices[i] = { color: colors[paintColor] };
+                        options.slices[i].label = paintColor + ': ' + paintLiters.toFixed(2) + ' Liters'; // Add paint color and liters to legend
+                    }
 
                     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 

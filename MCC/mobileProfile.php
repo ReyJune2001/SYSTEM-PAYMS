@@ -3,7 +3,7 @@
 session_start();
 
 // Check if the user is not logged in or is not an admin or operator
-if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
+if (!isset($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
     header('Location:mobileLogin.php'); // Redirect to the login page if not authenticated
     exit();
 }
@@ -26,7 +26,7 @@ $Address = $row['Address'];
 $Profile_image = $row['Profile_image'];
 
 /* TO ADD AND UPDATE THE DATA FROM DATABASE */
-if (isset ($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $Name = $_POST['update_name'];
     $Contact = $_POST['update_contact'];
     $Username = $_POST['update_username'];
@@ -40,11 +40,11 @@ if (isset ($_POST['submit'])) {
     $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
     $update_image_folder = 'uploaded_image/' . $update_image;
 
-    if (!empty ($update_image)) {
+    if (!empty($update_image)) {
         if ($update_image_size > 2000000) {
             $message[] = 'Image is too large';
         } else {
-            $image_update_query = mysqli_query($con, "UPDATE `tbl_user` SET Profile_image = '$update_image' WHERE userID = '$id'") or die ('Query failed');
+            $image_update_query = mysqli_query($con, "UPDATE `tbl_user` SET Profile_image = '$update_image' WHERE userID = '$id'") or die('Query failed');
             if ($image_update_query) {
                 move_uploaded_file($update_image_tmp_name, $update_image_folder);
             }
@@ -58,7 +58,7 @@ if (isset ($_POST['submit'])) {
     if ($result) {
         $updateSuccess = true;
     } else {
-        die (mysqli_error($con));
+        die(mysqli_error($con));
     }
 }
 ?>
@@ -243,14 +243,14 @@ if (isset ($_POST['submit'])) {
             /*FOR UPDATE SUCCESSFUL */
             /* Customize modal styles */
             .custom-modal .modal-content {
-                background-color:  #2eae3d;
+                background-color: #2eae3d;
                 /* Background color */
                 color: #fff;
                 /* Text  color */
             }
 
             .custom-modal .modal-header {
-                border-bottom: 1px solid  #2eae3d;
+                border-bottom: 1px solid #2eae3d;
                 /* Border color for the header */
             }
 
@@ -261,7 +261,7 @@ if (isset ($_POST['submit'])) {
             }
 
             .custom-modal .modal-footer {
-                border-top: 1px solid  #2eae3d;
+                border-top: 1px solid #2eae3d;
                 /* Border color for the footer */
             }
 
@@ -282,6 +282,7 @@ if (isset ($_POST['submit'])) {
                 <option value="admin">
                     <?php echo $Username; ?>
                 </option>
+                <option value="recent_activity">Recent Activity</option>
                 <option value="logout">Logout</option>
             </select>
         </div>
@@ -320,7 +321,7 @@ if (isset ($_POST['submit'])) {
                             <label for="update_username">Username:</label>
                             <input type="text" id="update_username" name="update_username"
                                 style="text-align: center; margin-left:14px;" autocomplete="off"
-                                value="<?php echo $Username; ?>"readonly>
+                                value="<?php echo $Username; ?>" readonly>
                         </div>
                         <div class="form-group">
                             <label for="update_password">Password:</label>
@@ -349,8 +350,8 @@ if (isset ($_POST['submit'])) {
                         <br>
                         <button type="submit" id="update" name="submit" class="btn btn-primary"
                             style="font-size:15px; margin-bottom:5px;">Save Changes</button><br>
-                            <a href="mobileDashboard.php"><button type="button" class="btn btn-danger"
-                                    style="font-size:15px; margin-bottom:5px; width:110px;">Back</button></a>
+                        <a href="mobileDashboard.php"><button type="button" class="btn btn-danger"
+                                style="font-size:15px; margin-bottom:5px; width:120px;">Back</button></a>
                     </fieldset>
                 </form>
 
@@ -376,19 +377,23 @@ if (isset ($_POST['submit'])) {
         </div>
     </div>
 
-    <!-- FOR clickable image dropdown -->
+    <!-- FOR clickable image dropdown SCRIPT-->
     <script>
         function handleDropdownChange(select) {
             var selectedValue = select.value;
 
-            if (selectedValue === "logout") {
+           if (selectedValue === "recent_activity") {
+                // Redirect to the logout page
+                window.location.href = "recentActivity.php"; // Change the URL accordingly
+            }
+            else if (selectedValue === "mobileLogout") {
                 // Redirect to the logout page
                 window.location.href = "mobileLogout.php"; // Change the URL accordingly
             }
         }
     </script>
     <!-- Check if the update was successful and trigger the modal -->
-    <?php if (isset ($updateSuccess) && $updateSuccess): ?>
+    <?php if (isset($updateSuccess) && $updateSuccess): ?>
         <script>
             $(document).ready(function () {
                 $('#updateSuccessModal').modal('show');

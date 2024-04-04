@@ -168,108 +168,29 @@ mysqli_close($con);
 
             .xbox1 {
                 width: 340px;
-                height: 280px;
+                height: 350px;
                 margin-top: 20px;
                 margin-left: 10px;
                 text-align: center;
-                border-radius: 20px;
+                border-radius: 15px;
                 margin-right: 5px;
-            }
-
-            .xbox2 {
-                width: 48%;
-                height: 300px;
-                text-align: center;
-                border-radius: 20px;
-                margin-right: 11px;
-                margin-top: 20px;
-
-
-            }
-
-            .xbox3 {
-                width: 47%;
-                height: 200px;
-                margin-top: 20px;
-                text-align: center;
-                border-radius: 20px;
-                margin-left: 10px;
-            }
-
-            /* CSS to remove bullets from ul and remove underline from anchor elements */
-            .xbox3 ul {
-                list-style-type: none;
-                /* Remove bullets */
-                padding: 0;
-                /* Remove default padding */
-            }
-
-            .xbox3 ul li a {
-                text-decoration: none;
-
-                /* Remove underline */
-            }
-
-            .xbox5 ul {
-                list-style-type: none;
-                /* Remove bullets */
-                padding: 0;
-                /* Remove default padding */
-            }
-
-            .xbox5 ul li a {
-                text-decoration: none;
-                /* Remove underline */
-            }
-
-            li {
-                border: none;
             }
 
 
             .xbox4 {
-                width: 48%;
-                height: 130px;
-                margin-top: 20px;
+                width: 340px;
+                height: 140px;
                 text-align: center;
                 border-radius: 20px;
-                margin-left: 100px;
-                margin-right: 11px;
+                margin-left: 10px;
+               
                 margin-bottom: 20px;
-            }
-
-
-            .xbox5 {
-                width: 47%;
-                height: 200px;
-                margin-top: 20px;
-                text-align: center;
-                border-radius: 20px;
-                margin-left: 5px;
-                margin-right: 11px;
             }
 
             .box1 {
                 background-color: white;
             }
 
-
-            .box2 {
-                background-image: url('IMAGES/naturemorning.jpg');
-                /* Replace 'path/to/your/image.jpg' with the actual path to your image */
-                background-size: cover;
-                /* Ensures the background image covers the entire box */
-                background-repeat: no-repeat;
-                /* Prevents the background image from repeating */
-                background-position: center;
-                /* Centers the background image */
-
-                background-color: white;
-            }
-
-            .box3 {
-                background-color: white;
-            }
 
             .box4 {
 
@@ -281,13 +202,11 @@ mysqli_close($con);
                 /* Prevents the background image from repeating */
                 background-position: center;
                 /* Centers the background image */
-                background-size: 145px;
+                background-size: 140px;
                 background-color: white;
             }
 
-            .box5 {
-                background-color: white;
-            }
+
 
             .button-container {
                 display: flex;
@@ -329,6 +248,13 @@ mysqli_close($con);
                 margin-right: 5px;
             }
 
+            #pie_chart {
+                width: 100%;
+                /* Adjust width as needed */
+                height: 100%;
+                /* Adjust height as needed */
+                /* Add any additional styling here */
+            }
 
 
         }
@@ -347,7 +273,8 @@ mysqli_close($con);
                 <option value="admin">
                     <?php echo $Username; ?>
                 </option>
-                <option value="edit_profile">&nbsp;Edit Profile&nbsp;</option>
+                <option value="edit_profile">Edit Profile</option>
+                <option value="recent_activity">Recent Activity</option>
                 <option value="mobileLogout">Logout</option>
             </select>
         </div>
@@ -362,110 +289,21 @@ mysqli_close($con);
                 <input type="hidden" id="latest_date" value="<?php echo $latestDate; ?>">
                 <input type="date" id="latest_date_input" onchange="fetchChartData()"
                     style="margin-top:10px; margin-left:102px;  text-align:center; width:40%;" class="form-control">
-                <div id="pie_chart" style="width: 340px; height: 150px; margin-left:px; margin-top:8px;"></div>
+                <div id="pie_chart" style="width: 340px; height: 250px; margin-top:30px;"></div>
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col text-center"> <!-- Added text-center class -->
                 <a href="mobileAcetateEntry.php" style="text-decoration: none; color: inherit; width:80%;">
                     <button type="button" class="btn btn-success"
-                        style="font-size:15px; margin-bottom: 40px; width:80%;">
+                        style="font-size:15px; margin-bottom: 20px;margin-top: 20px; width:80%;">
                         Acetate Report Entry
                     </button>
                 </a>
-
-            </div>
-            <!--
-            <div class="xbox2 box2">
-                <h1 class="morning" style="margin-bottom:10px;">Good Morning, <br><span
-                        style="font-size:25px;font-weight: bold; text">
-                        php echo $Username; ?>
-                    </span></h1> 
-                Date 
-
-                <h2 style="font-size:10px;">
-                    ?php echo date("l, F j, Y"); ?>
-                </h2>
-                FOR CLOCK--
-
-                <div class="clock">
-                    <span id="hrs"></span>
-                    <span class="margin">:</span>
-                    <span id="minutes"></span>
-                    <span class="margin">:</span>
-                    <span id="sec"></span>
-                    <span id="ampm"></span>
-
-                </div>
-
-            </div>-->
-        </div>
-        <div class="row justify-content-center">
-            <div class="col">
-                <h6 class="text-center" style="font-size:20px; margin-top: 25px; color:white;">Recent activity</h6>
             </div>
         </div>
-        <div class="M-container">
-            <div class="xbox3 box3">
 
-                <ul style="overflow-y: auto; max-height: 188px; ">
-                    <?php
-                    include 'connect.php';
-                    $sql = "SELECT entry.entryID, entry.date, paint.paint_color 
-                            FROM tbl_entry AS entry 
-                            LEFT JOIN tbl_paint AS paint ON entry.paintID = paint.paintID
-                            WHERE entry.userID IN (SELECT userID FROM tbl_user WHERE Username = 'Operator')
-                            ORDER BY entry.date DESC";
-                    $result = mysqli_query($con, $sql);
-
-                    // Check if there are any results
-                    if (mysqli_num_rows($result) > 0) {
-                        // Output data of each row
-                        while ($selected = mysqli_fetch_assoc($result)) {
-                            // Display an image before each entry
-                            echo '<li>';
-                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:10px; margin-top:16px;">';
-                            // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
-                            echo "<button style='margin-top:16px;'><a href='mobileUpdate.php?entryID={$selected['entryID']}'>{$selected['date']}</a></button>";
-                            if (!empty($selected['paint_color'])) {
-                                echo "<br> {$selected['paint_color']}";
-                            }
-                            echo '</li>';
-                        }
-                    } else {
-                        echo "<li>No recent activity</li>";
-                    }
-                    ?>
-                </ul>
-            </div>
-            <div class="xbox5 box5">
-
-                <ul class="acetateRecentList" style="overflow-y: auto; max-height: 190px; ">
-                    <?php
-                    include 'connect.php';
-                    $sql = "SELECT acetateReport.acetateReportID, acetateReport.Date, acetateReport.Remaining 
-                            FROM tbl_acetatereport AS acetateReport 
-                            WHERE acetateReport.userID IN (SELECT userID FROM tbl_user WHERE Username = 'Operator')
-                            ORDER BY acetateReport.Date DESC";
-                    $result = mysqli_query($con, $sql);
-
-                    // Check if there are any results
-                    if (mysqli_num_rows($result) > 0) {
-                        // Output data of each row
-                        while ($selected = mysqli_fetch_assoc($result)) {
-                            // Display an image before each entry
-                            echo '<li>';
-                            echo '<img src="IMAGES/check.png" alt="Image" style="width: 30px; height: 30px; float: left; margin-left:10px; margin-top:-3px;">';
-                            // Display each date and paint color as a link to mobileUpdate.php with date as query parameter
-                            echo "<h6 style='margin-top:18px;' acetateReportID={$selected['acetateReportID']}'>{$selected['Date']}</h6>";
-                            if (!empty($selected['Remaining'])) {
-                                echo "Remaining: {$selected['Remaining']}";
-                            }
-                            echo '</li>';
-                        }
-                    } else {
-                        echo "<li>No recent activity</li>";
-                    }
-                    ?>
-                </ul>
-            </div>
-        </div>
         <div class="M-container">
             <div class="xbox4 box4">
                 <?php
@@ -484,18 +322,18 @@ mysqli_close($con);
                     $totalEntries = 0;
                 }
                 ?>
-                <h6 style="font-size:14px; margin-top:18px;">Total Entries</h6>
+                <h6 style="font-size:16px; margin-top:22px;">Total Entries</h6>
                 <input type="number"
-                    style="width:150px;height:25px;text-align:center; font-weight:bold; margin-bottom:px;border:none;font-size:25px;"
+                    style="width:100px;height:50px;text-align:center; background-color:; font-weight:bold; margin-right:60px; margin-bottom:20px;border:none;font-size:35px;"
                     value="<?php echo $totalEntries; ?>" readonly>
                 <a href="mobileDataEntry.php" style="text-decoration: none; color: inherit; width: 80%;">
-                    <button type="button" class="btn btn-success"
-                        style=" width: 60px; height:60px; border-radius:50px; margin-left:75px;">
+                    <button type="button" class="btn btn-primary"
+                        style=" width: 62px; height:62px; border-radius:50px; margin-top:24px; margin-right:92px;">
                         <i class="fas fa-plus" style="font-size: 40px;margin-left:-1px;"></i>
                         <!-- Correct Font Awesome class -->
                     </button>
                 </a>
-               
+
             </div>
 
     </main>
@@ -555,6 +393,16 @@ mysqli_close($con);
                     var options = {
                         title: 'Data Distribution for ' + selectedDate,
                         is3D: true,
+                        titleTextStyle: { fontSize: 12, textAlign: 'center', titlePosition: 'center', marginBottom: 20 }, // Adjust title font size, alignment, and margin bottom
+                        slices: {},
+                        pieSliceText: 'percentage', // Display percentage in pie slices
+                        legend: { position: 'right' }, // Show legend on the right side
+                        legendTextStyle: { color: 'black', fontSize: 16 }, // Adjust legend text color and size
+                        pieSliceTextStyle: { color: 'black', fontSize: 14 }, // Adjust pie slice text size
+                        chartArea: { width: '90%', height: '75%' }, // Adjust pie chart dimensions
+                        backgroundColor: '', // Set background color
+                        pieSliceText: 'value-and-percentage', // Display value and percentage
+                        pieSliceTextStyle: { fontSize: 14 } // Adjust pie slice text size
                     };
 
                     // Instantiate and draw the pie chart
@@ -578,38 +426,17 @@ mysqli_close($con);
             if (selectedValue === "edit_profile") {
                 // Redirect to the edit profile page
                 window.location.href = "mobileProfile.php"; // Change the URL accordingly
-            } else if (selectedValue === "mobileLogout") {
+            } else if (selectedValue === "recent_activity") {
+                // Redirect to the logout page
+                window.location.href = "recentActivity.php"; // Change the URL accordingly
+            }
+            else if (selectedValue === "mobileLogout") {
                 // Redirect to the logout page
                 window.location.href = "mobileLogout.php"; // Change the URL accordingly
             }
         }
     </script>
 
-    <!--FOR CLOCK SCRIPT-->
-    <script>
-        let hrs = document.getElementById("hrs");
-        let minutes = document.getElementById("minutes");
-        let sec = document.getElementById("sec");
-        let ampm = document.getElementById("ampm");
-
-        setInterval(() => {
-            let currentTime = new Date();
-            let hours = currentTime.getHours();
-            let period = "AM";
-
-            if (hours >= 12) {
-                period = "PM";
-                if (hours > 12) {
-                    hours -= 12;
-                }
-            }
-
-            hrs.innerHTML = (hours < 10 ? "0" : '') + hours;
-            minutes.innerHTML = (currentTime.getMinutes() < 10 ? "0" : '') + currentTime.getMinutes();
-            sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : '') + currentTime.getSeconds();
-            ampm.innerHTML = period;
-        }, 1000)
-    </script>
 </body>
 
 </html>

@@ -333,11 +333,11 @@ if (isset ($_POST['add'])) {
             #image {
                 width: 45px;
                 height: 45px;
-                margin-left: 48px;
+                margin-left: 44px;
             }
 
             .header {
-                margin-left: 120px;
+                margin-left: 112px;
 
             }
 
@@ -522,6 +522,26 @@ if (isset ($_POST['add'])) {
                 border-top: 1px solid  #2eae3d;
                 /* Border color for the footer */
             }
+                 /* Define animation keyframes for sparkling effect */
+        @keyframes sparkling {
+            0% {
+                background-color: red;
+            }
+
+            50% {
+                background-color: white;
+            }
+
+            100% {
+                background-color: red;
+            }
+        }
+
+        /* Apply animation to error class */
+        .error {
+            animation: sparkling 1s ease infinite;
+            /* Apply sparkling animation */
+        }
 
         }
     </style>
@@ -533,13 +553,14 @@ if (isset ($_POST['add'])) {
         <div class="header">
             <!--For Logo-->
             <img src="IMAGES/logo.jpg" alt="Registration Image" width="100" height="40" class="logo">
-            DATA ENTRY
+            DATA UPDATE
             <img src="uploaded_image/<?php echo $Profile_image; ?>" class="img-admin" id="image">
             <select class="dropdown" id="dropdown" required onchange="handleDropdownChange(this)">
                 <option value="admin">
                     <?php echo $Username; ?>
                 </option>
-                <option value="edit_profile">&nbsp;Edit Profile&nbsp;</option>
+                <option value="edit_profile">Edit Profile</option>
+                <option value="recent_activity">Recent Activity</option>
                 <option value="mobileLogout">Logout</option>
             </select>
         </div>
@@ -793,41 +814,54 @@ if (isset ($_POST['add'])) {
     <?php endif; ?>
 
 
-    <!--FOR REAL-TIME DATA OF YIELD-->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add event listener to input fields for new paint and acetate liters
-            ['NewpaintL', 'NewacetateL', 'quantity'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
+     <!-- Error Handling and Real-Time Data Calculation Script -->
+     <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Add event listener to all relevant input fields
+                    ['paintYield', 'NewpaintL', 'NewacetateL', 'quantity', 'diameter', 'height', 'paintRatio', 'acetateRatio', 'Endingdiameter', 'Endingheight', 'EndingpaintRatio', 'EndingacetateRatio'].forEach(function (fieldName) {
+                        document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYieldAndValidate);
+                    });
 
-            // Add event listener to input fields that affect yield calculations
-            ['diameter', 'height', 'paintRatio', 'acetateRatio'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
+                   
+                });
 
-            // Add event listener to input fields that affect yield calculations
-            ['Endingdiameter', 'Endingheight', 'EndingpaintRatio', 'EndingacetateRatio'].forEach(function (fieldName) {
-                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYield);
-            });
-        });
-
-
-        function updateYield() {
-            var formData = new FormData(document.querySelector('form'));
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "calculate_yield.php", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.querySelector('input[name="paintYield"]').value = response.paintYield;
-                    document.querySelector('input[name="acetateYield"]').value = response.acetateYield;
+                function updateYieldAndValidate() {
+                    // Update yield and validate paint yield
+                    updateYield();
+                    validatePaintYield();
                 }
-            };
-            xhr.send(formData);
-        }
 
-    </script>
+                function validatePaintYield() {
+                    var paintYieldInput = document.getElementById('paintYield');
+                    var paintYield = parseFloat(paintYieldInput.value);
+                    // Check if the Paint Yield is below 4.0
+                    if (paintYield < 4.0) {
+                        // Add CSS class for color validation
+                        paintYieldInput.classList.add('error');
+                        return false; // Return false indicating validation failed
+                    } else {
+                        // Remove CSS class if value is valid
+                        paintYieldInput.classList.remove('error');
+                        return true; // Return true indicating validation passed
+                    }
+                }
+
+                function updateYield() {
+                    var formData = new FormData(document.querySelector('form'));
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "calculate_yield.php", true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            document.querySelector('input[name="paintYield"]').value = response.paintYield;
+                            document.querySelector('input[name="acetateYield"]').value = response.acetateYield;
+                            // After updating the yield, re-validate the paint yield
+                            validatePaintYield();
+                        }
+                    };
+                    xhr.send(formData);
+                }
+            </script>
 
 
     <!-- FOR clickable image dropdown SCRIPT-->
@@ -838,7 +872,11 @@ if (isset ($_POST['add'])) {
             if (selectedValue === "edit_profile") {
                 // Redirect to the edit profile page
                 window.location.href = "mobileProfile.php"; // Change the URL accordingly
-            } else if (selectedValue === "mobileLogout") {
+            } else if (selectedValue === "recent_activity") {
+                // Redirect to the logout page
+                window.location.href = "recentActivity.php"; // Change the URL accordingly
+            }
+            else if (selectedValue === "mobileLogout") {
                 // Redirect to the logout page
                 window.location.href = "mobileLogout.php"; // Change the URL accordingly
             }

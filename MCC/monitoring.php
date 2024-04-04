@@ -3,7 +3,7 @@
 session_start();
 
 // Check if the user is not logged in or is not an admin or operator
-if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
+if (!isset($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
     header('Location: login.php'); // Redirect to the login page if not authenticated
     exit();
 }
@@ -40,7 +40,7 @@ entry.date DESC";
 $result = mysqli_query($con, $sql);
 
 if (!$result) {
-    die (mysqli_error($con));
+    die(mysqli_error($con));
 }
 ?>
 <!DOCTYPE html>
@@ -122,9 +122,9 @@ if (!$result) {
 
         .wrapper .sidebar .profile img {
             display: block;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
+            width: 230px;
+            height: 100px;
+            border-radius: 10px;
             margin: 0 auto;
         }
 
@@ -641,6 +641,29 @@ if (!$result) {
             height: 50%;
         }
 
+        /*FOR ERROR VALIDATION error with visual indication */
+
+        .error-animation {
+            animation-name: colorChange;
+            animation-duration: 2s;
+            /* Adjust the duration as needed */
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: red;
+            }
+
+            50% {
+                background-color: white;
+            }
+
+            100% {
+                background-color: red;
+            }
+        }
+
         /*FOR SYSTEM RESPONSIVE */
     </style>
 </head>
@@ -860,7 +883,7 @@ if (!$result) {
                                 echo "<td style='color:blue;'>$roundedTotalALiter</td>";
                                 echo "<td>{$row['customer_name']}</td>";
                                 echo "<td>{$row['quantity']}</td>";
-                                echo "<td style='color:blue;'>$roundedPaintYield</td>";
+                                echo "<td class='paint-yield-cell' style='color:blue;'>$roundedPaintYield</td>";
                                 echo "<td style='color:blue;'>$roundedAcetateYield</td>";
 
                                 echo "<td>{$row['remarks']}</td>";
@@ -894,11 +917,11 @@ if (!$result) {
 
                             }
                             ?>
-                            
+
                         </tbody>
                     </table>
                 </div>
-                
+
             </div>
         </div>
 
@@ -907,7 +930,7 @@ if (!$result) {
             <!--profile image & text-->
             <div class="profile">
                 <img src="IMAGES/logo.jpg" alt="profile_picture">
-                <h3>Mindanao Container Corporation</h3>
+                <h6 style="font-size:20px; margin-top:30px; color:white;">Mindanao Container Corporation</h6>
                 <!--<p>purok-8,Villanueva,Mis or.</p> -->
             </div>
             <!--menu item-->
@@ -938,11 +961,11 @@ if (!$result) {
                     </a>
                 </li>
                 <li>
-                        <a href="acetateReport.php">
-                            <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
-                            <span class="item">Acetate Report</span>
-                        </a>
-                    </li>
+                    <a href="acetateReport.php">
+                        <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
+                        <span class="item">Acetate Report</span>
+                    </a>
+                </li>
 
             </ul>
 
@@ -1017,93 +1040,106 @@ if (!$result) {
     </div>
 
 
+      <!--FOR ERROR VALIDATION error with visual indication-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var paintYieldCells = document.querySelectorAll('.paint-yield-cell');
+            paintYieldCells.forEach(function (cell) {
+                var paintYield = parseFloat(cell.textContent);
+                if (paintYield < 4.0) {
+                    cell.classList.add('error-animation');
+                }
+            });
+        });
+    </script>
+
     <!--DATA TABLES-->
     <script>
-    // Function to hide all columns
-    function hideAllColumns() {
-        for (var i = 0; i < 22; i++) {
-            $('#datatables').DataTable().column(i).visible(false);
+        // Function to hide all columns
+        function hideAllColumns() {
+            for (var i = 0; i < 22; i++) {
+                $('#datatables').DataTable().column(i).visible(false);
+            }
         }
-    }
 
-    // Function to show all columns
-    function showAllColumns() {
-        for (var i = 0; i < 22; i++) {
-            $('#datatables').DataTable().column(i).visible(true);
+        // Function to show all columns
+        function showAllColumns() {
+            for (var i = 0; i < 22; i++) {
+                $('#datatables').DataTable().column(i).visible(true);
+            }
         }
-    }
 
-    $(document).ready(function () {
-        // Initialize DataTable
-        let table = $('#datatables').DataTable({
-            scrollX: true,
-            scrollY: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'excel',
-               
-            ],
-           // Set initial sorting order based on the date column in descending order
-        order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
-        language: {
-            searchPlaceholder: 'Search...' // Set placeholder text for search input
-        }
-        });
+        $(document).ready(function () {
+            // Initialize DataTable
+            let table = $('#datatables').DataTable({
+                scrollX: true,
+                scrollY: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
 
-        // Initialize multiple-select plugin
-        $('#toggle_column').multipleSelect({
-            width: 200,
-            onClick: function () {
-                var selectedItems = $('#toggle_column').multipleSelect("getSelects");
-                hideAllColumns();
-                for (var i = 0; i < selectedItems.length; i++) {
-                    var s = selectedItems[i];
-                    $('#datatables').DataTable().column(s).visible(true);
+                ],
+                // Set initial sorting order based on the date column in descending order
+                order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
+                language: {
+                    searchPlaceholder: 'Search...' // Set placeholder text for search input
                 }
-            },
-            onCheckAll: function () {
-                showAllColumns();
-                $('#datatables').css('width', '100%');
-            },
-            onUncheckAll: function () {
-                hideAllColumns();
-            }
+            });
+
+            // Initialize multiple-select plugin
+            $('#toggle_column').multipleSelect({
+                width: 200,
+                onClick: function () {
+                    var selectedItems = $('#toggle_column').multipleSelect("getSelects");
+                    hideAllColumns();
+                    for (var i = 0; i < selectedItems.length; i++) {
+                        var s = selectedItems[i];
+                        $('#datatables').DataTable().column(s).visible(true);
+                    }
+                },
+                onCheckAll: function () {
+                    showAllColumns();
+                    $('#datatables').css('width', '100%');
+                },
+                onUncheckAll: function () {
+                    hideAllColumns();
+                }
+            });
+
+            // Event delegation for delete button
+            $(document).on('click', '.confirm_dltbtn', function () {
+                var userID = $(this).data('entry-id');
+
+                // Assuming you're using Bootstrap modal for delete confirmation
+                $('#deletemodal #confirm_delete_id').val(userID);
+                $('#deletemodal').modal('show');
+            });
+
+            // Custom filtering function which will search data in date column between two values
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                let min = $('#min').val();
+                let max = $('#max').val();
+                let dateStr = data[1]; // Assuming date is in the second column
+
+                if ((min === "" && max === "") ||
+                    (min === "" && new Date(dateStr) <= new Date(max)) ||
+                    (new Date(min) <= new Date(dateStr) && max === "") ||
+                    (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
+                    return true;
+                }
+                return false;
+            });
+
+            // Event listener for date input changes
+            $('#min, #max').change(function () {
+                table.draw();
+            });
         });
-
-        // Event delegation for delete button
-        $(document).on('click', '.confirm_dltbtn', function () {
-            var userID = $(this).data('entry-id');
-
-            // Assuming you're using Bootstrap modal for delete confirmation
-            $('#deletemodal #confirm_delete_id').val(userID);
-            $('#deletemodal').modal('show');
-        });
-
-        // Custom filtering function which will search data in date column between two values
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-            let min = $('#min').val();
-            let max = $('#max').val();
-            let dateStr = data[1]; // Assuming date is in the second column
-
-            if ((min === "" && max === "") ||
-                (min === "" && new Date(dateStr) <= new Date(max)) ||
-                (new Date(min) <= new Date(dateStr) && max === "") ||
-                (new Date(min) <= new Date(dateStr) && new Date(dateStr) <= new Date(max))) {
-                return true;
-            }
-            return false;
-        });
-
-        // Event listener for date input changes
-        $('#min, #max').change(function () {
-            table.draw();
-        });
-    });
-</script>
+    </script>
 
 
-<!--FOR CLOCK SCRIPT-->
-<script>
+    <!--FOR CLOCK SCRIPT-->
+    <script>
         let hrs = document.getElementById("hrs");
         let minutes = document.getElementById("minutes");
         let sec = document.getElementById("sec");

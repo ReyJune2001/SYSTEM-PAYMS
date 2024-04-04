@@ -119,9 +119,9 @@ if (isset($_POST['submit'])) {
 
         .wrapper .sidebar .profile img {
             display: block;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
+            width: 230px;
+            height: 100px;
+            border-radius: 10px;
             margin: 0 auto;
         }
 
@@ -602,7 +602,7 @@ if (isset($_POST['submit'])) {
                 <!-- profile image & text -->
                 <div class="profile">
                     <img src="IMAGES/logo.jpg" alt="profile_picture">
-                    <h3>Mindanao Container Corporation</h3>
+                    <h6 style="font-size:20px; margin-top:30px; color:white;">Mindanao Container Corporation</h6>
                 </div>
                 <!-- menu item -->
                 <ul>

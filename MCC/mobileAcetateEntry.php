@@ -3,7 +3,7 @@
 session_start();
 
 // Check if the user is not logged in or is not an admin or operator
-if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
+if (!isset($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
     header('Location: mobileLogin.php'); // Redirect to the login page if not authenticated
     exit();
 }
@@ -37,7 +37,7 @@ $result = mysqli_query($con, $sql);
 $Date = $Beginning = $Withdrawal = $ProductPUsage = $Cleaning = $Remaining = '';
 
 // Process form submission
-if (isset ($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     // Retrieve form data
     $Date = $_POST['Date'];
     $Beginning = $_POST['Beginning'];
@@ -62,7 +62,7 @@ if (isset ($_POST['submit'])) {
         $acetateReportID = mysqli_insert_id($con); // Get the acetateReportID of the newly inserted record
         $updateSuccess = true;
     } else {
-        die (mysqli_error($con)); // Print error message if query fails
+        die(mysqli_error($con)); // Print error message if query fails
     }
 
 }
@@ -383,7 +383,8 @@ if (isset ($_POST['submit'])) {
                 <option value="admin">
                     <?php echo $Username; ?>
                 </option>
-                <option value="edit_profile">&nbsp;Edit Profile&nbsp;</option>
+                <option value="edit_profile">Edit Profile</option>
+                <option value="recent_activity">Recent Activity</option>
                 <option value="mobileLogout">Logout</option>
             </select>
         </div>
@@ -392,53 +393,53 @@ if (isset ($_POST['submit'])) {
     <main>
         <div class="M-container">
             <div class="xbox1 box1">
-            <form method="post">
-    <fieldset>
-        <div class="initial">
-            <div class="form-column">
+                <form method="post">
+                    <fieldset>
+                        <div class="initial">
+                            <div class="form-column">
 
-                <h5 style="margin-top:20px;">ACETATE MONITORING REPORTS</h5>
+                                <h5 style="margin-top:20px;">ACETATE MONITORING REPORTS</h5>
 
-                <br>
-                <div class="form-column" style="text-align:center;">
-                    <label style="margin-left:-36px; margin-right:-10px;">Date:</label>
-                    <input type="date" style="text-align: center;margin-right:20px;" class="styleform"
-                        name="Date" id="reportDate" autocomplete="off" value="<?php echo $Date; ?>" required> <br>
-                    
-                    <label style="margin-left:-77px; margin-right:-10px;">Beginning:</label>
-                    <input type="number" style="text-align: center;" class="styleform"
-                        placeholder="Beginning" id="Beginning" name="Beginning" min="0" step="any"
-                        autocomplete="off" value="<?php echo $Beginning; ?>" required> <br>
-                    
-                    <label style="margin-left:-82px; margin-right:-10px;">Withdrawal:</label>
-                    <input type="number" style="text-align: center;" class="styleform"
-                        placeholder="Withdrawal" id="Withdrawal" name="Withdrawal" min="0" step="any"
-                        autocomplete="off" value="<?php echo $Withdrawal; ?>"><br>
-                     
-                    <label style="margin-left:-65px; margin-right:-10px;">P - usage:</label>
-                    <input type="number" style="text-align: center;" class="styleform"
-                        placeholder="Production (P) usage" id="PUsage" name="PUsage"
-                        min="0" step="any" autocomplete="off" value="<?php echo $ProductPUsage; ?>"
-                        required> <br>
-                    
-                    <label style="margin-left:-64px; margin-right:-10px;">Cleaning:</label>
-                    <input type="number" style="text-align: center;" class="styleform"
-                        placeholder="Cleaning" id="Cleaning" name="Cleaning" min="0" step="any"
-                        autocomplete="off" value="<?php echo $Cleaning; ?>" required> <br>
-                    <label style="margin-left:-2px; margin-right:-10px;">Remaining:</label>
-                    <input type="number" style="text-align: center;margin-right:90px;" class="styleform"
-                        id="Remain" name="Remain" min="0" step="any" autocomplete="off"
-                        value="<?php echo $Remaining; ?>">
-                </div>
-                <br><br>
-                <button type="submit" id="update" class="btn btn-primary btn-lg" name="submit"
-                    style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:10px;">Add</button>
-                <a href="mobileDashboard.php"><button type="button" class="btn btn-danger btn-lg"
-                        style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:20px;">Back</button></a>
-            </div>
-        </div>
-    </fieldset>
-</form>
+                                <br>
+                                <div class="form-column" style="text-align:center;">
+                                    <label style="margin-left:-36px; margin-right:-10px;">Date:</label>
+                                    <input type="date" style="text-align: center;margin-right:20px;" class="styleform"
+                                        name="Date" id="reportDate" autocomplete="off" value="<?php echo $Date; ?>"
+                                        required> <br>
+
+                                    <label style="margin-left:-77px; margin-right:-10px;">Beginning:</label>
+                                    <input type="number" style="text-align: center;" class="styleform"
+                                        placeholder="Beginning" id="Beginning" name="Beginning" min="0" step="any"
+                                        autocomplete="off" value="<?php echo $Beginning; ?>" required> <br>
+
+                                    <label style="margin-left:-82px; margin-right:-10px;">Withdrawal:</label>
+                                    <input type="number" style="text-align: center;" class="styleform"
+                                        placeholder="Withdrawal" id="Withdrawal" name="Withdrawal" min="0" step="any"
+                                        autocomplete="off" value="<?php echo $Withdrawal; ?>"><br>
+
+                                    <label style="margin-left:-65px; margin-right:-10px;">P - usage:</label>
+                                    <input type="number" style="text-align: center;" class="styleform"
+                                        placeholder="Production (P) usage" id="PUsage" name="PUsage" min="0" step="any"
+                                        autocomplete="off" value="<?php echo $ProductPUsage; ?>" required> <br>
+
+                                    <label style="margin-left:-64px; margin-right:-10px;">Cleaning:</label>
+                                    <input type="number" style="text-align: center;" class="styleform"
+                                        placeholder="Cleaning" id="Cleaning" name="Cleaning" min="0" step="any"
+                                        autocomplete="off" value="<?php echo $Cleaning; ?>" required> <br>
+                                    <label style="margin-left:-2px; margin-right:-10px;">Remaining:</label>
+                                    <input type="number" style="text-align: center;margin-right:90px;" class="styleform"
+                                        id="Remain" name="Remain" min="0" step="any" autocomplete="off"
+                                        value="<?php echo $Remaining; ?>">
+                                </div>
+                                <br><br>
+                                <button type="submit" id="update" class="btn btn-primary btn-lg" name="submit"
+                                    style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:10px;">Add</button>
+                                <a href="mobileDashboard.php"><button type="button" class="btn btn-danger btn-lg"
+                                        style="font-size:16px; border-radius:50px; width:50%; height:42px; margin-bottom:20px;">Back</button></a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </main>
@@ -463,7 +464,7 @@ if (isset ($_POST['submit'])) {
 
 
     <!-- Check if the update was successful and trigger the modal -->
-    <?php if (isset ($updateSuccess) && $updateSuccess): ?>
+    <?php if (isset($updateSuccess) && $updateSuccess): ?>
         <script>
             $(document).ready(function () {
                 $('#updateSuccessModal').modal('show');
@@ -474,47 +475,47 @@ if (isset ($_POST['submit'])) {
 
     <!--FOR ACETATE MONITORING REPOORT CALCULATION-->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // On change of the report date, fetch and populate Beginning if available
-        document.getElementById('reportDate').addEventListener('change', function () {
-            var date = this.value;
-            fetchRemainingFromDate(date);
+        document.addEventListener('DOMContentLoaded', function () {
+            // On change of the report date, fetch and populate Beginning if available
+            document.getElementById('reportDate').addEventListener('change', function () {
+                var date = this.value;
+                fetchRemainingFromDate(date);
+            });
+
+            ['Withdrawal', 'PUsage', 'Cleaning'].forEach(function (fieldName) {
+                document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateRemaining);
+            });
         });
 
-        ['Withdrawal', 'PUsage', 'Cleaning'].forEach(function (fieldName) {
-            document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateRemaining);
-        });
-    });
-
-    function fetchRemainingFromDate(date) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "fetch_remaining.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.Success) {
-                    document.getElementById('Beginning').value = response.Remaining;
-                    updateRemaining();
+        function fetchRemainingFromDate(date) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_remaining.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.Success) {
+                        document.getElementById('Beginning').value = response.Remaining;
+                        updateRemaining();
+                    }
                 }
-            }
-        };
-        xhr.send("Date=" + date);
-    }
+            };
+            xhr.send("Date=" + date);
+        }
 
-    function updateRemaining() {
-        var formData = new FormData(document.querySelector('form'));
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "acetateReport_calculated.php", true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-                document.querySelector('input[name="Remain"]').value = response.Remaining;
-            }
-        };
-        xhr.send(formData);
-    }
-</script>
+        function updateRemaining() {
+            var formData = new FormData(document.querySelector('form'));
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "acetateReport_calculated.php", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.querySelector('input[name="Remain"]').value = response.Remaining;
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
 
 
 
@@ -526,7 +527,11 @@ if (isset ($_POST['submit'])) {
             if (selectedValue === "edit_profile") {
                 // Redirect to the edit profile page
                 window.location.href = "mobileProfile.php"; // Change the URL accordingly
-            } else if (selectedValue === "mobileLogout") {
+            } else if (selectedValue === "recent_activity") {
+                // Redirect to the logout page
+                window.location.href = "recentActivity.php"; // Change the URL accordingly
+            }
+            else if (selectedValue === "mobileLogout") {
                 // Redirect to the logout page
                 window.location.href = "mobileLogout.php"; // Change the URL accordingly
             }

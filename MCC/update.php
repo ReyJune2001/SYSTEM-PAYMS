@@ -291,9 +291,9 @@ if (isset($_POST['update'])) {
 
         .wrapper .sidebar .profile img {
             display: block;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
+            width: 230px;
+            height: 100px;
+            border-radius: 10px;
             margin: 0 auto;
         }
 
@@ -760,10 +760,12 @@ if (isset($_POST['update'])) {
                                             echo 'selected'; ?>>Alpha Gray</option>
                                         <option value="Nile Green" <?php if ($paint_color == 'Nile Green')
                                             echo 'selected'; ?>>Nile Green</option>
-                                        <option value="Emirald Green" <?php if ($paint_color == 'Emirald Green')
-                                            echo 'selected'; ?>>Emirald Green</option>
+                                        <option value="Emerald Green" <?php if ($paint_color == 'Emirald Green')
+                                            echo 'selected'; ?>>Emerald Green</option>
                                         <option value="Jade Green" <?php if ($paint_color == 'Jade Green')
                                             echo 'selected'; ?>>Jade Green</option>
+                                        <option value="Pulsating Blue" <?php if ($paint_color == 'Pulsating Blue')
+                                            echo 'selected'; ?>>Pulsating Blue</option>
                                     </select>
                                     <label style="margin-left:90px;">Height:</label>
                                     <input type="number" style="text-align: center;" class="input1" id="height"
@@ -926,7 +928,7 @@ if (isset($_POST['update'])) {
                 <!--profile image & text-->
                 <div class="profile">
                     <img src="IMAGES/logo.jpg" alt="profile_picture">
-                    <h3>Mindanao Container Corporation</h3>
+                    <h6 style="font-size:20px; margin-top:30px; color:white;">Mindanao Container Corporation</h6>
                     <!--<p>purok-8,Villanueva,Mis or.</p> -->
                 </div>
                 <!--menu item-->
@@ -1004,14 +1006,7 @@ if (isset($_POST['update'])) {
             document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYieldAndValidate);
         });
 
-        // Add event listener to the form submission
-        document.querySelector('form').addEventListener('submit', function (event) {
-            // Validate paint yield before form submission
-            if (!validatePaintYield()) {
-                event.preventDefault(); // Prevent form submission
-                alert('The standard of Paint Yield should be at least 4.0 above!'); // Show error message
-            }
-        });
+        
     });
 
     function updateYieldAndValidate() {

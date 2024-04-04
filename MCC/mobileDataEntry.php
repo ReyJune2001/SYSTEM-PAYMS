@@ -487,7 +487,8 @@ if (isset ($_POST['submit'])) {
                 <option value="admin">
                     <?php echo $Username; ?>
                 </option>
-                <option value="edit_profile">&nbsp;Edit Profile&nbsp;</option>
+                <option value="edit_profile">Edit Profile</option>
+                <option value="recent_activity">Recent Activity</option>
                 <option value="mobileLogout">Logout</option>
             </select>
         </div>
@@ -747,14 +748,7 @@ if (isset ($_POST['submit'])) {
                         document.querySelector(`input[name="${fieldName}"]`).addEventListener('input', updateYieldAndValidate);
                     });
 
-                    // Add event listener to the form submission
-                    document.querySelector('form').addEventListener('submit', function (event) {
-                        // Validate paint yield before form submission
-                        if (!validatePaintYield()) {
-                            event.preventDefault(); // Prevent form submission
-                            alert('The standard of Paint Yield should be at least 4.0 above!'); // Show error message
-                        }
-                    });
+                   
                 });
 
                 function updateYieldAndValidate() {
@@ -803,7 +797,11 @@ if (isset ($_POST['submit'])) {
             if (selectedValue === "edit_profile") {
                 // Redirect to the edit profile page
                 window.location.href = "mobileProfile.php"; // Change the URL accordingly
-            } else if (selectedValue === "mobileLogout") {
+            } else if (selectedValue === "recent_activity") {
+                // Redirect to the logout page
+                window.location.href = "recentActivity.php"; // Change the URL accordingly
+            }
+            else if (selectedValue === "mobileLogout") {
                 // Redirect to the logout page
                 window.location.href = "mobileLogout.php"; // Change the URL accordingly
             }
