@@ -47,6 +47,7 @@ if (!$result) {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="IMAGES/faviconlogo.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -66,7 +67,7 @@ if (!$result) {
     <!-- MULTI-SELECT CSS to hide columns -->
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.css">
 
-    <title>Paint-Acetate Volume</title>
+    <title>Paint and Acetate Volume</title>
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -651,7 +652,7 @@ if (!$result) {
                     <div class="form-group">
                         <!--columns to Display-->
 
-                        <label>Show / Hide columns:</label>
+                        <label>Filter by:</label>
 
                         <select name="toggle_column" id="toggle_column" multiple>
                             <option value="0">User</option>

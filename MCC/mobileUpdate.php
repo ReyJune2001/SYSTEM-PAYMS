@@ -238,6 +238,7 @@ if (isset ($_POST['add'])) {
 
 <head>
     <meta charset="utf-8">
+    <link rel="icon" href="IMAGES/faviconlogo.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--FOR FONT STYLE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -259,7 +260,7 @@ if (isset ($_POST['add'])) {
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <title>Paint-Acetate Data Entry</title>
+    <title>Data Update</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
