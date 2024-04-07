@@ -184,7 +184,7 @@ mysqli_close($con);
                 text-align: center;
                 border-radius: 20px;
                 margin-left: 10px;
-               
+
                 margin-bottom: 20px;
             }
 
@@ -309,11 +309,29 @@ mysqli_close($con);
             <div class="xbox4 box4">
                 <?php
                 include 'connect.php';
+
+                // Check if the date has changed since the last entry
+                $lastEntryDate = date("Y-m-d", strtotime("today"));
+                $lastResetDate = date("Y-m-d", strtotime("today -1 day"));
+
+                // Reset total entries count if last entry date is different from today's date
+                if (!isset($_SESSION['lastResetDate']) || $_SESSION['lastResetDate'] != $lastResetDate) {
+                    $_SESSION['lastResetDate'] = $lastResetDate;
+                    $sqlReset = "UPDATE tbl_entry SET totalEntries = 0";
+                    mysqli_query($con, $sqlReset);
+                }
+
+                // Retrieve total entries count for operators
                 $sql = "SELECT COUNT(*) AS totalEntries
-                FROM tbl_entry AS entry
-                INNER JOIN tbl_user AS user ON entry.userID = user.userID
-                WHERE user.Username = 'Operator'";
+        FROM tbl_entry AS entry
+        INNER JOIN tbl_user AS user ON entry.userID = user.userID
+        WHERE user.Username = 'Operator' AND DATE(entry.date) = '$lastEntryDate'";
                 $result = mysqli_query($con, $sql);
+
+                // Check for SQL error
+                if (!$result) {
+                    echo "Error: " . mysqli_error($con);
+                }
 
                 // Check if there are any results
                 if ($result && mysqli_num_rows($result) > 0) {

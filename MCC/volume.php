@@ -3,7 +3,7 @@
 session_start();
 
 // Check if the user is not logged in or is not an admin or operator
-if (!isset ($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
+if (!isset($_SESSION['Username']) || ($_SESSION['Level'] != 'Admin' && $_SESSION['Level'] != 'Operator')) {
     header('Location: login.php'); // Redirect to the login page if not authenticated
     exit();
 }
@@ -39,7 +39,7 @@ entry.date DESC";
 $result = mysqli_query($con, $sql);
 
 if (!$result) {
-    die (mysqli_error($con));
+    die(mysqli_error($con));
 }
 ?>
 <!DOCTYPE html>
@@ -847,7 +847,7 @@ if (!$result) {
                     </table>
 
                 </div>
-                
+
             </div>
         </div>
 
@@ -887,11 +887,11 @@ if (!$result) {
                     </a>
                 </li>
                 <li>
-                        <a href="acetateReport.php">
-                            <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
-                            <span class="item">Acetate Report</span>
-                        </a>
-                    </li>
+                    <a href="acetateReport.php">
+                        <span class="icon"><i class="fa-solid fa-file-signature"></i></span>
+                        <span class="item">Acetate Report</span>
+                    </a>
+                </li>
             </ul>
 
         </div>
@@ -986,14 +986,16 @@ if (!$result) {
                 scrollY: true,
                 dom: 'Bfrtip',
                 buttons: [
-                    'excel',
-
+                    {
+                        extend: 'excel',
+                        text: 'Export to:' // Rename the Excel export button
+                    }
                 ],
                 // Set initial sorting order based on the date column in descending order
-        order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
-        language: {
-            searchPlaceholder: 'Search...' // Set placeholder text for search input
-        }
+                order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
+                language: {
+                    searchPlaceholder: 'Search...' // Set placeholder text for search input
+                }
             });
 
             // Initialize multiple-select plugin

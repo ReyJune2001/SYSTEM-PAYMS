@@ -962,13 +962,13 @@ if (isset($_POST['submit'])) {
             /* Set width for each item */
             height: 100%;
             /* Set height for each item */
-            margin-left:60px ;
+            margin-left: 60px;
             margin-top: 10px;
-            
+
         }
 
         #piechart {
-           
+
             width: 100%;
             height: 100%;
 
@@ -1115,14 +1115,34 @@ if (isset($_POST['submit'])) {
                                 id="totalDrumOutput" readonly>
                         </div>
 
+
+
                         <div class="xbox2 box2">
                             <?php
                             include 'connect.php';
+
+                            // Check if the date has changed since the last entry
+                            $lastEntryDate = date("Y-m-d", strtotime("today"));
+                            $lastResetDate = date("Y-m-d", strtotime("today -1 day"));
+
+                            // Reset total entries count if last entry date is different from today's date
+                            if (!isset($_SESSION['lastResetDate']) || $_SESSION['lastResetDate'] != $lastResetDate) {
+                                $_SESSION['lastResetDate'] = $lastResetDate;
+                                $sqlReset = "UPDATE tbl_entry SET totalEntries = 0";
+                                mysqli_query($con, $sqlReset);
+                            }
+
+                            // Retrieve total entries count
                             $sql = "SELECT COUNT(*) AS totalEntries
-                FROM tbl_entry AS entry
-                INNER JOIN tbl_user AS user ON entry.userID = user.userID
-                WHERE user.Username = 'Admin'";
+                            FROM tbl_entry AS entry
+                            INNER JOIN tbl_user AS user ON entry.userID = user.userID
+                            WHERE user.Username = 'Admin' AND DATE(entry.date) = '$lastEntryDate'";
                             $result = mysqli_query($con, $sql);
+
+                            // Debugging
+                            if (!$result) {
+                                echo "Error: " . mysqli_error($con);
+                            }
 
                             // Check if there are any results
                             if ($result && mysqli_num_rows($result) > 0) {
@@ -1141,7 +1161,6 @@ if (isset($_POST['submit'])) {
                             <input type="number"
                                 style=" width:150px;height:20px;text-align:center; font-weight:bold; background-color:; border:none; font-size:28px;"
                                 value="<?php echo $totalEntries; ?>" readonly>
-
                         </div>
                         <div class="xbox3 box3">
                             <label style="margin-left:11%; font-size:20px;">Select Paint color: </label>
@@ -1194,7 +1213,7 @@ if (isset($_POST['submit'])) {
 
                         <div class="xbox9 box9" style="text-align: center;">
                             <h1 style="margin-bottom:10px; margin-top:20px; font-weight:bold; font-size:30px;">Good
-                                Morning,
+                                Afternoon,
                                 <?php echo $Name; ?> !
                             </h1>
                             <!--FOR CLOCK-->
@@ -2133,7 +2152,7 @@ if (isset($_POST['submit'])) {
 
             <!--FOR PIE CHART-->
             <script type="text/javascript">
-                google.charts.load('current', { 'packages':                 ['corechart'] });
+                google.charts.load('current', { 'packages': ['corechart'] });
                 google.charts.setOnLoadCallback(drawCharts);
 
                 function drawCharts() {

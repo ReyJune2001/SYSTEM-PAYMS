@@ -1041,7 +1041,7 @@ if (!$result) {
     </div>
 
 
-      <!--FOR ERROR VALIDATION error with visual indication-->
+    <!--FOR ERROR VALIDATION error with visual indication-->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var paintYieldCells = document.querySelectorAll('.paint-yield-cell');
@@ -1077,8 +1077,10 @@ if (!$result) {
                 scrollY: true,
                 dom: 'Bfrtip',
                 buttons: [
-                    'excel',
-
+                    {
+                        extend: 'excel',
+                        text: 'Export to:' // Rename the Excel export button
+                    }
                 ],
                 // Set initial sorting order based on the date column in descending order
                 order: [[1, 'desc']], // Assuming the date column is the second column (index 1)
