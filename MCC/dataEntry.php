@@ -912,17 +912,10 @@ if (isset($_POST['submit'])) {
         }
 
         .box9 {
-            background-image: url('IMAGES/background.jpg');
-            /* Replace 'path/to/your/image.jpg' with the actual path to your image */
             background-size: cover;
-            /* Ensures the background image covers the entire box */
             background-repeat: no-repeat;
-            /* Prevents the background image from repeating */
             background-position: center;
-            /* Centers the background image */
-            background-size: 100%;
             background-color: white;
-
         }
 
         /*FOR FILTER BAR */
@@ -1212,10 +1205,8 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="xbox9 box9" style="text-align: center;">
-                            <h1 style="margin-bottom:10px; margin-top:20px; font-weight:bold; font-size:30px;">Good
-                                Afternoon,
-                                <?php echo $Name; ?> !
-                            </h1>
+                            <h1 style="margin-bottom:10px; margin-top:20px; font-weight:bold; font-size:30px;"
+                                id="greeting"></h1>
                             <!--FOR CLOCK-->
                             <div class="clockcontainer" style="text-align:center;">
                                 <div class="clock">
@@ -1225,7 +1216,6 @@ if (isset($_POST['submit'])) {
                                     <span>:</span>
                                     <span id="sec"></span>
                                     <span id="ampm"></span>
-
                                 </div>
                             </div>
                             <!-- Date -->
@@ -1233,8 +1223,55 @@ if (isset($_POST['submit'])) {
                             <h2 style="font-size:20px; font-weight: bold; margin-bottom:10px;">
                                 <?php echo date("l, F j, Y"); ?>
                             </h2>
-
                         </div>
+                        <script>
+                            // Function to update the greeting and background image
+                            function updateGreetingAndBackground() {
+                                var now = new Date();
+                                var hours = now.getHours();
+
+                                var greeting = document.getElementById('greeting');
+                                if (hours >= 0 && hours < 12) {
+                                    greeting.textContent = "Good Morning, <?php echo $Name; ?>!";
+                                    document.querySelector('.box9').style.backgroundImage = "url('IMAGES/morning_background.jpg')";
+                                } else {
+                                    greeting.textContent = "Good Afternoon, <?php echo $Name; ?>!";
+                                    document.querySelector('.box9').style.backgroundImage = "url('IMAGES/afternoon_background.jpg')";
+                                }
+                            }
+
+                            // Call updateGreetingAndBackground() initially to display correct greeting and background image
+                            updateGreetingAndBackground();
+
+                            // Clock script
+                            let hrs = document.getElementById("hrs");
+                            let minutes = document.getElementById("minutes");
+                            let sec = document.getElementById("sec");
+                            let ampm = document.getElementById("ampm");
+
+                            setInterval(() => {
+                                let currentTime = new Date();
+                                let hours = currentTime.getHours();
+                                let period = "AM";
+
+                                if (hours >= 12) {
+                                    period = "PM";
+                                    if (hours > 12) {
+                                        hours -= 12;
+                                    }
+                                }
+
+                                hrs.innerHTML = (hours < 10 ? "0" : '') + hours;
+                                minutes.innerHTML = (currentTime.getMinutes() < 10 ? "0" : '') + currentTime.getMinutes();
+                                sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : '') + currentTime.getSeconds();
+                                ampm.innerHTML = period;
+
+                                // Call updateGreetingAndBackground() every hour to update the greeting and background image
+                                if (currentTime.getMinutes() === 0 && currentTime.getSeconds() === 0) {
+                                    updateGreetingAndBackground();
+                                }
+                            }, 1000);
+                        </script>
                     </div>
                 </header>
                 <div class="main2">

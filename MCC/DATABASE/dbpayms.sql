@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2024 at 09:24 AM
+-- Generation Time: Apr 08, 2024 at 07:09 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_acetatereport` (
-  `acetateReportID` int(100) NOT NULL,
-  `userID` int(100) NOT NULL,
+  `acetateReportID` int(25) NOT NULL,
+  `userID` int(25) NOT NULL,
   `Date` date NOT NULL,
-  `Beginning` int(100) NOT NULL,
-  `Withdrawal` int(100) NOT NULL,
-  `ProductPUsage` int(100) NOT NULL,
-  `Cleaning` int(100) NOT NULL,
-  `Remaining` int(100) NOT NULL
+  `Beginning` int(25) NOT NULL,
+  `Withdrawal` int(25) NOT NULL,
+  `ProductPUsage` int(25) NOT NULL,
+  `Cleaning` int(25) NOT NULL,
+  `Remaining` int(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -56,8 +56,8 @@ INSERT INTO `tbl_acetatereport` (`acetateReportID`, `userID`, `Date`, `Beginning
 --
 
 CREATE TABLE `tbl_customer` (
-  `customerID` int(100) NOT NULL,
-  `userID` int(100) NOT NULL,
+  `customerID` int(25) NOT NULL,
+  `userID` int(25) NOT NULL,
   `customer_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -105,14 +105,14 @@ INSERT INTO `tbl_customer` (`customerID`, `userID`, `customer_name`) VALUES
 --
 
 CREATE TABLE `tbl_entry` (
-  `EntryID` int(100) NOT NULL,
-  `userID` int(100) NOT NULL,
-  `customerID` int(100) NOT NULL,
-  `paintID` int(100) NOT NULL,
+  `EntryID` int(25) NOT NULL,
+  `userID` int(25) NOT NULL,
+  `customerID` int(25) NOT NULL,
+  `paintID` int(25) NOT NULL,
   `date` date NOT NULL,
-  `batchNumber` int(100) NOT NULL,
-  `diameter` int(100) NOT NULL,
-  `height` int(100) NOT NULL,
+  `batchNumber` int(25) NOT NULL,
+  `diameter` int(25) NOT NULL,
+  `height` int(25) NOT NULL,
   `Initialvolume` double NOT NULL,
   `initialPLiter` double NOT NULL,
   `initialALiter` double NOT NULL,
@@ -120,10 +120,10 @@ CREATE TABLE `tbl_entry` (
   `acetateRatio` double NOT NULL,
   `NewacetateL` double NOT NULL,
   `NewpaintL` double NOT NULL,
-  `sprayViscosity` int(100) NOT NULL,
-  `quantity` int(100) NOT NULL,
-  `Endingdiameter` int(100) NOT NULL,
-  `Endingheight` int(100) NOT NULL,
+  `sprayViscosity` int(25) NOT NULL,
+  `quantity` int(25) NOT NULL,
+  `Endingdiameter` int(25) NOT NULL,
+  `Endingheight` int(25) NOT NULL,
   `Endingvolume` double NOT NULL,
   `endingPLiter` double NOT NULL,
   `endingALiter` double NOT NULL,
@@ -133,8 +133,8 @@ CREATE TABLE `tbl_entry` (
   `totalALiter` double NOT NULL,
   `paintYield` double NOT NULL,
   `acetateYield` double NOT NULL,
-  `remarks` varchar(100) NOT NULL,
-  `totalEntries` int(100) NOT NULL
+  `remarks` varchar(25) NOT NULL,
+  `totalEntries` int(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -180,9 +180,9 @@ INSERT INTO `tbl_entry` (`EntryID`, `userID`, `customerID`, `paintID`, `date`, `
 --
 
 CREATE TABLE `tbl_paint` (
-  `paintID` int(100) NOT NULL,
-  `supplierID` int(100) NOT NULL,
-  `paint_color` varchar(100) NOT NULL
+  `paintID` int(25) NOT NULL,
+  `supplierID` int(25) NOT NULL,
+  `paint_color` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -228,9 +228,9 @@ INSERT INTO `tbl_paint` (`paintID`, `supplierID`, `paint_color`) VALUES
 --
 
 CREATE TABLE `tbl_supplier` (
-  `supplierID` int(100) NOT NULL,
-  `supplier_name` varchar(100) NOT NULL,
-  `newSupplier_name` varchar(100) NOT NULL
+  `supplierID` int(25) NOT NULL,
+  `supplier_name` varchar(25) NOT NULL,
+  `newSupplier_name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -276,15 +276,15 @@ INSERT INTO `tbl_supplier` (`supplierID`, `supplier_name`, `newSupplier_name`) V
 --
 
 CREATE TABLE `tbl_user` (
-  `userID` int(100) NOT NULL,
-  `Level` varchar(100) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  `Username` varchar(100) NOT NULL,
-  `Contact` varchar(100) NOT NULL,
-  `Address` varchar(100) NOT NULL,
-  `Profile_image` varchar(100) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Password` varchar(100) NOT NULL
+  `userID` int(25) NOT NULL,
+  `Level` varchar(25) NOT NULL,
+  `Name` varchar(25) NOT NULL,
+  `Username` varchar(25) NOT NULL,
+  `Contact` varchar(25) NOT NULL,
+  `Address` varchar(25) NOT NULL,
+  `Profile_image` varchar(25) NOT NULL,
+  `Email` varchar(25) NOT NULL,
+  `Password` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -292,7 +292,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`userID`, `Level`, `Name`, `Username`, `Contact`, `Address`, `Profile_image`, `Email`, `Password`) VALUES
-(1, 'Admin', 'Rey June Ucab', 'Admin', '09066672527', 'Dayawan, Villanueva, Misamis oriental', 'download.jpg', 'ucabreyjune2001@gmail.com', '1234'),
+(1, 'Admin', 'Rey June Ucab', 'Admin', '09066672527', 'Dayawan, Villanueva, Misa', 'download.jpg', 'ucabreyjune2001@gmail.com', '1234'),
 (2, 'Operator', 'Charismae Dinsay', 'Operator', '09874837938', 'Tambobong', 'sample.jpeg', 'dinsay@gmail.com', '1234');
 
 --
@@ -350,37 +350,37 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_acetatereport`
 --
 ALTER TABLE `tbl_acetatereport`
-  MODIFY `acetateReportID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `acetateReportID` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `customerID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `customerID` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_entry`
 --
 ALTER TABLE `tbl_entry`
-  MODIFY `EntryID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `EntryID` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_paint`
 --
 ALTER TABLE `tbl_paint`
-  MODIFY `paintID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `paintID` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `supplierID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `supplierID` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `userID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userID` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
