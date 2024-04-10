@@ -563,7 +563,7 @@ if (isset($_POST['submit'])) {
                                 <div class="form-column">
                                     <label style=" font-size:20px; color:black;">Username:</label>
                                     <input type="text" class="form-control" name="update_username"
-                                        style="text-align: center;" autocomplete="off" value="<?php echo $Username; ?>">
+                                        style="text-align: center;" autocomplete="off" value="<?php echo $Username; ?>"readonly>
 
                                     <label style=" font-size:20px; color:black;">Password:</label>
                                     <input type="password" class="form-control form-outline" name="update_password"
