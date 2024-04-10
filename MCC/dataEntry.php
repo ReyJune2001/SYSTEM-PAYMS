@@ -1164,7 +1164,7 @@ if (isset($_POST['submit'])) {
 
                                 <option value="Royal Blue">Royal Blue</option>
                                 <option value="Buff">Buff</option>
-                                <option value="Deft Blue">Deft Blue</option>
+                                <option value="Delft Blue">Delft Blue</option>
                                 <option value="Golden Brown">Golden Brown</option>
                                 <option value="Clear">Clear</option>
                                 <option value="White">White</option>
@@ -1365,9 +1365,9 @@ if (isset($_POST['submit'])) {
                                                                     <option value="">------ Select ------</option>
                                                                     <option value="Royal Blue" <?php if ($paint_color == 'Royal Blue')
                                                                         echo 'selected'; ?>>Royal Blue</option>
-                                                                    <option value="Deft Blue" <?php if ($paint_color == 'Deft Blue')
+                                                                    <option value="Delft Blue" <?php if ($paint_color == 'Delft Blue')
                                                                         echo 'selected'; ?>>
-                                                                        Deft Blue</option>
+                                                                        Delft Blue</option>
                                                                     <option value="Buff" <?php if ($paint_color == 'Buff')
                                                                         echo 'selected'; ?>>Buff</option>
                                                                     <option value="Golden Brown" <?php if ($paint_color == 'Golden Brown')
@@ -1386,7 +1386,7 @@ if (isset($_POST['submit'])) {
                                                                         echo 'selected'; ?>>Alpha Gray</option>
                                                                     <option value="Nile Green" <?php if ($paint_color == 'Nile Green')
                                                                         echo 'selected'; ?>>Nile Green</option>
-                                                                    <option value="Emerald Green" <?php if ($paint_color == 'Emirald Green')
+                                                                    <option value="Emerald Green" <?php if ($paint_color == 'Emerald Green')
                                                                         echo 'selected'; ?>>Emerald Green
                                                                     </option>
                                                                     <option value="Jade Green" <?php if ($paint_color == 'Jade Green')
@@ -2222,7 +2222,7 @@ if (isset($_POST['submit'])) {
                     var colors = {
                         'Royal Blue': '#063970',
                         'Pulsating Blue': '#01acfb',
-                        'Deft Blue': '#416D8C',
+                        'Delft Blue': '#416D8C',
                         'Nile Green': '#76a85c',
                         'Black': 'black',
                         'Emerald Green': '#004d24',

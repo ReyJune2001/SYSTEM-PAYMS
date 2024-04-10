@@ -589,8 +589,8 @@ if (isset ($_POST['add'])) {
                                     <option value="">-- Paint color --</option>
                                     <option value="Royal Blue" <?php if ($paint_color == 'Royal Blue')
                                         echo 'selected'; ?>>Royal Blue</option>
-                                    <option value="Deft Blue" <?php if ($paint_color == 'Deft Blue')
-                                        echo 'selected'; ?>>Deft Blue</option>
+                                    <option value="Delft Blue" <?php if ($paint_color == 'Delft Blue')
+                                        echo 'selected'; ?>>Delft Blue</option>
                                     <option value="Buff" <?php if ($paint_color == 'Buff')
                                         echo 'selected'; ?>>Buff
                                     </option>
@@ -609,10 +609,12 @@ if (isset ($_POST['add'])) {
                                         echo 'selected'; ?>>Alpha Gray</option>
                                     <option value="Nile Green" <?php if ($paint_color == 'Nile Green')
                                         echo 'selected'; ?>>Nile Green</option>
-                                    <option value="Emirald Green" <?php if ($paint_color == 'Emirald Green')
-                                        echo 'selected'; ?>>Emirald Green</option>
+                                    <option value="Emerald Green" <?php if ($paint_color == 'Emerald Green')
+                                        echo 'selected'; ?>>Emerald Green</option>
                                     <option value="Jade Green" <?php if ($paint_color == 'Jade Green')
                                         echo 'selected'; ?>>Jade Green</option>
+                                    <option value="Pulsating Blue" <?php if ($paint_color == 'Pulsating Blue')
+                                        echo 'selected'; ?>>Pulsating Blue</option>
                                 </select>
                                 
                                 <input type="number" style="text-align: center;" class="styleform"
